@@ -8,8 +8,8 @@
 	/*******************/
 
 	/* Fonts Families */
-	--font-montserrat: '"Montserrat", sans-serif';
-	--font-montserrat: '"Manrope", sans-serif';
+	--font-montserrat: 'Montserrat', sans-serif;
+	--font-manrope: 'Manrope', sans-serif;
 
 	/* Font Sizes - Optimized for service provider content */
 	--text-xs: 0.75rem; /* 12px - Fine print, disclaimers */
