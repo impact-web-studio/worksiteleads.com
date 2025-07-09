@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+	/*******************/
+	/*** Typography ***/
+	/*******************/
+
+	/* Fonts Families */
+	--font-montserrat: '"Montserrat", sans-serif';
+	--font-montserrat: '"Manrope", sans-serif';
+
+	/* Font Sizes - Optimized for service provider content */
+	--font-size-xs: 0.75rem; /* 12px - Fine print, disclaimers */
+	--font-size-sm: 0.875rem; /* 14px - Captions, small text */
+	--font-size-base: 1rem; /* 16px - Body text */
+	--font-size-lg: 1.125rem; /* 18px - Large body text */
+	--font-size-xl: 1.25rem; /* 20px - Lead text / Mobile Heading Level 3 (Smallest) */
+	--font-size-2xl: 1.5rem; /* 24px - Mobile Heading Level 2 (Medium) */
+	--font-size-3xl: 1.875rem; /* 28px - Mobile Heading Level 1 (Largest) */
+	--font-size-4xl: 2.25rem; /* 42px - Desktop Heading Level 3 (Smallest) */
+	--font-size-5xl: 3rem; /* 48px - Desktop Heading Level 2 (Medium)*/
+	--font-size-6xl: 3.5rem; /* 56px - Desktop Heading Level 1 (Largest */
+
+	/* Line Heights */
+	--line-height-none: 1;
+	--line-height-tight: 1.2;
+	--line-height-normal: 1.5;
+
+	/* Letter Spacing */
+	--letter-spacing-tight: -0.03em;
+	--letter-spacing-normal: 0em;
+	--letter-spacing-wide: 0.2em;
+
+	/*******************/
+	/** Border Radius **/
+	/*******************/
+
+	--radius-none: 0;
+	--radius-base: 0.5rem; /* 8px */
+	--radius-lg: 0.75rem; /* 12px */
+	--radius-xl: 1rem; /* 16px */
+	--radius-2xl: 1.5rem; /* 24px */
+
+	/*******************/
+	/** Animations **/
+	/*******************/
+
+	/* Transition Duration */
+	--duration-150: 150ms;
+	--duration-200: 200ms;
+	--duration-300: 300ms;
+	--duration-500: 500ms;
+	--duration-800: 800ms;
+	--duration-1000: 1000ms;
+
+	/* Transition Timing Functions */
+	--ease-linear: linear;
+	--ease-in: cubic-bezier(0.4, 0, 1, 1);
+	--ease-out: cubic-bezier(0, 0, 0.2, 1);
+	--ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+	/* Professional easing for service provider feel */
+	--ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+	--ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+	/*******************/
+	/** Z-Index Scale **/
+	/*******************/
+
+	--z-index-hide: -1;
+	--z-index-auto: auto;
+	--z-index-base: 0;
+	--z-index-docked: 10;
+	--z-index-dropdown: 1000;
+	--z-index-sticky: 1020;
+	--z-index-banner: 1030;
+	--z-index-overlay: 1040;
+	--z-index-modal: 1050;
+	--z-index-popover: 1060;
+	--z-index-tooltip: 1070;
+	--z-index-toast: 1080;
+
+	/*******************/
+	/** Breakpoints **/
+	/*******************/
+
+	/* Responsive design for service provider websites */
+	--breakpoint-xs: 475px;
+	--breakpoint-sm: 640px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 1024px;
+	--breakpoint-xl: 1100px;
+
+	/* Content width constraints */
+	--content-width-sm: 40rem; /* 640px */
+	--content-width-md: 48rem; /* 768px */
+	--content-width-lg: 64rem; /* 1024px */
+	--content-width-xl: 75rem; /* 1200px */
+
+	/*******************/
+	/*** Colors ***/
+	/*******************/
+
+	/* 🔶 Primary (Golden Yellow) */
+	--color-primary-50: #fffbea;
+	--color-primary-100: #fff8e0;
+	--color-primary-200: #ffeaa3;
+	--color-primary-300: #ffd864;
+	--color-primary-400: #ffc533;
+	--color-primary-500: #f8b200; /* Main Yellow on All BGs */
+	--color-primary-600: #d99900;
+	--color-primary-700: #b37f00;
+	--color-primary-800: #8c6600;
+	--color-primary-900: #554000;
+
+	/* ⚫ Gray / Black */
+	--color-gray-50: #fafafa;
+	--color-gray-100: #f0f0f0;
+	--color-gray-200: #d9d9d9; /* Main Gray for Slightly Lighter BGs */
+	--color-gray-300: #a3a3a3;
+	--color-gray-400: #6f6f6f;
+	--color-gray-500: #4b4b4b;
+	--color-gray-600: #2f2f2f;
+	--color-gray-700: #1e1e1e; /* Main Gray for Slightly Darker BGs */
+	--color-gray-800: #0a0a0a;
+	--color-gray-900: #000000;
+
+	/* ⚪ Whites (soft, warm to pure) */
+	--color-white-50: #ffffff;
+	--color-white-100: #fdfdfd;
+	--color-white-200: #fafafa;
+	--color-white-300: #f7f7f7;
+	--color-white-400: #f4f4f4;
+	--color-white-500: #f1f1f1;
+	--color-white-600: #ededed;
+	--color-white-700: #e9e9e9;
+	--color-white-800: #e5e5e5;
+	--color-white-900: #e0e0e0;
+
+	/* 🔵 Accent Blue (accessible vibrant blue) */
+	--color-accent-50: #f5faff;
+	--color-accent-100: #e5f0ff;
+	--color-accent-200: #b3d4ff;
+	--color-accent-300: #89b9ff; /* Main Blue on Dark BGs */
+	--color-accent-400: #74b1ff;
+	--color-accent-500: #5da2ff;
+	--color-accent-600: #3b8bff;
+	--color-accent-700: #0d6efd; /* Main Blue on Light BGs */
+	--color-accent-800: #004fc3;
+	--color-accent-900: #003a8c;
+}
