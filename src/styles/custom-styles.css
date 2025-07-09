@@ -205,7 +205,7 @@ h6 {
 }
 
 /* Desktop heading sizes */
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
 	h1 {
 		font-size: var(--text-6xl); /* 56px desktop */
 	}
@@ -216,6 +216,24 @@ h6 {
 
 	h3 {
 		font-size: var(--text-4xl); /* 36px desktop */
+	}
+}
+
+/* 
+ * Subtitle Styles 
+ * 1. Mobile Styles
+ * 2. Desktop Styles
+*/
+.subtitle {
+	font-size: var(--text-sm); /* 1 */
+	line-height: var(--line-height-normal); /* 1 */
+	letter-spacing: var(--letter-spacing-wide); /* 1 */
+	font-weight: 500; /* 1 */
+	text-transform: uppercase; /* 1 */
+	color: var(--color-primary-500); /* 1 */
+
+	@media screen and (min-width: 768px) {
+		font-size: var(--text-3xl); /* 2 */
 	}
 }
 
