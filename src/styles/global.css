@@ -12,16 +12,16 @@
 	--font-montserrat: '"Manrope", sans-serif';
 
 	/* Font Sizes - Optimized for service provider content */
-	--font-size-xs: 0.75rem; /* 12px - Fine print, disclaimers */
-	--font-size-sm: 0.875rem; /* 14px - Captions, small text */
-	--font-size-base: 1rem; /* 16px - Body text */
-	--font-size-lg: 1.125rem; /* 18px - Large body text */
-	--font-size-xl: 1.25rem; /* 20px - Lead text / Mobile Heading Level 3 (Smallest) */
-	--font-size-2xl: 1.5rem; /* 24px - Mobile Heading Level 2 (Medium) */
-	--font-size-3xl: 1.875rem; /* 28px - Mobile Heading Level 1 (Largest) */
-	--font-size-4xl: 2.25rem; /* 42px - Desktop Heading Level 3 (Smallest) */
-	--font-size-5xl: 3rem; /* 48px - Desktop Heading Level 2 (Medium)*/
-	--font-size-6xl: 3.5rem; /* 56px - Desktop Heading Level 1 (Largest */
+	--text-xs: 0.75rem; /* 12px - Fine print, disclaimers */
+	--text-sm: 0.875rem; /* 14px - Captions, small text */
+	--text-base: 1rem; /* 16px - Body text */
+	--text-lg: 1.125rem; /* 18px - Large body text */
+	--text-xl: 1.25rem; /* 20px - Lead text / Mobile Heading Level 3 (Smallest) */
+	--text-2xl: 1.5rem; /* 24px - Mobile Heading Level 2 (Medium) */
+	--text-3xl: 1.875rem; /* 28px - Mobile Heading Level 1 (Largest) */
+	--text-4xl: 2.25rem; /* 42px - Desktop Heading Level 3 (Smallest) */
+	--text-5xl: 3rem; /* 48px - Desktop Heading Level 2 (Medium)*/
+	--text-6xl: 3.5rem; /* 56px - Desktop Heading Level 1 (Largest */
 
 	/* Line Heights */
 	--line-height-none: 1;
