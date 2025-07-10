@@ -7,12 +7,22 @@
  * 2. Remove default margins and padding from all elements.
  * 3. Allow percentage-based heights in the application.
  */
+/* safe reset */
 *,
 *::before,
 *::after {
 	box-sizing: border-box; /* 1 */
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
 	margin: 0; /* 2 */
-	padding: 0; /* 2 */
 }
 
 html,

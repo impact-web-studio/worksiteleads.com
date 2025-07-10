@@ -1,4 +1,6 @@
 ---
+import Logo from '@/components/ui/media/LogoImage.astro';
+
 const navigationLinks = [
 	{
 		name: 'home',
@@ -19,16 +21,22 @@ const navigationLinks = [
 ];
 ---
 
-<header class="">
-	<div class="logo">Logo</div>
-	<ul class="center-links flex gap-3">
-		{
-			navigationLinks.map((link) => (
-				<li>
-					<a href={link.path}>{link.name}</a>
-				</li>
-			))
-		}
-	</ul>
-	<ul class="action-links">Action</ul>
+<header class="bg-white shadow-sm">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="flex justify-between items-center py-4">
+			<!-- Header logo - prioritized, eager loading -->
+			<Logo
+				size="md"
+				href="/"
+				context="header"
+				priority={true}
+				loading="eager"
+			/>
+
+			<!-- Navigation items -->
+			<nav>
+				<!-- Your navigation items -->
+			</nav>
+		</div>
+	</div>
 </header>
