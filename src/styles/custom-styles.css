@@ -76,7 +76,6 @@ button,
 textarea,
 select {
 	font: inherit; /* 1 */
-	color: inherit; /* 1 */
 }
 
 button {
@@ -127,7 +126,6 @@ ol[role='list'] {
  */
 a {
 	text-decoration: none; /* 1 */
-	color: inherit; /* 2 */
 	cursor: pointer; /* 3 */
 }
 
@@ -282,17 +280,17 @@ p {
  * 3. Underline on hover for accessibility
  */
 a {
-	color: var(--color-accent-700); /* 1 */
-	transition: color var(--duration-200) var(--ease-smooth); /* 2 */
+	/* color: var(--color-accent-700); 1 */
+	/* transition: color var(--duration-200) var(--ease-smooth); 2 */
 }
 
 a:hover {
-	color: var(--color-accent-800); /* Darker on hover */
+	/* color: var(--color-accent-800); Darker on hover */
 	text-decoration: underline; /* 3 */
 }
 
 a:focus {
-	outline: 2px solid var(--color-accent-700);
+	/* outline: 2px solid var(--color-accent-700); */
 	outline-offset: 2px;
 	border-radius: 2px;
 }
