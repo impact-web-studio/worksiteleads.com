@@ -6,6 +6,9 @@ import heroBg from '@/assets/home-banner-bg.png';
 interface Props {
 	title?: string;
 	subtitle?: string;
+	bodyText?: string;
+	listItems?: string[];
+	videoId?: string; // YouTube video ID
 	ctaText?: string;
 	ctaHref?: string;
 }
@@ -13,20 +16,26 @@ interface Props {
 const {
 	title = 'Welcome to Our Company',
 	subtitle = 'We create amazing experiences that drive results',
+	bodyText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+	listItems = [
+		'Innovation at its core',
+		'Results-driven approach',
+		'Expert team of professionals',
+	],
+	videoId = 'dQw4w9WgXcQ', // Replace with your actual YouTube video ID
+
 	ctaText = 'Get Started',
 	ctaHref = '/contact',
 } = Astro.props;
 ---
 
-<section
-	class="relative min-h-screen flex items-center justify-center overflow-hidden"
->
+<section class="relative overflow-hidden">
 	<!-- Background Image -->
 	<div class="absolute inset-0 z-0">
 		<Image
 			src={heroBg}
 			alt=""
-			class="w-full h-full object-cover"
+			class="w-full h-full object-fill object-top min-h-full lg:w-full"
 			loading="eager"
 			fetchpriority="high"
 			format="webp"
@@ -37,85 +46,100 @@ const {
 		<div class="absolute inset-0 bg-black/40"></div>
 	</div>
 
-	<!-- Content -->
-	<div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-		<div class="space-y-8">
-			<!-- Main Heading -->
-			<h1
-				class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
-			>
-				{title}
-			</h1>
-
-			<!-- Subtitle -->
-			<p class="text-xl sm:text-2xl text-gray-200 max-w-2xl mx-auto">
-				{subtitle}
-			</p>
-
-			<!-- CTA Button -->
-			<div class="pt-4">
-				<a
-					href={ctaHref}
-					class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent"
-				>
-					{ctaText}
-					<svg
-						class="ml-2 w-5 h-5"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
+	<!-- Content Container -->
+	<div class="relative z-10 min-h-screen">
+		<!-- Main Content Area -->
+		<div class="pt-20 pb-32">
+			<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+				<div class="space-y-8">
+					<!-- Main Heading -->
+					<h1
+						class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
 					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M9 5l7 7-7 7"
-						></path>
-					</svg>
-				</a>
+						{title}
+					</h1>
+
+					<!-- Subtitle -->
+					<h2
+						class="text-xl sm:text-2xl text-gray-200 max-w-2xl mx-auto font-medium"
+					>
+						{subtitle}
+					</h2>
+
+					<!-- Body Text -->
+					<p class="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+						{bodyText}
+					</p>
+
+					<!-- Decorative List Items -->
+					<div class="flex flex-wrap justify-center gap-4 pt-6">
+						{
+							listItems.map((item) => (
+								<div class="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+									<svg
+										class="w-4 h-4 text-green-400 mr-2"
+										fill="currentColor"
+										viewBox="0 0 20 20"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+									<span class="text-white text-sm font-medium">{item}</span>
+								</div>
+							))
+						}
+					</div>
+
+					<!-- CTA Button -->
+					<div class="pt-8">
+						<a
+							href={ctaHref}
+							class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent"
+						>
+							{ctaText}
+							<svg
+								class="ml-2 w-5 h-5"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M9 5l7 7-7 7"
+								></path>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Video Section - Positioned to hang off background -->
+		<div class="relative z-20 px-4 sm:px-6 lg:px-8 pb-20">
+			<div class="max-w-4xl mx-auto">
+				<div
+					class="relative bg-black rounded-2xl shadow-2xl overflow-hidden transform translate-y-16"
+				>
+					<!-- Video Embed -->
+					<div class="aspect-video">
+						<iframe
+							class="w-full h-full"
+							src={`https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0&modestbranding=1`}
+							title="Company Overview Video"
+							frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen
+							loading="lazy"
+						></iframe>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- Scroll indicator -->
-	<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
-		<div class="animate-bounce">
-			<svg
-				class="w-6 h-6 text-white"
-				fill="none"
-				stroke="currentColor"
-				viewBox="0 0 24 24"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M19 14l-7 7m0 0l-7-7m7 7V3"
-				></path>
-			</svg>
-		</div>
-	</div>
 </section>
-
-<style>
-	/* Ensure proper layering */
-	section {
-		position: relative;
-	}
-
-	/* Parallax effect (optional) */
-	@media (min-width: 1024px) {
-		.hero-bg {
-			transform: translateZ(0);
-			will-change: transform;
-		}
-	}
-
-	/* Responsive adjustments */
-	@media (max-width: 640px) {
-		section {
-			min-height: 100vh;
-			padding-top: 80px; /* Account for mobile header */
-		}
-	}
-</style>
+=
