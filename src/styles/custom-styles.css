@@ -180,8 +180,6 @@ h6 {
 	font-family: var(--font-montserrat); /* 1 */
 	font-weight: 800; /* 2 - Bold weight for authority */
 	line-height: var(--line-height-tight); /* 3 */
-	color: var(--color-gray-900); /* Strong contrast for readability */
-	margin-bottom: 1rem; /* 5 */
 	letter-spacing: var(--letter-spacing-tight); /* Improve readability */
 }
 
@@ -240,7 +238,7 @@ h6 {
 	font-size: var(--text-sm); /* 1 */
 	line-height: var(--line-height-normal); /* 1 */
 	letter-spacing: var(--letter-spacing-wide); /* 1 */
-	font-weight: 500; /* 1 */
+	font-weight: 400; /* 1 */
 	text-transform: uppercase; /* 1 */
 	color: var(--color-primary-500); /* 1 */
 
@@ -286,7 +284,7 @@ a {
 
 a:hover {
 	/* color: var(--color-accent-800); Darker on hover */
-	text-decoration: underline; /* 3 */
+	/* text-decoration: underline; 3 */
 }
 
 a:focus {
