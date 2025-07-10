@@ -3,6 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '@/components/sections/home/Hero.astro';
 ---
 
-<Layout>
-	<Hero />
+<Layout
+	title="Home - Worksite Leads"
+	description="Welcome to our company homepage"
+	hasHero={true}
+>
+	<Hero
+		title="Transform Your Business"
+		subtitle="We deliver cutting-edge solutions that help your business grow and succeed in the digital age"
+		ctaText="Start Your Journey"
+		ctaHref="/contact"
+	/>
 </Layout>

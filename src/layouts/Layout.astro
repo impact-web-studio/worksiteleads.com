@@ -1,9 +1,21 @@
 ---
 import '@/styles/custom-styles.css';
 import '@/styles/global.css';
-
+// Layout.astro
 import Header from '@/components/ui/navigation/Header.astro';
-import Footer from '@/components/ui/navigation/Footer.astro';
+import Footer from '@/components/ui/navigation//Footer.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+	hasHero?: boolean; // Flag to indicate if page has hero section
+}
+
+const {
+	title = 'Your Site',
+	description = 'Your description',
+	hasHero = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -11,34 +23,29 @@ import Footer from '@/components/ui/navigation/Footer.astro';
 	<head>
 		<meta charset="UTF-8" />
 		<meta
+			name="description"
+			content={description}
+		/>
+		<meta
 			name="viewport"
-			content="width=device-width"
+			content="width=device-width, initial-scale=1.0"
 		/>
 		<link
 			rel="icon"
 			type="image/svg+xml"
 			href="/favicon.svg"
 		/>
-		<meta
-			name="generator"
-			content={Astro.generator}
-		/>
-		<title>Worksite Leads</title>
+		<title>{title}</title>
 	</head>
-	<body>
-		<Header />
-		<main>
+	<body class="font-sans antialiased">
+		<!-- Header with conditional styling for hero pages -->
+		<Header isOverlay={hasHero} />
+
+		<!-- Main content -->
+		<main class={hasHero ? 'relative' : ''}>
 			<slot />
 		</main>
+
 		<Footer />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

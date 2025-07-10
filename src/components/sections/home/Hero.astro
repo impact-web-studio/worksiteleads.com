@@ -1,42 +1,121 @@
 ---
-import Button from '@/components/ui/buttons/Button.astro';
+// Hero.astro
+import { Image } from 'astro:assets';
+import heroBg from '@/assets/home-banner-bg.png';
+
+interface Props {
+	title?: string;
+	subtitle?: string;
+	ctaText?: string;
+	ctaHref?: string;
+}
+
+const {
+	title = 'Welcome to Our Company',
+	subtitle = 'We create amazing experiences that drive results',
+	ctaText = 'Get Started',
+	ctaHref = '/contact',
+} = Astro.props;
 ---
 
 <section
-	id="hero"
-	class="bg-container"
+	class="relative min-h-screen flex items-center justify-center overflow-hidden"
 >
-	<div class="section-wrapper">
-		<div class="content-container">
-			<div class="text-wrapper">
-				<div class="headings">
-					<h1 class="title">
-						Attract More Clients, Serve Them Better, Keep them Longer
-					</h1>
-					<h2 class="subtitle">
-						Helping business get more lead, operate more efficiently & make more
-						money
-					</h2>
-				</div>
-				<ul class="list-items">
-					<li class="item"><span>logo-checkmark</span>Full Website Design</li>
-					<li class="item">
-						<span>logo-checkmark</span>Lead Generation & Follow-up Automations
-					</li>
-					<li class="item">
-						<span>logo-checkmark</span>No Technical Skills or Marketing
-						Experience Needed
-					</li>
-				</ul>
-			</div>
-			<div class="link-group">
-				<button>Schedule a Call</button>
-				<Button />
-				<a>Learn More</a>
-			</div>
-			<div class="video-container">
-				<video src="">Video</video>
+	<!-- Background Image -->
+	<div class="absolute inset-0 z-0">
+		<Image
+			src={heroBg}
+			alt=""
+			class="w-full h-full object-cover"
+			loading="eager"
+			fetchpriority="high"
+			format="webp"
+			quality={90}
+			densities={[1, 2]}
+		/>
+		<!-- Overlay -->
+		<div class="absolute inset-0 bg-black/40"></div>
+	</div>
+
+	<!-- Content -->
+	<div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+		<div class="space-y-8">
+			<!-- Main Heading -->
+			<h1
+				class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
+			>
+				{title}
+			</h1>
+
+			<!-- Subtitle -->
+			<p class="text-xl sm:text-2xl text-gray-200 max-w-2xl mx-auto">
+				{subtitle}
+			</p>
+
+			<!-- CTA Button -->
+			<div class="pt-4">
+				<a
+					href={ctaHref}
+					class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent"
+				>
+					{ctaText}
+					<svg
+						class="ml-2 w-5 h-5"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M9 5l7 7-7 7"
+						></path>
+					</svg>
+				</a>
 			</div>
 		</div>
 	</div>
+
+	<!-- Scroll indicator -->
+	<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+		<div class="animate-bounce">
+			<svg
+				class="w-6 h-6 text-white"
+				fill="none"
+				stroke="currentColor"
+				viewBox="0 0 24 24"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M19 14l-7 7m0 0l-7-7m7 7V3"
+				></path>
+			</svg>
+		</div>
+	</div>
 </section>
+
+<style>
+	/* Ensure proper layering */
+	section {
+		position: relative;
+	}
+
+	/* Parallax effect (optional) */
+	@media (min-width: 1024px) {
+		.hero-bg {
+			transform: translateZ(0);
+			will-change: transform;
+		}
+	}
+
+	/* Responsive adjustments */
+	@media (max-width: 640px) {
+		section {
+			min-height: 100vh;
+			padding-top: 80px; /* Account for mobile header */
+		}
+	}
+</style>

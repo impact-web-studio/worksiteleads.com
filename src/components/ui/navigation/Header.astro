@@ -1,42 +1,130 @@
 ---
+// Header.astro
 import Logo from '@/components/ui/media/LogoImage.astro';
 
-const navigationLinks = [
-	{
-		name: 'home',
-		path: '/',
-	},
-	{
-		name: 'about',
-		path: '/about',
-	},
-	{
-		name: 'services',
-		path: '/services',
-	},
-	{
-		name: 'Who We Help',
-		path: '/who-we-help',
-	},
-];
+interface Props {
+	isOverlay?: boolean;
+}
+
+const { isOverlay = false } = Astro.props;
 ---
 
-<header class="bg-white shadow-sm">
+<header
+	class={` w-full z-50 transition-all duration-300 ${
+		isOverlay
+			? 'absolute top-0 left-0 bg-transparent backdrop-blur-sm'
+			: 'relative bg-white shadow-sm'
+	}
+`}
+>
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="flex justify-between items-center py-4">
-			<!-- Header logo - prioritized, eager loading -->
+			<!-- Logo -->
 			<Logo
 				size="md"
 				href="/"
 				context="header"
 				priority={true}
 				loading="eager"
+				className={isOverlay ? 'filter brightness-0 invert' : ''}
 			/>
 
-			<!-- Navigation items -->
-			<nav>
-				<!-- Your navigation items -->
+			<!-- Navigation -->
+			<nav class="hidden md:flex space-x-8">
+				<a
+					href="/"
+					class={`
+          font-medium transition-colors duration-200
+          ${
+						isOverlay
+							? 'text-white hover:text-gray-200'
+							: 'text-gray-700 hover:text-gray-900'
+					}
+        `}
+					>Home</a
+				>
+				<a
+					href="/about"
+					class={`
+          font-medium transition-colors duration-200
+          ${
+						isOverlay
+							? 'text-white hover:text-gray-200'
+							: 'text-gray-700 hover:text-gray-900'
+					}
+        `}
+					>About</a
+				>
+				<a
+					href="/services"
+					class={`
+          font-medium transition-colors duration-200
+          ${
+						isOverlay
+							? 'text-white hover:text-gray-200'
+							: 'text-gray-700 hover:text-gray-900'
+					}
+        `}
+					>Services</a
+				>
+				<a
+					href="/contact"
+					class={`
+          font-medium transition-colors duration-200
+          ${
+						isOverlay
+							? 'text-white hover:text-gray-200'
+							: 'text-gray-700 hover:text-gray-900'
+					}
+        `}
+					>Contact</a
+				>
 			</nav>
+
+			<!-- Mobile menu button -->
+			<button
+				class={`md:hidden p-2 rounded-md transition-colors duration-200
+          ${
+						isOverlay
+							? 'text-white hover:text-gray-200 hover:bg-white/10'
+							: 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+					}
+        `}
+				aria-label="Toggle navigation menu"
+			>
+				<svg
+					class="w-6 h-6"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4 6h16M4 12h16M4 18h16"
+					></path>
+				</svg>
+			</button>
 		</div>
 	</div>
 </header>
+
+<style>
+	/* Additional header styles for overlay effect */
+	header.absolute {
+		background: linear-gradient(
+			180deg,
+			rgba(0, 0, 0, 0.3) 0%,
+			rgba(0, 0, 0, 0.1) 50%,
+			transparent 100%
+		);
+	}
+
+	/* Smooth scrolling offset for fixed header */
+	@media (min-width: 768px) {
+		header.absolute + main {
+			scroll-margin-top: 80px;
+		}
+	}
+</style>
