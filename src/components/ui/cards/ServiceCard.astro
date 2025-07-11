@@ -9,6 +9,7 @@ interface Props {
 	imageAlt: string;
 	href: string;
 	className?: string;
+	variation: '1' | '2' | '3';
 }
 
 const {
@@ -17,11 +18,40 @@ const {
 	image,
 	imageAlt,
 	href,
-	className = '',
+	variation = 1,
 } = Astro.props as Props;
+
+/*
+ ** Card Variations
+ ** 1. Yellow title, white text, on dark gray background.
+ ** 2. Black title, dark gray text, on light gray background.
+ ** 3. Black title, dark gray text, on yellow background.
+ */
+const styleConfig = {
+	'1': {
+		background: 'bg-gray-500',
+		title: 'text-primary-500',
+		description: 'text-white-300',
+		link: 'text-accent-300',
+	},
+	'2': {
+		background: 'bg-gray-200',
+		title: 'text-black-700',
+		description: 'text-black-500',
+		link: 'text-accent-700',
+	},
+	'3': {
+		background: 'bg-primary-500',
+		title: 'text-black-700',
+		description: 'text-black-500',
+		link: 'text-accent-700',
+	},
+};
+
+const cardStyle = styleConfig[variation];
 ---
 
-<article>
+<article class={`${cardStyle.background}`}>
 	<div class="image-wrapper">
 		<Image
 			src={image}
@@ -30,18 +60,18 @@ const {
 	</div>
 	<div class="content-wrapper">
 		<h2
-			class="title"
+			class={`heading-l3 ${cardStyle.title}`}
 			set:html={title}
 		/>
 		<p
-			class="description"
+			class={`wsl-text-sm ${cardStyle.description}`}
 			set:html={description}
 		/>
 		<Button
 			text="Learn More"
 			href={href}
 			type="link"
-			linkColor="text-accent-300"
+			linkColor={cardStyle.link}
 		/>
 	</div>
 </article>
