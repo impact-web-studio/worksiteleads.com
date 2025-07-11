@@ -1,3 +1,18 @@
 .text-l1 {
-	font-size: clamp(1.75rem, 1.25rem + 2.5vw, 3.5rem);
+	font-size: clamp(var(--text-3xl), 1.25rem + 2.5vw, var(--text-6xl));
+}
+
+.text-l2 {
+}
+
+.text-l3 {
+}
+
+/* Auto-scales between 14px - 28px */
+.subtitle {
+	font-size: clamp(var(--text-sm), 0.625rem + 1.25vw, var(--text-3xl));
+	line-height: var(--line-height-normal);
+	letter-spacing: var(--letter-spacing-wide);
+	font-weight: 400;
+	text-transform: uppercase;
 }
