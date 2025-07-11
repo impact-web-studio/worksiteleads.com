@@ -56,19 +56,21 @@ const {
 				<div class="space-y-8">
 					<!-- Main Heading -->
 					<h1
-						class="text-l1 font-bold text-white leading-tight"
+						class="heading-l1 font-bold text-white leading-tight"
 						set:html={title}
 					/>
 
 					<!-- Subtitle -->
-					<h2 class="subtitle text-primary-500 text-center">
-						{subtitle}
-					</h2>
+					<h2
+						class="hero-subtitle text-primary-500 text-center"
+						set:html={subtitle}
+					/>
 
 					<!-- Body Text -->
-					<p class="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-						{bodyText}
-					</p>
+					<p
+						class="wsl-text-lg text-gray-300"
+						set:html={bodyText}
+					/>
 
 					<!-- Decorative List Items -->
 					<div class="flex flex-wrap justify-center gap-4 pt-6">

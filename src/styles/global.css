@@ -31,7 +31,8 @@
 	/* Letter Spacing */
 	--letter-spacing-tight: -0.03em;
 	--letter-spacing-normal: 0em;
-	--letter-spacing-wide: 0.2em;
+	--letter-spacing-wide: 0.03em;
+	--letter-spacing-widest: 0.2em;
 
 	/*******************/
 	/** Border Radius **/
@@ -98,6 +99,7 @@
 	--content-width-md: 48rem; /* 768px */
 	--content-width-lg: 64rem; /* 1024px */
 	--content-width-xl: 75rem; /* 1200px */
+	--content-width-max: 90rem; /* 1440px */
 
 	/*******************/
 	/*** Colors ***/

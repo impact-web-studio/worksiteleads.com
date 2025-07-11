@@ -183,52 +183,6 @@ h6 {
 	letter-spacing: var(--letter-spacing-tight); /* Improve readability */
 }
 
-/* Mobile-first heading sizes */
-h1 {
-	font-size: var(--text-3xl); /* 28px mobile */
-}
-
-h2 {
-	font-size: var(--text-2xl); /* 24px mobile */
-}
-
-h3 {
-	font-size: var(--text-xl); /* 20px mobile */
-}
-
-h4 {
-	font-size: var(--text-lg); /* 18px mobile */
-}
-
-h5 {
-	font-size: var(--text-base); /* 16px mobile */
-	font-weight: 600; /* Slightly lighter for h5 */
-}
-
-h6 {
-	font-size: var(--text-sm); /* 14px mobile */
-	font-weight: 600; /* Slightly lighter for h6 */
-	text-transform: uppercase; /* Distinguish from other headings */
-	letter-spacing: var(
-		--letter-spacing-wide
-	); /* Improve readability of uppercase */
-}
-
-/* Desktop heading sizes */
-@media screen and (min-width: 768px) {
-	h1 {
-		font-size: var(--text-6xl); /* 56px desktop */
-	}
-
-	h2 {
-		font-size: var(--text-5xl); /* 48px desktop */
-	}
-
-	h3 {
-		font-size: var(--text-4xl); /* 36px desktop */
-	}
-}
-
 /*
  * Paragraph Styles
  * 1. Comfortable reading line height

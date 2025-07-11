@@ -1,0 +1,9 @@
+section {
+	margin: 0 auto;
+}
+
+/* Contains the content within 320 - 1440 px */
+.content-container {
+	max-width: var(----content-width-max);
+	padding: clamp(1rem, -0.8571rem + 9.2857vw, 7.5rem);
+}
