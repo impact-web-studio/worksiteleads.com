@@ -2,6 +2,7 @@
 // Hero.astro
 import { Image } from 'astro:assets';
 import heroBg from '@/assets/home-banner-bg.png';
+import Pill from '@/components/ui/pills/Pill.astro';
 
 interface Props {
 	title?: string;
@@ -47,79 +48,51 @@ const {
 	</div>
 
 	<!-- Content Container -->
-	<div class="relative z-10 min-h-screen">
+	<div class="content-container relative z-10 min-h-screen">
 		<!-- Main Content Area -->
-		<div class="pt-32">
-			<div
-				class="max-w-content-width-xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
-			>
-				<div class="space-y-8">
-					<!-- Main Heading -->
-					<h1
-						class="heading-l1 font-bold text-white leading-tight"
-						set:html={title}
-					/>
+		<div class="flex flex-col gap-5 pt-32">
+			<div class="flex flex-col gap-5 text-center">
+				<!-- Main Heading -->
+				<h1
+					class="heading-l1 text-white"
+					set:html={title}
+				/>
 
-					<!-- Subtitle -->
-					<h2
-						class="hero-subtitle text-primary-500 text-center"
-						set:html={subtitle}
-					/>
+				<!-- Subtitle -->
+				<h2
+					class="hero-subtitle text-primary-500"
+					set:html={subtitle}
+				/>
+			</div>
+			<!-- Decorative List Items -->
+			<div class="flex flex-wrap sm:justify-center gap-4">
+				{listItems.map((item) => <Pill text={item} />)}
+			</div>
 
-					<!-- Body Text -->
-					<p
-						class="wsl-text-lg text-gray-300"
-						set:html={bodyText}
-					/>
-
-					<!-- Decorative List Items -->
-					<div class="flex flex-wrap justify-center gap-4 pt-6">
-						{
-							listItems.map((item) => (
-								<div class="flex items-center bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
-									<svg
-										class="w-4 h-4 text-primary-500 mr-2"
-										fill="currentColor"
-										viewBox="0 0 20 20"
-									>
-										<path
-											fill-rule="evenodd"
-											d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-											clip-rule="evenodd"
-										/>
-									</svg>
-									<span class="text-white text-sm font-medium">{item}</span>
-								</div>
-							))
-						}
-					</div>
-
-					<!-- CTA Button -->
-					<div class="pt-8 flex gap-3 items-center justify-center">
-						<a
-							href={ctaHref}
-							class="inline-flex items-center px-8 py-4 text-lg font-semibold text-black bg-primary-500 rounded-lg hover:bg-primary-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-transparent"
-						>
-							{ctaText}
-							<!-- <svg
-								class="ml-2 w-5 h-5"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M9 5l7 7-7 7"
-								></path>
-							</svg> -->
-						</a>
-						<a class="text-white font-semibold text-lg hover:underline"
-							>Learn More</a
-						>
-					</div>
-				</div>
+			<!-- CTA Button -->
+			<div class="pt-8 flex gap-3 items-center justify-center">
+				<a
+					href={ctaHref}
+					class="inline-flex items-center px-8 py-4 text-lg font-semibold text-black bg-primary-500 rounded-lg hover:bg-primary-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-transparent"
+				>
+					{ctaText}
+					<!-- <svg
+                            class="ml-2 w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 5l7 7-7 7"
+                            ></path>
+                        </svg> -->
+				</a>
+				<a class="text-white font-semibold text-lg hover:underline"
+					>Learn More</a
+				>
 			</div>
 		</div>
 
