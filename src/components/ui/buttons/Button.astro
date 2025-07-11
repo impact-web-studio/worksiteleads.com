@@ -1,14 +1,42 @@
 ---
+interface Props {
+	text: string;
+	href: string;
+	type?: 'button' | 'link';
+	variation: 'primary' | 'secondary';
+	linkColor?: string;
+}
+
 const {
-	text = 'Schedule a Call',
-	backgroundColor = 'bg-primary-500',
-	textColor = 'text-gray-700',
-} = Astro.props;
+	text = 'Click',
+	href = '#',
+	type = 'button',
+	variation = 'primary',
+	linkColor = 'text-gray-50',
+} = Astro.props as Props;
+
+const buttonClasses = {
+	primary: 'bg-primary-500 hover:bg-primary-600 focus:ring-primary-500',
+	secondary: 'bg-gray-50 hover:bg-gray-200 focus:ring-gray-50',
+};
+
+const colorClass = type === 'button' && buttonClasses[variation];
 ---
 
-<a
-	href=""
-	class={`px-4 py-6 md:px-8 ${backgroundColor} ${textColor}`}
->
-	{text}
-</a>
+{
+	type && type === 'button' ? (
+		<a
+			href={href}
+			class={`inline-flex items-center px-4 py-2.5 wsl-text-lg font-semibold text-black ${colorClass}
+rounded-lg transition-colors duration-200 focus:outline-none
+focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent`}
+			set:html={text}
+		/>
+	) : (
+		<a
+			href={href}
+			class={`wsl-text-lg font-semibold transition-colors duration-200 ${linkColor}`}
+			set:html={text}
+		/>
+	)
+}

@@ -3,6 +3,7 @@
 import { Image } from 'astro:assets';
 import heroBg from '@/assets/home-banner-bg.png';
 import Pill from '@/components/ui/pills/Pill.astro';
+import Button from '@/components/ui/buttons/Button.astro';
 
 interface Props {
 	title?: string;
@@ -71,28 +72,17 @@ const {
 
 			<!-- CTA Button -->
 			<div class="pt-8 flex gap-3 items-center justify-center">
-				<a
-					href={ctaHref}
-					class="inline-flex items-center px-8 py-4 text-lg font-semibold text-black bg-primary-500 rounded-lg hover:bg-primary-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-transparent"
-				>
-					{ctaText}
-					<!-- <svg
-                            class="ml-2 w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M9 5l7 7-7 7"
-                            ></path>
-                        </svg> -->
-				</a>
-				<a class="text-white font-semibold text-lg hover:underline"
-					>Learn More</a
-				>
+				<Button
+					text="Schedule a Call"
+					href="/"
+					variation="primary"
+				/>
+				<Button
+					href=""
+					variation="primary"
+					type="link"
+					text="Learn More"
+				/>
 			</div>
 		</div>
 
