@@ -1,0 +1,80 @@
+---
+import { Image } from 'astro:assets';
+import ServiceCard from '@/components/ui/cards/ServiceCard.astro';
+
+import WebDesignImage from '@/assets/web-development.png';
+import AIAutomation from '@/assets/ai-automation.png';
+import DigitalMarketingImage from '@/assets/digital-marketing.png';
+
+const services = [
+	{
+		id: 'web-design',
+		title: 'Web Design & Development',
+		description:
+			'Custom websites that are fast, responsive, and optimized for conversions. We create digital experiences that engage your audience and drive results.',
+		image: WebDesignImage,
+		imageAlt: 'Modern web design showcase on multiple devices',
+		href: '/services/web-design',
+	},
+	{
+		id: 'ai-automation',
+		title: 'AI Automation',
+		description:
+			"Automate the tedious task so that you can focus on what matters most - finishing jobs, and spending the extra time however you'd like",
+		image: AIAutomation,
+		imageAlt: 'AI Automation tools',
+		href: '/services/ai-automation',
+	},
+	{
+		id: 'digital-marketing',
+		title: 'Digital Marketing',
+		description:
+			'Strategic marketing campaigns that reach your target audience across all digital channels. From SEO to social media, we drive qualified traffic to your business.',
+		image: DigitalMarketingImage,
+		imageAlt: 'Digital marketing analytics and social media dashboard',
+		href: '/services/digital-marketing',
+	},
+];
+
+interface Props {
+	title?: string;
+	subtitle?: string;
+	className?: string;
+}
+
+const {
+	title = 'All-in-One Digital Packages',
+	subtitle = 'more than just websites, we offer all-in-one packages designed to help you manage and grow your business',
+} = Astro.props as Props;
+---
+
+<section class="">
+	<div class="content-container">
+		<!-- Section Header -->
+		<div class="text-center max-w-3xl mx-auto mb-16">
+			<h2
+				id="services-heading"
+				class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+			>
+				{title}
+			</h2>
+			<p class="text-lg sm:text-xl text-gray-600 leading-relaxed">
+				{subtitle}
+			</p>
+		</div>
+		<!-- Services Grid -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+			{
+				services.map((service) => (
+					<ServiceCard
+						title={service.title}
+						description={service.description}
+						image={service.image}
+						imageAlt={service.imageAlt}
+						href={service.href}
+					/>
+				))
+			}
+		</div>
+	</div>
+</section>
