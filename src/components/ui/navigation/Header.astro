@@ -2,6 +2,8 @@
 // Header.astro
 import Logo from '@/components/ui/media/LogoImage.astro';
 import Button from '../buttons/Button.astro';
+import Navigation from './Navigation.astro';
+import MobileMenu from './MobileMenu.astro';
 
 interface Props {
 	isOverlay?: boolean;
@@ -21,7 +23,7 @@ const navLinks = [
 		href: '/services',
 		childrenLinks: [
 			{
-				name: 'Web Develoment',
+				name: 'Web Development',
 				href: '/web-development',
 			},
 			{
@@ -41,15 +43,37 @@ const navLinks = [
 ];
 
 const { isOverlay = false } = Astro.props;
+
+// Generate consistent CSS classes
+const headerClasses = [
+	'w-full',
+	'z-50',
+	'transition-all',
+	'duration-300',
+	isOverlay
+		? 'absolute top-0 left-0 bg-transparent backdrop-blur-sm'
+		: 'relative bg-white shadow-sm',
+].join(' ');
+
+const mobileButtonClasses = [
+	'mobile-menu-toggle',
+	'lg:hidden',
+	'p-2',
+	'rounded-md',
+	'transition-colors',
+	'duration-200',
+	'focus:outline-none',
+	'focus:ring-2',
+	'focus:ring-offset-2',
+	isOverlay
+		? 'text-white hover:text-gray-200 hover:bg-white/10 focus:ring-white/20'
+		: 'text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:ring-gray-500',
+].join(' ');
 ---
 
 <header
-	class={` w-full z-50 transition-all duration-300 ${
-		isOverlay
-			? 'absolute top-0 left-0 bg-transparent backdrop-blur-sm'
-			: 'relative bg-white shadow-sm'
-	}
-`}
+	class={headerClasses}
+	data-overlay={isOverlay}
 >
 	<div class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8 lg:py-8">
 		<div class="flex justify-between items-center py-4">
@@ -63,45 +87,14 @@ const { isOverlay = false } = Astro.props;
 				className={isOverlay ? '' : ''}
 			/>
 
-			<!-- Navigation -->
-			<nav class="hidden lg:flex lg:items-center lg:justify-center">
-				<ul class="flex lg:gap-6 xl:gap-8">
-					{
-						navLinks.map((link) =>
-							link.childrenLinks ? (
-								<li class="flex justify-center items-center">
-									<a
-										class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-200 hover:text-primary-500 flex xl:gap-1`}
-										href={link.href}
-									>
-										{link.name}
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="24"
-											height="24"
-											viewBox="0 0 24 24"
-										>
-											<path
-												fill="currentColor"
-												d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6l-6-6z"
-											/>
-										</svg>
-									</a>
-								</li>
-							) : (
-								<li>
-									<a
-										class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-200 hover:text-primary-500`}
-										href={link.href}
-									>
-										{link.name}
-									</a>
-								</li>
-							)
-						)
-					}
-				</ul>
-			</nav>
+			<!-- Desktop Navigation -->
+			<Navigation
+				navLinks={navLinks}
+				isOverlay={isOverlay}
+				class="hidden lg:flex lg:items-center lg:justify-center"
+			/>
+
+			<!-- Desktop CTA Buttons -->
 			<div class="hidden lg:flex lg:items-center lg:justify-center lg:gap-2">
 				<Button
 					text="Contact"
@@ -110,8 +103,6 @@ const { isOverlay = false } = Astro.props;
 					href="/contact"
 					class="wsl-text-lg font-semibold capitalize hover:text-primary-500"
 				/>
-
-				>
 				<Button
 					text="Schedule a Call"
 					href="/schedule-call"
@@ -119,37 +110,161 @@ const { isOverlay = false } = Astro.props;
 				/>
 			</div>
 
-			<!-- Mobile menu button -->
+			<!-- Mobile Menu Toggle Button -->
 			<button
-				class={`lg:hidden p-2 rounded-md transition-colors duration-200 ${
-					isOverlay
-						? 'text-white hover:text-gray-200 hover:bg-white/10'
-						: 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
-				}
-        `}
+				class={mobileButtonClasses}
 				aria-label="Toggle navigation menu"
+				aria-expanded="false"
+				aria-controls="mobile-menu"
+				data-mobile-toggle
 			>
-				<svg
-					class={`w-6 h-6 ${isOverlay ? 'text-white' : 'text-gray-700'}`}
-					fill="none"
-					stroke="currentColor"
-					viewBox="0 0 24 24"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M4 6h16M4 12h16M4 18h16"
-					></path>
-				</svg>
+				<div class="relative w-6 h-6">
+					<!-- Hamburger Icon -->
+					<svg
+						class="w-6 h-6 hamburger-icon transition-all duration-300 ease-in-out"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+						aria-hidden="true"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M4 6h16M4 12h16M4 18h16"
+						></path>
+					</svg>
+					<!-- Close Icon -->
+					<svg
+						class="w-6 h-6 close-icon absolute top-0 left-0 transition-all duration-300 ease-in-out opacity-0 rotate-90"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+						aria-hidden="true"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M6 18L18 6M6 6l12 12"
+						></path>
+					</svg>
+				</div>
 			</button>
 		</div>
 	</div>
+
+	<!-- Mobile Menu -->
+	<MobileMenu
+		navLinks={navLinks}
+		isOverlay={isOverlay}
+		id="mobile-menu"
+	/>
 </header>
 
+<script>
+	class MobileMenuController {
+		private toggle: HTMLButtonElement | null;
+		private menu: HTMLElement | null;
+		private hamburgerIcon: Element | null;
+		private closeIcon: Element | null;
+		private isOpen: boolean = false;
+
+		constructor() {
+			this.toggle = document.querySelector(
+				'[data-mobile-toggle]'
+			) as HTMLButtonElement;
+			this.menu = document.getElementById('mobile-menu');
+			this.hamburgerIcon = this.toggle?.querySelector('.hamburger-icon');
+			this.closeIcon = this.toggle?.querySelector('.close-icon');
+
+			this.init();
+		}
+
+		private init(): void {
+			if (!this.toggle || !this.menu) return;
+
+			this.toggle.addEventListener('click', () => this.toggleMenu());
+
+			// Close menu when clicking outside
+			document.addEventListener('click', (e: Event) => {
+				const target = e.target as Node;
+				if (
+					this.isOpen &&
+					this.menu &&
+					this.toggle &&
+					!this.menu.contains(target) &&
+					!this.toggle.contains(target)
+				) {
+					this.closeMenu();
+				}
+			});
+
+			// Close menu on escape key
+			document.addEventListener('keydown', (e: KeyboardEvent) => {
+				if (e.key === 'Escape' && this.isOpen) {
+					this.closeMenu();
+				}
+			});
+
+			// Close menu when window is resized to desktop
+			window.addEventListener('resize', () => {
+				if (window.innerWidth >= 1024 && this.isOpen) {
+					this.closeMenu();
+				}
+			});
+		}
+
+		private toggleMenu(): void {
+			this.isOpen ? this.closeMenu() : this.openMenu();
+		}
+
+		private openMenu(): void {
+			if (!this.menu || !this.toggle || !this.hamburgerIcon || !this.closeIcon)
+				return;
+
+			this.isOpen = true;
+			this.menu.setAttribute('aria-hidden', 'false');
+			this.toggle.setAttribute('aria-expanded', 'true');
+			this.menu.classList.remove('hidden');
+			this.menu.classList.add('animate-slideDown');
+
+			// Animate hamburger to close icon
+			this.hamburgerIcon.classList.add('opacity-0', '-rotate-90');
+			this.closeIcon.classList.remove('opacity-0', 'rotate-90');
+			this.closeIcon.classList.add('opacity-100', 'rotate-0');
+
+			document.body.classList.add('overflow-hidden');
+		}
+
+		private closeMenu(): void {
+			if (!this.menu || !this.toggle || !this.hamburgerIcon || !this.closeIcon)
+				return;
+
+			this.isOpen = false;
+			this.menu.setAttribute('aria-hidden', 'true');
+			this.toggle.setAttribute('aria-expanded', 'false');
+			this.menu.classList.add('hidden');
+			this.menu.classList.remove('animate-slideDown');
+
+			// Animate close icon back to hamburger
+			this.closeIcon.classList.add('opacity-0', 'rotate-90');
+			this.closeIcon.classList.remove('opacity-100', 'rotate-0');
+			this.hamburgerIcon.classList.remove('opacity-0', '-rotate-90');
+
+			document.body.classList.remove('overflow-hidden');
+		}
+	}
+
+	// Initialize when DOM is loaded
+	document.addEventListener('DOMContentLoaded', () => {
+		new MobileMenuController();
+	});
+</script>
+
 <style>
-	/* Additional header styles for overlay effect */
-	header.absolute {
+	/* Header overlay effects */
+	header[data-overlay='true'] {
 		background: linear-gradient(
 			180deg,
 			rgba(0, 0, 0, 0.3) 0%,
@@ -160,8 +275,37 @@ const { isOverlay = false } = Astro.props;
 
 	/* Smooth scrolling offset for fixed header */
 	@media (min-width: 768px) {
-		header.absolute + main {
+		header[data-overlay='true'] + main {
 			scroll-margin-top: 80px;
 		}
+	}
+
+	/* Mobile menu animations */
+	@keyframes slideDown {
+		from {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.animate-slideDown {
+		animation: slideDown 0.2s ease-out;
+	}
+
+	/* Mobile menu icon animations */
+	.hamburger-icon,
+	.close-icon {
+		transition:
+			opacity 0.3s ease-in-out,
+			transform 0.3s ease-in-out;
+	}
+
+	/* Focus management for accessibility */
+	.mobile-menu-toggle:focus {
+		outline: none;
 	}
 </style>

@@ -1,0 +1,239 @@
+---
+// MobileMenu.astro
+import Button from '../buttons/Button.astro';
+
+interface NavLink {
+	name: string;
+	href: string;
+	childrenLinks?: NavLink[];
+}
+
+interface Props {
+	navLinks: NavLink[];
+	isOverlay?: boolean;
+	id?: string;
+}
+
+const { navLinks, isOverlay = false, id = 'mobile-menu' } = Astro.props;
+
+const menuClasses = [
+	'hidden',
+	'lg:hidden',
+	'absolute',
+	'top-full',
+	'left-0',
+	'w-full',
+	'z-40',
+	'border-t',
+	isOverlay
+		? 'bg-black/90 backdrop-blur-md border-white/20'
+		: 'bg-white shadow-lg border-gray-200',
+].join(' ');
+
+const linkClasses = [
+	'block',
+	'px-4',
+	'py-3',
+	'text-base',
+	'font-medium',
+	'capitalize',
+	'transition-colors',
+	'duration-200',
+	'border-b',
+	'focus:outline-none',
+	'focus:ring-2',
+	'focus:ring-inset',
+	isOverlay
+		? 'text-white hover:text-primary-400 hover:bg-white/10 border-white/20 focus:ring-white/20'
+		: 'text-gray-700 hover:text-primary-500 hover:bg-gray-50 border-gray-200 focus:ring-primary-500',
+].join(' ');
+
+const subLinkClasses = [
+	'block',
+	'px-8',
+	'py-2',
+	'text-sm',
+	'capitalize',
+	'transition-colors',
+	'duration-200',
+	'border-b',
+	'focus:outline-none',
+	'focus:ring-2',
+	'focus:ring-inset',
+	isOverlay
+		? 'text-gray-300 hover:text-primary-400 hover:bg-white/5 border-white/10 focus:ring-white/20'
+		: 'text-gray-600 hover:text-primary-500 hover:bg-gray-50 border-gray-100 focus:ring-primary-500',
+].join(' ');
+---
+
+<div
+	class={menuClasses}
+	id={id}
+	role="dialog"
+	aria-modal="true"
+	aria-hidden="true"
+	aria-labelledby="mobile-menu-label"
+>
+	<div class="px-4 pt-2 pb-3 space-y-1">
+		<!-- Screen reader label -->
+		<h2
+			id="mobile-menu-label"
+			class="sr-only"
+		>
+			Mobile navigation menu
+		</h2>
+
+		<!-- Navigation Links -->
+		<nav
+			role="navigation"
+			aria-label="Mobile navigation"
+		>
+			{
+				navLinks.map((link) => (
+					<div class="mobile-nav-item">
+						{link.childrenLinks ? (
+							<div>
+								<button
+									class={`${linkClasses} flex items-center justify-between w-full`}
+									aria-expanded="false"
+									data-submenu-toggle
+									aria-controls={`submenu-${link.name
+										.toLowerCase()
+										.replace(/\s+/g, '-')}`}
+								>
+									{link.name}
+									<svg
+										class="w-5 h-5 transition-transform duration-200"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+										aria-hidden="true"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M19 9l-7 7-7-7"
+										/>
+									</svg>
+								</button>
+								<div
+									class="submenu hidden"
+									id={`submenu-${link.name.toLowerCase().replace(/\s+/g, '-')}`}
+									role="region"
+									aria-labelledby={`submenu-${link.name
+										.toLowerCase()
+										.replace(/\s+/g, '-')}-label`}
+								>
+									<h3
+										id={`submenu-${link.name
+											.toLowerCase()
+											.replace(/\s+/g, '-')}-label`}
+										class="sr-only"
+									>
+										{link.name} submenu
+									</h3>
+									{link.childrenLinks.map((childLink) => (
+										<a
+											href={childLink.href}
+											class={subLinkClasses}
+											aria-current={
+												childLink.href === Astro.url.pathname
+													? 'page'
+													: undefined
+											}
+										>
+											{childLink.name}
+										</a>
+									))}
+								</div>
+							</div>
+						) : (
+							<a
+								href={link.href}
+								class={linkClasses}
+								aria-current={
+									link.href === Astro.url.pathname ? 'page' : undefined
+								}
+							>
+								{link.name}
+							</a>
+						)}
+					</div>
+				))
+			}
+		</nav>
+
+		<!-- Mobile CTA Buttons -->
+		<div class="pt-4 pb-3 border-t border-gray-200 space-y-3">
+			<Button
+				text="Contact"
+				type="link"
+				href="/contact"
+				class={`block w-full text-center py-3 px-4 rounded-md font-medium transition-colors duration-200 ${
+					isOverlay
+						? 'text-white hover:text-primary-400 hover:bg-white/10'
+						: 'text-gray-700 hover:text-primary-500 hover:bg-gray-50'
+				}`}
+			/>
+			<Button
+				text="Schedule a Call"
+				href="/schedule-call"
+				class="block w-full text-center button secondary"
+			/>
+		</div>
+	</div>
+</div>
+
+<script>
+	// Handle submenu toggles
+	document.addEventListener('click', (e: Event) => {
+		const target = e.target as Element;
+		const toggle = target.closest('[data-submenu-toggle]') as HTMLButtonElement;
+		if (!toggle) return;
+
+		e.preventDefault();
+
+		const submenu = toggle.parentElement?.querySelector(
+			'.submenu'
+		) as HTMLElement;
+		const icon = toggle.querySelector('svg');
+		const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+		if (submenu && icon) {
+			if (isExpanded) {
+				submenu.classList.add('hidden');
+				icon.classList.remove('rotate-180');
+				toggle.setAttribute('aria-expanded', 'false');
+			} else {
+				submenu.classList.remove('hidden');
+				icon.classList.add('rotate-180');
+				toggle.setAttribute('aria-expanded', 'true');
+			}
+		}
+	});
+</script>
+
+<style>
+	/* Active page indicator */
+	a[aria-current='page'] {
+		color: rgb(var(--color-primary-500, 59 130 246)) !important;
+		font-weight: 600;
+	}
+
+	/* Submenu animation */
+	.submenu {
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.3s ease-out;
+	}
+
+	.submenu:not(.hidden) {
+		max-height: 500px;
+	}
+
+	/* Icon rotation */
+	.rotate-180 {
+		transform: rotate(180deg);
+	}
+</style>

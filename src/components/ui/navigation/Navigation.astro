@@ -1,0 +1,114 @@
+---
+// Navigation.astro
+interface NavLink {
+	name: string;
+	href: string;
+	childrenLinks?: NavLink[];
+}
+
+interface Props {
+	navLinks: NavLink[];
+	isOverlay?: boolean;
+	class?: string;
+}
+
+const { navLinks, isOverlay = false, class: className = '' } = Astro.props;
+
+const linkClasses = [
+	'wsl-text-lg',
+	'capitalize',
+	'transition-colors',
+	'duration-200',
+	'hover:text-primary-500',
+	'focus:outline-none',
+	'focus:ring-2',
+	'focus:ring-offset-2',
+	'focus:ring-primary-500',
+	'rounded-sm',
+	'px-2',
+	'py-1',
+	isOverlay ? 'text-gray-200' : 'text-gray-700',
+].join(' ');
+---
+
+<nav
+	class={className}
+	role="navigation"
+	aria-label="Main navigation"
+>
+	<ul class="flex lg:gap-6 xl:gap-8">
+		{
+			navLinks.map((link) => (
+				<li class="relative group flex items-center">
+					{link.childrenLinks ? (
+						<div class="dropdown">
+							<button
+								class={`${linkClasses} flex items-center gap-1`}
+								aria-haspopup="true"
+								aria-expanded="false"
+								data-dropdown-toggle
+							>
+								{link.name}
+								<svg
+									class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="currentColor"
+									aria-hidden="true"
+								>
+									<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6l-6-6z" />
+								</svg>
+							</button>
+							<div
+								class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+								role="menu"
+								aria-labelledby="dropdown-toggle"
+							>
+								<div class="py-1">
+									{link.childrenLinks.map((childLink) => (
+										<a
+											href={childLink.href}
+											class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150"
+											role="menuitem"
+										>
+											{childLink.name}
+										</a>
+									))}
+								</div>
+							</div>
+						</div>
+					) : (
+						<a
+							href={link.href}
+							class={linkClasses}
+							aria-current={
+								link.href === Astro.url.pathname ? 'page' : undefined
+							}
+						>
+							{link.name}
+						</a>
+					)}
+				</li>
+			))
+		}
+	</ul>
+</nav>
+
+<style>
+	/* Dropdown hover effects */
+	.dropdown:hover .dropdown-menu {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	/* Active page indicator */
+	a[aria-current='page'] {
+		color: rgb(var(--color-primary-500, 59 130 246)) !important;
+		font-weight: 600;
+	}
+
+	/* Fix services dropdown alignment */
+	.dropdown button {
+		align-items: center;
+	}
+</style>
