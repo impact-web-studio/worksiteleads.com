@@ -70,25 +70,25 @@ const altText = isDecorative ? '' : generateAltText();
 
 // Base classes for styling
 const baseClasses = `
-  inline-block
-  transition-opacity
-  duration-200
-  ${config.class}
-  ${className}
+	inline-block
+	transition-opacity
+	duration-200
+	${config.class}
+	${className}
 `;
 
 // Focus and hover states for interactive logos
 const interactiveClasses = href
 	? `
-  hover:opacity-80
-  focus:outline-none
-  focus:ring-2
-  focus:ring-blue-500
-  focus:ring-offset-2
-  rounded-sm
-  focus-visible:ring-2
-  focus-visible:ring-blue-500
-  focus-visible:ring-offset-2
+	hover:opacity-80
+	focus:outline-none
+	focus:ring-2
+	focus:ring-blue-500
+	focus:ring-offset-2
+	rounded-sm
+	focus-visible:ring-2
+	focus-visible:ring-blue-500
+	focus-visible:ring-offset-2
 `
 	: '';
 
