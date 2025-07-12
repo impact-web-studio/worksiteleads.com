@@ -75,7 +75,7 @@ const mobileButtonClasses = [
 	class={headerClasses}
 	data-overlay={isOverlay}
 >
-	<div class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8 lg:py-8">
+	<div class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8 lg:py-4 xl:py-8">
 		<div class="flex justify-between items-center py-4">
 			<!-- Logo -->
 			<Logo
@@ -95,7 +95,9 @@ const mobileButtonClasses = [
 			/>
 
 			<!-- Desktop CTA Buttons -->
-			<div class="hidden lg:flex lg:items-center lg:justify-center lg:gap-2">
+			<div
+				class="hidden lg:flex lg:items-center lg:justify-center lg:gap-4 xl:gap-8"
+			>
 				<Button
 					text="Contact"
 					type="link"
@@ -106,7 +108,7 @@ const mobileButtonClasses = [
 				<Button
 					text="Schedule a Call"
 					href="/schedule-call"
-					class="button secondary"
+					class="wsl-text-lg font-semibold"
 				/>
 			</div>
 
