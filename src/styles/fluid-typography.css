@@ -15,7 +15,7 @@
 
 /* Auto-scales between 14px - 18px */
 .wsl-text-sm {
-	font-size: clamp(0.875rem, 0.8036rem + 0.3571vw, 1.125rem);
+	font-size: clamp(1rem, 0.8036rem + 0.3571vw, 1.125rem);
 }
 /* Auto-scales between 16px - 20px */
 .wsl-text-lg {

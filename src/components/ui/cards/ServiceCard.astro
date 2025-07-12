@@ -32,46 +32,55 @@ const styleConfig = {
 		background: 'bg-gray-500',
 		title: 'text-primary-500',
 		description: 'text-white-300',
-		link: 'text-accent-300',
+		link: 'text-accent-300 hover:text-accent-700',
 	},
 	'2': {
 		background: 'bg-gray-200',
 		title: 'text-black-700',
 		description: 'text-black-500',
-		link: 'text-accent-700',
+		link: 'text-accent-700 hover:text-accent-300',
 	},
 	'3': {
 		background: 'bg-primary-500',
 		title: 'text-black-700',
 		description: 'text-black-500',
-		link: 'text-accent-700',
+		link: 'text-accent-700 hover:text-accent-300',
 	},
 };
 
 const cardStyle = styleConfig[variation];
 ---
 
-<article class={`${cardStyle.background}`}>
+<article
+	class:list={[
+		`${cardStyle.background}`,
+		'px-4 py-6 flex flex-col gap-8',
+		'rounded-2xl',
+	]}
+>
 	<div class="image-wrapper">
 		<Image
 			src={image}
 			alt={imageAlt}
 		/>
 	</div>
-	<div class="content-wrapper">
-		<h2
-			class={`heading-l3 ${cardStyle.title}`}
-			set:html={title}
-		/>
-		<p
-			class={`wsl-text-sm ${cardStyle.description}`}
-			set:html={description}
-		/>
+	<div class:list={['content-wrapper', 'flex flex-col gap-6']}>
+		<div class="flex flex-col gap-3">
+			<h2
+				class={`heading-l3 ${cardStyle.title}`}
+				set:html={title}
+			/>
+			<p
+				class={`wsl-text-sm ${cardStyle.description}`}
+				set:html={description}
+			/>
+		</div>
 		<Button
 			text="Learn More"
 			href={href}
 			type="link"
 			linkColor={cardStyle.link}
+			class="font-semibold"
 		/>
 	</div>
 </article>
