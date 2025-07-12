@@ -191,7 +191,6 @@ h6 {
  */
 p {
 	line-height: var(--line-height-normal); /* 1 */
-	margin-bottom: 1rem; /* 2 */
 	font-weight: 600;
 }
 
@@ -226,33 +225,6 @@ a:focus {
 	/* outline: 2px solid var(--color-accent-700); */
 	outline-offset: 2px;
 	border-radius: 2px;
-}
-
-/*
- * List Styles
- * 1. Consistent spacing for readability
- * 2. Professional bullet styling
- * 3. Proper indentation
- */
-ul,
-ol {
-	margin-bottom: 1rem; /* 1 */
-	padding-left: 2rem; /* 3 */
-}
-
-ul li,
-ol li {
-	margin-bottom: 0.5rem; /* 1 */
-	color: var(--color-gray-600); /* Match paragraph color */
-}
-
-ul li::marker {
-	color: var(--color-primary-500); /* 2 - Brand color for bullets */
-}
-
-ol li::marker {
-	color: var(--color-primary-500); /* 2 - Brand color for numbers */
-	font-weight: 600; /* Emphasize numbers */
 }
 
 /*

@@ -5,6 +5,7 @@ interface Props {
 	type?: 'button' | 'link';
 	variation?: 'primary' | 'secondary';
 	linkColor?: string;
+	class?: string;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
 	type = 'button',
 	variation = 'primary',
 	linkColor = 'text-gray-50',
+	class: className,
 } = Astro.props as Props;
 
 const buttonClasses = {
@@ -27,15 +29,23 @@ const colorClass = type === 'button' && buttonClasses[variation];
 	type && type === 'button' ? (
 		<a
 			href={href}
-			class={`inline-flex items-center px-4 py-2.5 wsl-text-lg font-semibold text-black ${colorClass}
-rounded-lg transition-colors duration-200 focus:outline-none
-focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent`}
+			class:list={[
+				'inline-flex items-center px-4 py-2.5 rounded-lg',
+				'text-black font-semibold wsl-text-lg',
+				'transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent',
+				colorClass,
+				className,
+			]}
 			set:html={text}
 		/>
 	) : (
 		<a
 			href={href}
-			class={`wsl-text-lg font-semibold transition-colors duration-200 ${linkColor}`}
+			class:list={[
+				'transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent',
+				linkColor,
+				className,
+			]}
 			set:html={text}
 		/>
 	)

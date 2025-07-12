@@ -1,6 +1,7 @@
 ---
 // Header.astro
 import Logo from '@/components/ui/media/LogoImage.astro';
+import Button from '../buttons/Button.astro';
 
 interface Props {
 	isOverlay?: boolean;
@@ -63,27 +64,60 @@ const { isOverlay = false } = Astro.props;
 			/>
 
 			<!-- Navigation -->
-			<nav class="hidden md:flex space-x-8">
-				{
-					navLinks.map((link) =>
-						link.childrenLinks ? (
-							<a
-								class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-200 hover:text-primary-500`}
-								href={link.href}
-							>
-								{link.name}
-							</a>
-						) : (
-							<a
-								class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-200 hover:text-primary-500`}
-								href={link.href}
-							>
-								{link.name}
-							</a>
+			<nav class="hidden md:flex md:items-center md:justify-center space-x-8">
+				<ul class="flex lg:gap-8">
+					{
+						navLinks.map((link) =>
+							link.childrenLinks ? (
+								<li class="flex justify-center items-center ">
+									<a
+										class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-200 hover:text-primary-500 flex gap-1`}
+										href={link.href}
+									>
+										{link.name}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+										>
+											<path
+												fill="currentColor"
+												d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6l-6-6z"
+											/>
+										</svg>
+									</a>
+								</li>
+							) : (
+								<li>
+									<a
+										class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-200 hover:text-primary-500`}
+										href={link.href}
+									>
+										{link.name}
+									</a>
+								</li>
+							)
 						)
-					)
-				}
+					}
+				</ul>
 			</nav>
+			<div class="cta-group">
+				<Button
+					text="Contact"
+					type="link"
+					linkColor="text-gray-200"
+					href="/contact"
+					class="wsl-text-lg capitalize"
+				/>
+
+				>
+				<a
+					href="/schedule-call"
+					class="button secondary"
+					>Schedule a Call</a
+				>
+			</div>
 
 			<!-- Mobile menu button -->
 			<button
