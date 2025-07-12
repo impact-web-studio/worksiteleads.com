@@ -65,34 +65,33 @@ const { isOverlay = false } = Astro.props;
 			<!-- Navigation -->
 			<nav class="hidden md:flex space-x-8">
 				{
-					navLinks.map((link) => (
-							<a>
-								{link.childrenLinks ? <a>test</a> : <a>qual</a> }
+					navLinks.map((link) =>
+						link.childrenLinks ? (
+							<a
+								class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-200 hover:text-primary-500`}
+								href={link.href}
+							>
+								{link.name}
 							</a>
-					
-						<a
-							class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-100 hover:text-primary-500`}
-							href={link.href}
-						>
-							{link.name}
-						</a>
-					))
+						) : (
+							<a
+								class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-200 hover:text-primary-500`}
+								href={link.href}
+							>
+								{link.name}
+							</a>
+						)
+					)
 				}
-				<a
-					href="/contact"
-					class={`wsl-text-lg transition-colors duration-200 text-white hover:text-gray-200`}
-					>Contact</a
-				>
 			</nav>
 
 			<!-- Mobile menu button -->
 			<button
-				class={`md:hidden p-2 rounded-md transition-colors duration-200
-          ${
-						isOverlay
-							? 'text-white hover:text-gray-200 hover:bg-white/10'
-							: 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
-					}
+				class={`md:hidden p-2 rounded-md transition-colors duration-200 ${
+					isOverlay
+						? 'text-white hover:text-gray-200 hover:bg-white/10'
+						: 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+				}
         `}
 				aria-label="Toggle navigation menu"
 			>
