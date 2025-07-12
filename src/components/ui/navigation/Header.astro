@@ -51,7 +51,7 @@ const { isOverlay = false } = Astro.props;
 	}
 `}
 >
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+	<div class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8 lg:py-8">
 		<div class="flex justify-between items-center py-4">
 			<!-- Logo -->
 			<Logo
@@ -64,14 +64,14 @@ const { isOverlay = false } = Astro.props;
 			/>
 
 			<!-- Navigation -->
-			<nav class="hidden md:flex md:items-center md:justify-center space-x-8">
-				<ul class="flex lg:gap-8">
+			<nav class="hidden lg:flex lg:items-center lg:justify-center">
+				<ul class="flex lg:gap-6 xl:gap-8">
 					{
 						navLinks.map((link) =>
 							link.childrenLinks ? (
-								<li class="flex justify-center items-center ">
+								<li class="flex justify-center items-center">
 									<a
-										class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-200 hover:text-primary-500 flex gap-1`}
+										class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-200 hover:text-primary-500 flex xl:gap-1`}
 										href={link.href}
 									>
 										{link.name}
@@ -102,26 +102,26 @@ const { isOverlay = false } = Astro.props;
 					}
 				</ul>
 			</nav>
-			<div class="cta-group">
+			<div class="hidden lg:flex lg:items-center lg:justify-center lg:gap-2">
 				<Button
 					text="Contact"
 					type="link"
 					linkColor="text-gray-200"
 					href="/contact"
-					class="wsl-text-lg capitalize"
+					class="wsl-text-lg font-semibold capitalize hover:text-primary-500"
 				/>
 
 				>
-				<a
+				<Button
+					text="Schedule a Call"
 					href="/schedule-call"
 					class="button secondary"
-					>Schedule a Call</a
-				>
+				/>
 			</div>
 
 			<!-- Mobile menu button -->
 			<button
-				class={`md:hidden p-2 rounded-md transition-colors duration-200 ${
+				class={`lg:hidden p-2 rounded-md transition-colors duration-200 ${
 					isOverlay
 						? 'text-white hover:text-gray-200 hover:bg-white/10'
 						: 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
