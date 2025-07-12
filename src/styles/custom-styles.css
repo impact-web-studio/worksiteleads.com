@@ -79,8 +79,6 @@ select {
 }
 
 button {
-	background: none; /* 2 */
-	border: none; /* 2 */
 	cursor: pointer; /* 3 */
 }
 
@@ -357,15 +355,4 @@ figcaption {
 ::-moz-selection {
 	background-color: var(--color-primary-200); /* 1 */
 	color: var(--color-primary-900); /* 2 */
-}
-
-/*
- * Focus Styles
- * 1. Consistent focus indicators across all elements
- * 2. Accessible focus ring
- * 3. Brand-consistent color
- */
-:focus {
-	outline: 2px solid var(--color-primary-500); /* 1, 2, 3 */
-	outline-offset: 2px;
 }

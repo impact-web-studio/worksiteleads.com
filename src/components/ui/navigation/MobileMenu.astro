@@ -19,33 +19,28 @@ const { navLinks, isOverlay = false, id = 'mobile-menu' } = Astro.props;
 const menuClasses = [
 	'hidden',
 	'lg:hidden',
-	'absolute',
-	'top-full',
+	'fixed',
+	'top-0',
 	'left-0',
 	'w-full',
-	'z-40',
-	'border-t',
-	isOverlay
-		? 'bg-black/90 backdrop-blur-md border-white/20'
-		: 'bg-white shadow-lg border-gray-200',
+	'h-full',
+	'z-40', // Lower than header's z-50
+	isOverlay ? 'bg-black/95' : 'bg-white',
 ].join(' ');
 
 const linkClasses = [
 	'block',
 	'px-4',
 	'py-3',
-	'text-base',
+	'wsl-text-base',
 	'font-medium',
 	'capitalize',
 	'transition-colors',
 	'duration-200',
 	'border-b',
-	'focus:outline-none',
-	'focus:ring-2',
-	'focus:ring-inset',
 	isOverlay
-		? 'text-white hover:text-primary-400 hover:bg-white/10 border-white/20 focus:ring-white/20'
-		: 'text-gray-700 hover:text-primary-500 hover:bg-gray-50 border-gray-200 focus:ring-primary-500',
+		? 'text-gray-200 hover:text-primary-500 '
+		: 'text-gray-700 hover:text-primary-500',
 ].join(' ');
 
 const subLinkClasses = [
@@ -58,11 +53,9 @@ const subLinkClasses = [
 	'duration-200',
 	'border-b',
 	'focus:outline-none',
-	'focus:ring-2',
-	'focus:ring-inset',
 	isOverlay
-		? 'text-gray-300 hover:text-primary-400 hover:bg-white/5 border-white/10 focus:ring-white/20'
-		: 'text-gray-600 hover:text-primary-500 hover:bg-gray-50 border-gray-100 focus:ring-primary-500',
+		? 'text-gray-200 hover:text-primary-500 hover:bg-white/5 border-white/10 '
+		: 'text-gray-600 hover:text-primary-500 hover:bg-gray-50 border-gray-100 ',
 ].join(' ');
 ---
 
@@ -74,7 +67,11 @@ const subLinkClasses = [
 	aria-hidden="true"
 	aria-labelledby="mobile-menu-label"
 >
-	<div class="px-4 pt-2 pb-3 space-y-1">
+	<!-- Header spacer to push content below the header -->
+	<div class="h-20 sm:h-24 lg:h-28"></div>
+
+	<!-- Scrollable content area -->
+	<div class="flex flex-col justify-between overflow-y-auto px-4 pb-8">
 		<!-- Screen reader label -->
 		<h2
 			id="mobile-menu-label"
@@ -87,6 +84,7 @@ const subLinkClasses = [
 		<nav
 			role="navigation"
 			aria-label="Mobile navigation"
+			class="pt-6"
 		>
 			{
 				navLinks.map((link) => (
@@ -165,21 +163,26 @@ const subLinkClasses = [
 		</nav>
 
 		<!-- Mobile CTA Buttons -->
-		<div class="pt-4 pb-3 border-t border-gray-200 space-y-3">
+		<div
+			class="flex flex-col"
+			style={`border-color: ${
+				isOverlay ? 'rgba(255,255,255,0.2)' : 'rgb(229,231,235)'
+			}`}
+		>
 			<Button
 				text="Contact"
 				type="link"
 				href="/contact"
-				class={`block w-full text-center py-3 px-4 rounded-md font-medium transition-colors duration-200 ${
+				class={`py-3 px-4 font-semibold transition-colors duration-200 ${
 					isOverlay
-						? 'text-white hover:text-primary-400 hover:bg-white/10'
+						? 'text-gray-200 hover:text-primary-500 hover:bg-white/10'
 						: 'text-gray-700 hover:text-primary-500 hover:bg-gray-50'
 				}`}
 			/>
 			<Button
 				text="Schedule a Call"
 				href="/schedule-call"
-				class="block w-full text-center button secondary"
+				class="w-full text-center"
 			/>
 		</div>
 	</div>
@@ -215,9 +218,28 @@ const subLinkClasses = [
 </script>
 
 <style>
+	/* Mobile menu slide animation */
+	#mobile-menu {
+		transform: translateY(-100%);
+		transition: transform 0.5s ease-in-out;
+	}
+
+	#mobile-menu.menu-open {
+		transform: translateY(0);
+	}
+
+	#mobile-menu.menu-closing {
+		transform: translateY(-100%);
+	}
+
+	/* Ensure menu is visible when not hidden */
+	#mobile-menu:not(.hidden) {
+		display: block;
+	}
+
 	/* Active page indicator */
 	a[aria-current='page'] {
-		color: rgb(var(--color-primary-500, 59 130 246)) !important;
+		color: var(--color-primary-500) !important;
 		font-weight: 600;
 	}
 

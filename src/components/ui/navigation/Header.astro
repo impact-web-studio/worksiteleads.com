@@ -75,7 +75,7 @@ const mobileButtonClasses = [
 	class={headerClasses}
 	data-overlay={isOverlay}
 >
-	<div class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8 lg:py-4 xl:py-8">
+	<div class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8 lg:py-8">
 		<div class="flex justify-between items-center py-4">
 			<!-- Logo -->
 			<Logo
@@ -95,9 +95,7 @@ const mobileButtonClasses = [
 			/>
 
 			<!-- Desktop CTA Buttons -->
-			<div
-				class="hidden lg:flex lg:items-center lg:justify-center lg:gap-4 xl:gap-8"
-			>
+			<div class="hidden lg:flex lg:items-center lg:justify-center lg:gap-2">
 				<Button
 					text="Contact"
 					type="link"
@@ -108,7 +106,7 @@ const mobileButtonClasses = [
 				<Button
 					text="Schedule a Call"
 					href="/schedule-call"
-					class="wsl-text-lg font-semibold"
+					class="button secondary"
 				/>
 			</div>
 
@@ -155,14 +153,14 @@ const mobileButtonClasses = [
 			</button>
 		</div>
 	</div>
-
-	<!-- Mobile Menu -->
-	<MobileMenu
-		navLinks={navLinks}
-		isOverlay={isOverlay}
-		id="mobile-menu"
-	/>
 </header>
+
+<!-- Mobile Menu moved outside header -->
+<MobileMenu
+	navLinks={navLinks}
+	isOverlay={isOverlay}
+	id="mobile-menu"
+/>
 
 <script>
 	class MobileMenuController {
@@ -228,8 +226,16 @@ const mobileButtonClasses = [
 			this.isOpen = true;
 			this.menu.setAttribute('aria-hidden', 'false');
 			this.toggle.setAttribute('aria-expanded', 'true');
+
+			// Show menu and trigger slide animation
 			this.menu.classList.remove('hidden');
-			this.menu.classList.add('animate-slideDown');
+			this.menu.classList.remove('menu-closing');
+
+			// Force reflow to ensure the menu is rendered before animation
+			this.menu.offsetHeight;
+
+			// Start slide animation
+			this.menu.classList.add('menu-open');
 
 			// Animate hamburger to close icon
 			this.hamburgerIcon.classList.add('opacity-0', '-rotate-90');
@@ -246,8 +252,10 @@ const mobileButtonClasses = [
 			this.isOpen = false;
 			this.menu.setAttribute('aria-hidden', 'true');
 			this.toggle.setAttribute('aria-expanded', 'false');
-			this.menu.classList.add('hidden');
-			this.menu.classList.remove('animate-slideDown');
+
+			// Start slide out animation
+			this.menu.classList.remove('menu-open');
+			this.menu.classList.add('menu-closing');
 
 			// Animate close icon back to hamburger
 			this.closeIcon.classList.add('opacity-0', 'rotate-90');
@@ -255,6 +263,14 @@ const mobileButtonClasses = [
 			this.hamburgerIcon.classList.remove('opacity-0', '-rotate-90');
 
 			document.body.classList.remove('overflow-hidden');
+
+			// Hide menu after animation completes
+			setTimeout(() => {
+				if (!this.isOpen && this.menu) {
+					this.menu.classList.add('hidden');
+					this.menu.classList.remove('menu-closing');
+				}
+			}, 300); // Match animation duration
 		}
 	}
 
@@ -282,20 +298,23 @@ const mobileButtonClasses = [
 		}
 	}
 
-	/* Mobile menu animations */
+	/* Mobile menu slide animations */
 	@keyframes slideDown {
 		from {
-			opacity: 0;
-			transform: translateY(-10px);
+			transform: translateY(-100%);
 		}
 		to {
-			opacity: 1;
 			transform: translateY(0);
 		}
 	}
 
-	.animate-slideDown {
-		animation: slideDown 0.2s ease-out;
+	@keyframes slideUp {
+		from {
+			transform: translateY(0);
+		}
+		to {
+			transform: translateY(-100%);
+		}
 	}
 
 	/* Mobile menu icon animations */
