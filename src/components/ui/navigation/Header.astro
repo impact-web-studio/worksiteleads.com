@@ -6,6 +6,39 @@ interface Props {
 	isOverlay?: boolean;
 }
 
+const navLinks = [
+	{
+		name: 'home',
+		href: '/',
+	},
+	{
+		name: 'about',
+		href: '/about',
+	},
+	{
+		name: 'services',
+		href: '/services',
+		childrenLinks: [
+			{
+				name: 'Web Develoment',
+				href: '/web-development',
+			},
+			{
+				name: 'AI Automation',
+				href: '/ai-automation',
+			},
+			{
+				name: 'Digital Marketing',
+				href: '/digital-marketing',
+			},
+		],
+	},
+	{
+		name: 'Who We Help',
+		href: '/who-we-help',
+	},
+];
+
 const { isOverlay = false } = Astro.props;
 ---
 
@@ -31,52 +64,23 @@ const { isOverlay = false } = Astro.props;
 
 			<!-- Navigation -->
 			<nav class="hidden md:flex space-x-8">
-				<a
-					href="/"
-					class={`
-          font-medium transition-colors duration-200
-          ${
-						isOverlay
-							? 'text-white hover:text-gray-200'
-							: 'text-gray-700 hover:text-gray-900'
-					}
-        `}
-					>Home</a
-				>
-				<a
-					href="/about"
-					class={`
-          font-medium transition-colors duration-200
-          ${
-						isOverlay
-							? 'text-white hover:text-gray-200'
-							: 'text-gray-700 hover:text-gray-900'
-					}
-        `}
-					>About</a
-				>
-				<a
-					href="/services"
-					class={`
-          font-medium transition-colors duration-200
-          ${
-						isOverlay
-							? 'text-white hover:text-gray-200'
-							: 'text-gray-700 hover:text-gray-900'
-					}
-        `}
-					>Services</a
-				>
+				{
+					navLinks.map((link) => (
+							<a>
+								{link.childrenLinks ? <a>test</a> : <a>qual</a> }
+							</a>
+					
+						<a
+							class={`wsl-text-lg capitalize transition-colors duration-200 text-gray-100 hover:text-primary-500`}
+							href={link.href}
+						>
+							{link.name}
+						</a>
+					))
+				}
 				<a
 					href="/contact"
-					class={`
-          font-medium transition-colors duration-200
-          ${
-						isOverlay
-							? 'text-white hover:text-gray-200'
-							: 'text-gray-700 hover:text-gray-900'
-					}
-        `}
+					class={`wsl-text-lg transition-colors duration-200 text-white hover:text-gray-200`}
 					>Contact</a
 				>
 			</nav>

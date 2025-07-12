@@ -1,12 +1,21 @@
 ---
-import { Image } from 'astro:assets';
 import ServiceCard from '@/components/ui/cards/ServiceCard.astro';
 
 import WebDesignImage from '@/assets/web-development.png';
 import AIAutomation from '@/assets/ai-automation.png';
 import DigitalMarketingImage from '@/assets/digital-marketing.png';
 
-const services = [
+type Service = {
+	id: string;
+	title: string;
+	description: string;
+	image: ImageMetadata;
+	imageAlt: string;
+	href: string;
+	variation: '1' | '2' | '3';
+};
+
+const services: Service[] = [
 	{
 		id: 'web-design',
 		title: 'Web Design & Development',
