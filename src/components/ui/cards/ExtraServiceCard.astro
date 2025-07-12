@@ -32,26 +32,25 @@ const iconComponents = {
 const Icon = iconComponents[iconName as keyof typeof iconComponents];
 ---
 
-<article class:list={[]}>
-	<div class="icon-wrapper">
-		{Icon && <Icon alt={iconAlt} />}
+<article class:list={['flex flex-col gap-2 justify-center']}>
+	<div class="icon-wrapper w-full max-w-[100px] text-primary-500 self-center">
+		{
+			Icon && (
+				<Icon
+					alt={iconAlt}
+					class="w-full"
+				/>
+			)
+		}
 	</div>
-	<div
-		class:list={[
-			'content-wrapper',
-			'flex flex-col gap-6',
-			'min-w-[40%] xl:min-w-[50%]',
-		]}
-	>
-		<div class="flex flex-col gap-3">
-			<h3
-				class={`heading-l3`}
-				set:html={title}
-			/>
-			<p
-				class={`wsl-text-sm`}
-				set:html={description}
-			/>
-		</div>
+	<div class:list={['content-wrapper', 'flex flex-col gap-2 text-center']}>
+		<h3
+			class={`heading-l3`}
+			set:html={title}
+		/>
+		<p
+			class={`wsl-text-sm`}
+			set:html={description}
+		/>
 	</div>
 </article>
