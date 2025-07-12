@@ -1,0 +1,57 @@
+---
+import AIChatbot from '@/assets/icons/AIChatbot.astro';
+import Invoicing from '@/assets/icons/Invoicing.astro';
+import Reviews from '@/assets/icons/Reviews.astro';
+import Conversations from '@/assets/icons/Conversations.astro';
+import Track from '@/assets/icons/Track.astro';
+import Automate from '@/assets/icons/Automate.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	iconName: string;
+	iconAlt: string;
+}
+
+const {
+	title = 'title',
+	description = 'description',
+	iconName,
+	iconAlt,
+} = Astro.props as Props;
+
+const iconComponents = {
+	AIChatbot,
+	Invoicing,
+	Reviews,
+	Conversations,
+	Track,
+	Automate,
+};
+
+const Icon = iconComponents[iconName as keyof typeof iconComponents];
+---
+
+<article class:list={[]}>
+	<div class="icon-wrapper">
+		{Icon && <Icon alt={iconAlt} />}
+	</div>
+	<div
+		class:list={[
+			'content-wrapper',
+			'flex flex-col gap-6',
+			'min-w-[40%] xl:min-w-[50%]',
+		]}
+	>
+		<div class="flex flex-col gap-3">
+			<h3
+				class={`heading-l3`}
+				set:html={title}
+			/>
+			<p
+				class={`wsl-text-sm`}
+				set:html={description}
+			/>
+		</div>
+	</div>
+</article>

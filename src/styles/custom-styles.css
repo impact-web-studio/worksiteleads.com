@@ -204,28 +204,6 @@ p {
 }
 
 /*
- * Link Styles
- * 1. Use accent color for professional appearance
- * 2. Smooth transition for hover effects
- * 3. Underline on hover for accessibility
- */
-a {
-	/* color: var(--color-accent-700); 1 */
-	/* transition: color var(--duration-200) var(--ease-smooth); 2 */
-}
-
-a:hover {
-	/* color: var(--color-accent-800); Darker on hover */
-	/* text-decoration: underline; 3 */
-}
-
-a:focus {
-	/* outline: 2px solid var(--color-accent-700); */
-	outline-offset: 2px;
-	border-radius: 2px;
-}
-
-/*
  * Code and Pre Styles
  * 1. Use monospace font for code
  * 2. Subtle background for code blocks
