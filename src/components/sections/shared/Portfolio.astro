@@ -1,0 +1,60 @@
+---
+import PortfolioCard from '@/components/ui/cards/PortfolioCard.astro';
+// Image Imports
+
+type Project = {
+	title: string;
+	description: string;
+	image: ImageMetadata;
+	href: string;
+};
+
+const projects: Project[] = [
+	{
+		title: '',
+		description: '',
+		image: '',
+		href: '',
+	},
+	{
+		title: '',
+		description: '',
+		image: '',
+		href: '',
+	},
+	{
+		title: '',
+		description: '',
+		image: '',
+		href: '',
+	},
+];
+
+interface Props {
+	title: string;
+	subtitle: string;
+}
+
+const {
+	title = 'Recent Works',
+	subtitle = "We've had the privilege of working with a wide range of clients from across North America — Our websites are more than just pretty designs; they're built to drive results.",
+} = Astro.props as Props;
+---
+
+<section>
+	<div class="content-container">
+		<div class="section-title">
+			<h2
+				class="text-primary-500"
+				set:html={title}
+			/>
+			<p
+				class="subtitle"
+				set:html={subtitle}
+			/>
+		</div>
+		<div class="portfolio-card-group">
+			{projects.map((project) => <PortfolioCard />)}
+		</div>
+	</div>
+</section>
