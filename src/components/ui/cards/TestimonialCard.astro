@@ -9,14 +9,21 @@ interface Props {
 const { client, review, class: className } = Astro.props as Props;
 ---
 
-<article class={`flex flex-col bg-gray-200 rounded-lg p-5 ${className}`}>
-	<QuotationIcon />
-	<blockquote
-		class="relative text-xs sm:text-sm md:text-base"
-		set:html={review}
-	/>
-	<p
-		class="uppercase text-lg sm:text-xl font-black font-montserrat tracking-tight"
-		set:html={client}
-	/>
+<article class={`flex flex-col bg-gray-200 rounded-lg gap-3 p-5 ${className}`}>
+	<QuotationIcon class="text-gray-300" />
+	<div class="flex flex-col gap-8">
+		<blockquote
+			class="relative text-xs sm:text-sm md:text-base"
+			set:html={review}
+		/>
+		<div>
+			<p
+				class="uppercase text-normal sm:text-lg !font-extrabold !font-montserrat tracking-tight"
+				set:html={client}
+			/>
+			<!-- <p class="uppercase text-sm sm:text-md font-black font-montserrat">
+				Manitoba, ON
+			</p> -->
+		</div>
+	</div>
 </article>
