@@ -3,6 +3,8 @@ interface Props {
 	title: string;
 	subtitle: string;
 	backgroundColor?: string;
+	headerColor?: string;
+	textColor?: string;
 	centerHeader?: boolean;
 }
 
@@ -10,6 +12,8 @@ const {
 	title = 'Title',
 	subtitle = 'subtitle',
 	backgroundColor = 'bg-gray-100',
+	textColor = 'text-gray-600',
+	headerColor = 'text-gray-600',
 	centerHeader = false,
 } = Astro.props as Props;
 
@@ -23,10 +27,10 @@ const headerAlignment =
 		<div class={`${headerAlignment} max-w-3xl mx-auto flex flex-col gap-3`}>
 			<h2
 				id="services-heading"
-				class="heading-l1"
+				class={`heading-l1 ${headerColor}`}
 				set:html={title}
 			/>
-			<p class="capitalize wsl-text-lg text-gray-600 leading-relaxed">
+			<p class={`wsl-text-lg leading-relaxed ${textColor}`}>
 				{subtitle}
 			</p>
 		</div>

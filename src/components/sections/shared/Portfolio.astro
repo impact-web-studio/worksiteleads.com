@@ -47,8 +47,11 @@ const {
 <SectionContainer
 	title={title}
 	subtitle={subtitle}
+	backgroundColor="bg-gray-700"
+	headerColor="text-gray-50"
+	textColor="text-gray-200"
 >
-	<div class="portfolio-card-group">
+	<div class="portfolio-card-group flex flex-wrap justify-between">
 		{
 			projects.map((project) => (
 				<PortfolioCard
@@ -56,6 +59,7 @@ const {
 					description={project.description}
 					image={project.image}
 					href={project.href}
+					class="max-w-[30%]"
 				/>
 			))
 		}
