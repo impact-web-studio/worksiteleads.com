@@ -52,7 +52,7 @@ const {
 	headerColor="text-primary-500"
 	textColor="text-gray-200"
 >
-	<div class="portfolio-card-group flex flex-wrap justify-between gap-y-12">
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 		{
 			projects.map((project) => (
 				<PortfolioCard
@@ -60,7 +60,7 @@ const {
 					description={project.description}
 					image={project.image}
 					href={project.href}
-					class="min-w-52 max-w-[30%]"
+					class=""
 				/>
 			))
 		}

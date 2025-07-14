@@ -23,15 +23,16 @@ const {
 	>
 		<div class="flex flex-col gap-2 h-full">
 			<div
-				class="image-container transition-transform duration-800 ease-out group-hover:scale-108"
+				class="image-container transition-transform duration-800 ease-out group-hover:scale-108 flex justify-center"
 			>
 				<Image
 					src={image}
 					alt={`${title} preview`}
+					class="w-full h-auto max-w-md object-contain"
 				/>
 			</div>
 
-			<div class="flex flex-col gap-10 flex-1">
+			<div class="flex flex-col gap-4 flex-1 text-left">
 				<div class="flex flex-col gap-2 flex-1">
 					<h3
 						class="text-gray-200 wsl-text-lg"
@@ -42,7 +43,7 @@ const {
 						set:html={description}
 					/>
 				</div>
-				<p class="text-primary-500 !font-bold text-sm">Visit Website</p>
+				<p class="text-primary-500 !font-bold text-sm mt-auto">Visit Website</p>
 			</div>
 		</div>
 	</a>
