@@ -1,4 +1,5 @@
 ---
+import SectionContainer from './SectionContainer.astro';
 import PortfolioCard from '@/components/ui/cards/PortfolioCard.astro';
 // Image Imports
 
@@ -43,30 +44,20 @@ const {
 } = Astro.props as Props;
 ---
 
-<section>
-	<div class="content-container">
-		<div class="text-left md:text-center max-w-3xl mx-auto flex flex-col gap-3">
-			<h2
-				id="services-heading"
-				class="heading-l1"
-			>
-				{title}
-			</h2>
-			<p class="capitalize wsl-text-lg text-gray-600 leading-relaxed">
-				{subtitle}
-			</p>
-		</div>
-		<div class="portfolio-card-group">
-			{
-				projects.map((project) => (
-					<PortfolioCard
-						title={project.title}
-						description={project.description}
-						image={project.image}
-						href={project.href}
-					/>
-				))
-			}
-		</div>
+<SectionContainer
+	title={title}
+	subtitle={subtitle}
+>
+	<div class="portfolio-card-group">
+		{
+			projects.map((project) => (
+				<PortfolioCard
+					title={project.title}
+					description={project.description}
+					image={project.image}
+					href={project.href}
+				/>
+			))
+		}
 	</div>
-</section>
+</SectionContainer>

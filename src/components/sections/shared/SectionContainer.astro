@@ -2,22 +2,25 @@
 interface Props {
 	title: string;
 	subtitle: string;
-	class?: string;
 	backgroundColor?: string;
+	centerHeader?: boolean;
 }
 
 const {
 	title = 'Title',
 	subtitle = 'subtitle',
-	class: className,
 	backgroundColor = 'bg-gray-100',
+	centerHeader = false,
 } = Astro.props as Props;
+
+const headerAlignment =
+	centerHeader === false ? 'text-left md:text-center' : 'text-center';
 ---
 
 <section class={`px-4 py-9 ${backgroundColor}`}>
 	<div class="content-container flex flex-col gap-8 lg:gap-10">
 		<!-- Section Header -->
-		<div class="text-left md:text-center max-w-3xl mx-auto flex flex-col gap-3">
+		<div class={`${headerAlignment} max-w-3xl mx-auto flex flex-col gap-3`}>
 			<h2
 				id="services-heading"
 				class="heading-l1"

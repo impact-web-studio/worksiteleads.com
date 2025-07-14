@@ -1,4 +1,5 @@
 ---
+import SectionContainer from '../shared/SectionContainer.astro';
 import ServiceCard from '@/components/ui/cards/ServiceCard.astro';
 
 import WebDesignImage from '@/assets/web-development.png';
@@ -60,34 +61,23 @@ const {
 } = Astro.props as Props;
 ---
 
-<section class="px-4 py-9">
-	<div class="content-container">
-		<!-- Section Header -->
-		<div class="text-center max-w-3xl mx-auto mb-10 flex flex-col gap-3">
-			<h2
-				id="services-heading"
-				class="heading-l1 font-bold text-gray-900 mb-4"
-			>
-				{title}
-			</h2>
-			<p class="capitalize wsl-text-lg text-gray-600 leading-relaxed">
-				{subtitle}
-			</p>
-		</div>
-		<!-- Services Grid -->
-		<div class="grid grid-cols-1 gap-8 lg:gap-12">
-			{
-				services.map((service) => (
-					<ServiceCard
-						title={service.title}
-						description={service.description}
-						image={service.image}
-						imageAlt={service.imageAlt}
-						href={service.href}
-						variation={service.variation}
-					/>
-				))
-			}
-		</div>
+<SectionContainer
+	title={title}
+	subtitle={subtitle}
+	centerHeader={true}
+>
+	<div class="grid grid-cols-1 gap-8 lg:gap-12">
+		{
+			services.map((service) => (
+				<ServiceCard
+					title={service.title}
+					description={service.description}
+					image={service.image}
+					imageAlt={service.imageAlt}
+					href={service.href}
+					variation={service.variation}
+				/>
+			))
+		}
 	</div>
-</section>
+</SectionContainer>
