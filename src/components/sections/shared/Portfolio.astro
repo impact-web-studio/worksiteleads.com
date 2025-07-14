@@ -15,7 +15,8 @@ type Project = {
 const projects: Project[] = [
 	{
 		title: 'Company Name',
-		description: 'Short description of the company',
+		description:
+			'Short description of the company. But not too short or it looks weird.',
 		image: placeHolderImage,
 		href: '/',
 	},
@@ -48,10 +49,10 @@ const {
 	title={title}
 	subtitle={subtitle}
 	backgroundColor="bg-gray-700"
-	headerColor="text-gray-50"
+	headerColor="text-primary-500"
 	textColor="text-gray-200"
 >
-	<div class="portfolio-card-group flex flex-wrap justify-between">
+	<div class="portfolio-card-group flex flex-wrap justify-between gap-y-12">
 		{
 			projects.map((project) => (
 				<PortfolioCard
@@ -59,7 +60,7 @@ const {
 					description={project.description}
 					image={project.image}
 					href={project.href}
-					class="max-w-[30%]"
+					class="min-w-52 max-w-[30%]"
 				/>
 			))
 		}

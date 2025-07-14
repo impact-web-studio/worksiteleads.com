@@ -1,16 +1,22 @@
 ---
+import QuotationIcon from '@/assets/icons/Quotation.astro';
 interface Props {
 	client: string;
 	review: string;
+	class?: string;
 }
 
-const { client, review } = Astro.props as Props;
+const { client, review, class: className } = Astro.props as Props;
 ---
 
-<article class="flex flex-col bg-gray-300 p-5 grow">
-	<quote
-		class=""
+<article class={`flex flex-col bg-gray-200 rounded-lg p-5 ${className}`}>
+	<QuotationIcon />
+	<blockquote
+		class="relative text-xs sm:text-sm md:text-base"
 		set:html={review}
 	/>
-	<p set:html={client} />
+	<p
+		class="uppercase text-lg sm:text-xl font-black font-montserrat tracking-tight"
+		set:html={client}
+	/>
 </article>

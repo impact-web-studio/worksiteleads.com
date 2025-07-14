@@ -14,28 +14,34 @@ type Testimonial = {
 
 const testimonials: Testimonial[] = [
 	{
-		client: 'name',
-		review: 'so good',
+		client: 'Client Name',
+		review:
+			'Testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote ',
 	},
 	{
-		client: 'name',
-		review: 'so good',
+		client: 'Client Name',
+		review:
+			'Testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote ',
 	},
 	{
-		client: 'name',
-		review: 'so good',
+		client: 'Client Name',
+		review:
+			'Testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote ',
 	},
 	{
-		client: 'name',
-		review: 'so good',
+		client: 'Client Name',
+		review:
+			'Testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote ',
 	},
 	{
-		client: 'name',
-		review: 'so good',
+		client: 'Client Name',
+		review:
+			'Testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote ',
 	},
 	{
-		client: 'name',
-		review: 'so good',
+		client: 'Client Name',
+		review:
+			'Testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote testimonial quote ',
 	},
 ];
 
@@ -51,15 +57,16 @@ const {
 ---
 
 <SectionContainer
-	title="Reviews"
-	subtitle="Trusted by industry leaders to take their businesses to the next level"
+	title={title}
+	subtitle={subtitle}
 >
-	<div class="portfolio-card-group flex flex-wrap gap-5">
+	<div class="portfolio-card-group flex flex-wrap justify-center gap-5">
 		{
 			testimonials.map((testimonial) => (
 				<TestimonialCard
 					client={testimonial.client}
 					review={testimonial.review}
+					class={`grow w-full min-w-[280px] lg:max-w-[30%]`}
 				/>
 			))
 		}
