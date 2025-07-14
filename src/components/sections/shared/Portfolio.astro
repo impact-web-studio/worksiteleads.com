@@ -2,6 +2,8 @@
 import PortfolioCard from '@/components/ui/cards/PortfolioCard.astro';
 // Image Imports
 
+import placeHolderImage from '@/assets/worksiteleads-logo.png';
+
 type Project = {
 	title: string;
 	description: string;
@@ -11,28 +13,28 @@ type Project = {
 
 const projects: Project[] = [
 	{
-		title: '',
-		description: '',
-		image: '',
-		href: '',
+		title: 'Company Name',
+		description: 'Short description of the company',
+		image: placeHolderImage,
+		href: '/',
 	},
 	{
-		title: '',
-		description: '',
-		image: '',
-		href: '',
+		title: 'Company Name',
+		description: 'Short description of the company',
+		image: placeHolderImage,
+		href: '/',
 	},
 	{
-		title: '',
-		description: '',
-		image: '',
-		href: '',
+		title: 'Company Name',
+		description: 'Short description of the company',
+		image: placeHolderImage,
+		href: '/',
 	},
 ];
 
 interface Props {
-	title: string;
-	subtitle: string;
+	title?: string;
+	subtitle?: string;
 }
 
 const {
@@ -54,7 +56,16 @@ const {
 			/>
 		</div>
 		<div class="portfolio-card-group">
-			{projects.map((project) => <PortfolioCard />)}
+			{
+				projects.map((project) => (
+					<PortfolioCard
+						title={project.title}
+						description={project.description}
+						image={project.image}
+						href={project.href}
+					/>
+				))
+			}
 		</div>
 	</div>
 </section>

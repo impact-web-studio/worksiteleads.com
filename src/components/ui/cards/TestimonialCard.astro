@@ -1,0 +1,16 @@
+---
+interface Props {
+	client: string;
+	review: string;
+}
+
+const { client, review } = Astro.props as Props;
+---
+
+<article class="flex flex-col bg-gray-300 p-5 grow">
+	<quote
+		class=""
+		set:html={review}
+	/>
+	<p set:html={client} />
+</article>

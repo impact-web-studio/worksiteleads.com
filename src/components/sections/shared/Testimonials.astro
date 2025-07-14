@@ -1,0 +1,75 @@
+---
+import TestimonialCard from '@/components/ui/cards/TestimonialCard.astro';
+// Image Imports
+
+import placeHolderImage from '@/assets/worksiteleads-logo.png';
+
+type Testimonial = {
+	client: string;
+	review: string;
+	city?: string;
+	company?: string;
+};
+
+const testimonials: Testimonial[] = [
+	{
+		client: 'name',
+		review: 'so good',
+	},
+	{
+		client: 'name',
+		review: 'so good',
+	},
+	{
+		client: 'name',
+		review: 'so good',
+	},
+	{
+		client: 'name',
+		review: 'so good',
+	},
+	{
+		client: 'name',
+		review: 'so good',
+	},
+	{
+		client: 'name',
+		review: 'so good',
+	},
+];
+
+interface Props {
+	title?: string;
+	subtitle?: string;
+}
+
+const {
+	title = 'Reviews',
+	subtitle = 'Trusted by industry leaders to take their businesses to the next level',
+} = Astro.props as Props;
+---
+
+<section>
+	<div class="content-container">
+		<div class="section-title">
+			<h2
+				class="text-primary-500"
+				set:html={title}
+			/>
+			<p
+				class="subtitle"
+				set:html={subtitle}
+			/>
+		</div>
+		<div class="portfolio-card-group flex flex-wrap gap-5">
+			{
+				testimonials.map((testimonial) => (
+					<TestimonialCard
+						client={testimonial.client}
+						review={testimonial.review}
+					/>
+				))
+			}
+		</div>
+	</div>
+</section>
