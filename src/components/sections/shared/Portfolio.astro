@@ -45,15 +45,16 @@ const {
 
 <section>
 	<div class="content-container">
-		<div class="section-title">
+		<div class="text-left md:text-center max-w-3xl mx-auto flex flex-col gap-3">
 			<h2
-				class="text-primary-500"
-				set:html={title}
-			/>
-			<p
-				class="subtitle"
-				set:html={subtitle}
-			/>
+				id="services-heading"
+				class="heading-l1"
+			>
+				{title}
+			</h2>
+			<p class="capitalize wsl-text-lg text-gray-600 leading-relaxed">
+				{subtitle}
+			</p>
 		</div>
 		<div class="portfolio-card-group">
 			{
