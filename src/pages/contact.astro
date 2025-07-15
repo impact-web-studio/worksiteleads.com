@@ -1,0 +1,53 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
+import ListItem from '@/components/ui/ListItem.astro';
+
+type Contact = {
+	name: string;
+	value: string;
+	href?: string;
+};
+
+const contactInfo: Contact[] = [
+	{
+		name: 'number',
+		value: '+1 (123) - 1234',
+		href: 'tel:+11231234',
+	},
+	{
+		name: 'email',
+		value: 'contact@worksiteleads.com',
+		href: 'mailto:contact@domain.com',
+	},
+	{
+		name: 'hours',
+		value: '24/7',
+	},
+];
+---
+
+<Layout
+	hasHero={true}
+	title="Contact Page - Worksite Leads"
+	description="Contact us with any questions or general inquiries."
+>
+	<SubPageHero
+		eyebrow="Ready to Start?"
+		title="Schedule a Call"
+		listItems={['+1 (123) - 1234', 'contact@worksiteleads.com', '24/7']}
+	>
+		<div
+			slot="list-items"
+			class="flex flex-col gap-1"
+		>
+			{contactInfo.map((contact) => <ListItem text={contact.value} />)}
+		</div>
+		<div
+			slot="form"
+			class="w-3xl h-40 bg-gray-300"
+		>
+			FORM
+		</div>
+	</SubPageHero>
+</Layout>
