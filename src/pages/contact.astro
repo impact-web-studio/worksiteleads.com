@@ -33,19 +33,35 @@ const contactInfo: Contact[] = [
 	description="Contact us with any questions or general inquiries."
 >
 	<SubPageHero
-		eyebrow="Ready to Start?"
-		title="Schedule a Call"
+		eyebrow="Got Questions?"
+		title="Contact Us"
+		description="We are dedicated to providing exceptional support to ensure your experience with our products & services is seamless. <br><br>Our support team is here to assist you with any queries or issues you may encounter."
 		listItems={['+1 (123) - 1234', 'contact@worksiteleads.com', '24/7']}
 	>
 		<div
 			slot="list-items"
 			class="flex flex-col gap-1"
 		>
-			{contactInfo.map((contact) => <ListItem text={contact.value} />)}
+			{
+				contactInfo.map((contact) =>
+					contact.href ? (
+						<a
+							href={contact.href}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="hover:text-primary-500"
+						>
+							<ListItem text={contact.value} />
+						</a>
+					) : (
+						<ListItem text={contact.value} />
+					)
+				)
+			}
 		</div>
 		<div
 			slot="form"
-			class="w-3xl h-40 bg-gray-300"
+			class="w-full h-[300px] bg-gray-200 rounded-lg p-4"
 		>
 			FORM
 		</div>
