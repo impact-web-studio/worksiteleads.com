@@ -2,15 +2,12 @@
 // Hero.astro
 import { Image } from 'astro:assets';
 import heroBg from '@/assets/home-banner-bg.png';
-import Pill from '@/components/ui/pills/Pill.astro';
-import Button from '@/components/ui/buttons/Button.astro';
 
 interface Props {
 	eyebrow?: string;
 	title?: string;
 	description?: string;
 	bodyText?: string;
-	listItems?: string[];
 }
 
 const {
