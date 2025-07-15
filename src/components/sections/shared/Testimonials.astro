@@ -45,18 +45,20 @@ const testimonials: Testimonial[] = [
 interface Props {
 	title?: string;
 	subtitle?: string;
+	backgroundColor?: string;
 }
 
 const {
 	title = 'Reviews',
 	subtitle = 'Trusted by industry leaders to take their businesses to the next level',
+	backgroundColor = 'bg-gray-100',
 } = Astro.props as Props;
 ---
 
 <SectionContainer
 	title={title}
 	subtitle={subtitle}
-	backgroundColor="bg-gray-100"
+	backgroundColor={backgroundColor}
 >
 	<div class="portfolio-card-group flex flex-wrap justify-center gap-5">
 		{
