@@ -157,8 +157,11 @@ body {
 	font-family: var(--font-manrope); /* 1 */
 	font-size: var(--text-base); /* 2 */
 	color: var(--color-gray-700); /* 3 */
-	background-color: var(--color-white-200); /* 4 */
 	line-height: var(--line-height-normal);
+}
+
+main {
+	background-color: var(--color-gray-50);
 }
 
 /*

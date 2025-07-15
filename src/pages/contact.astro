@@ -1,6 +1,12 @@
 ---
+// Layout
 import Layout from '@/layouts/Layout.astro';
+// Sections
 import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
+import Testimonials from '@/components/sections/shared/Testimonials.astro';
+import Portfolio from '@/components/sections/shared/Portfolio.astro';
+import CTA from '@/components/sections/shared/CTA.astro';
+// Components
 import ListItem from '@/components/ui/ListItem.astro';
 
 type Contact = {
@@ -65,4 +71,7 @@ const contactInfo: Contact[] = [
 			FORM
 		</div>
 	</SubPageHero>
+	<Testimonials />
+	<Portfolio />
+	<CTA />
 </Layout>
