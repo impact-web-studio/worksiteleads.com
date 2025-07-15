@@ -8,6 +8,8 @@ interface Props {
 	title?: string;
 	description?: string;
 	class?: string;
+	layout?: 'horizontal' | 'vertical';
+	isContactPage?: boolean;
 }
 
 const {
@@ -15,7 +17,24 @@ const {
 	eyebrow = 'Eyebrow Text',
 	description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 	class: className,
+	layout = 'horizontal',
+	isContactPage = false,
 } = Astro.props;
+
+const layoutConfig = {
+	horizontal: {
+		container:
+			'gap-10 md:flex-row md:flex-start md:justify-center md:items-start',
+		content: 'md:max-w-1/2 md:pt-30',
+	},
+	vertical: {
+		container: ' ',
+		content: 'pt-20 md:w-full',
+	},
+};
+
+const layoutStyle = layoutConfig[layout];
+const contactPageStyle = isContactPage ? 'min-w-[360px]' : ' ';
 ---
 
 <section class="relative overflow-hidden">
@@ -37,11 +56,11 @@ const {
 
 	<!-- Content Container -->
 	<div
-		class="content-container relative z-10 min-h-screen flex flex-col gap-10 items-center md:flex-row md:flex-start md:justify-center"
+		class={`content-container relative z-10 min-h-screen flex flex-col items-center ${layoutStyle.container}`}
 	>
 		<!-- Main Content Area -->
 		<div
-			class={`flex flex-col gap-5 justify-center md:max-w-[50%] pt-28 md:pt-32 lg:pt-0 ${className}`}
+			class={`flex flex-col gap-5 justify-center pt-16 ${className} ${layoutStyle.content}`}
 		>
 			<div class="flex flex-col">
 				<span
@@ -64,7 +83,9 @@ const {
 		</div>
 
 		<!-- Form Section  -->
-		<div class="pb-10 lg:pb-20 w-full md:max-w-[50%] md:pt-32 lg:pt-20">
+		<div
+			class={`pb-10 lg:pb-20 !pt-0 w-full min-h-[450px] ${layoutStyle.content} ${contactPageStyle}`}
+		>
 			<slot name="form" />
 		</div>
 	</div>
