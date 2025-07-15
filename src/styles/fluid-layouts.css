@@ -7,7 +7,7 @@ footer {
 /* Contains the content within 320 - 1440 px */
 .content-container {
 	max-width: var(--content-width-max);
-	padding: clamp(3.75rem, 3.3929rem + 1.7857vw, 5rem)
+	padding: clamp(3.75rem, 2.6786rem + 5.3571vw, 7.5rem)
 		clamp(1rem, -0.8571rem + 9.2857vw, 7.5rem);
 	margin: 0 auto;
 }
