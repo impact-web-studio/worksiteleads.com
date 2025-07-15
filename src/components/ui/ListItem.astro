@@ -8,7 +8,7 @@ const { text = 'placeholder text' } = Astro.props as Props;
 
 <div class={`flex items-center`}>
 	<svg
-		class="w-5 h-5 text-primary-500 mr-2"
+		class="w-5 h-5 md:w-6 md:w-6 text-primary-500 mr-2"
 		fill="currentColor"
 		viewBox="0 0 20 20"
 	>
@@ -20,7 +20,7 @@ const { text = 'placeholder text' } = Astro.props as Props;
 	</svg>
 
 	<span
-		class="text-gray-50 wsl-text-lg font-bold"
+		class="text-gray-50 wsl-text-lg font-extrabold"
 		set:html={text}
 	/>
 </div>
