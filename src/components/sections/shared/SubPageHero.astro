@@ -7,13 +7,14 @@ interface Props {
 	eyebrow?: string;
 	title?: string;
 	description?: string;
-	bodyText?: string;
+	class?: string;
 }
 
 const {
 	title = 'Sub-Page Title',
 	eyebrow = 'Eyebrow Text',
 	description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+	class: className,
 } = Astro.props;
 ---
 
@@ -40,7 +41,7 @@ const {
 	>
 		<!-- Main Content Area -->
 		<div
-			class="flex flex-col gap-5 justify-center md:max-w-[45%] pt-28 md:pt-32 lg:pt-0"
+			class={`flex flex-col gap-5 justify-center md:max-w-[50%] pt-28 md:pt-32 lg:pt-0 ${className}`}
 		>
 			<div class="flex flex-col">
 				<span
@@ -63,7 +64,7 @@ const {
 		</div>
 
 		<!-- Form Section  -->
-		<div class="pb-10 lg:pb-20 w-full md:max-w-[45%] md:pt-32 lg:pt-20">
+		<div class="pb-10 lg:pb-20 w-full md:max-w-[50%] md:pt-32 lg:pt-20">
 			<slot name="form" />
 		</div>
 	</div>

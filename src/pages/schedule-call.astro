@@ -6,31 +6,6 @@ import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
 import Testimonials from '@/components/sections/shared/Testimonials.astro';
 import Portfolio from '@/components/sections/shared/Portfolio.astro';
 import CTA from '@/components/sections/shared/CTA.astro';
-// Components
-import ListItem from '@/components/ui/ListItem.astro';
-
-type Contact = {
-	name: string;
-	value: string;
-	href?: string;
-};
-
-const contactInfo: Contact[] = [
-	{
-		name: 'number',
-		value: '+1 (123) - 1234',
-		href: 'tel:+11231234',
-	},
-	{
-		name: 'email',
-		value: 'contact@worksiteleads.com',
-		href: 'mailto:contact@domain.com',
-	},
-	{
-		name: 'hours',
-		value: '24/7',
-	},
-];
 ---
 
 <Layout
@@ -42,35 +17,20 @@ const contactInfo: Contact[] = [
 		eyebrow="Ready to Start?"
 		title="Schedule a Call"
 		description="Hop on a quick & easy, no risks, no obligations call with us to see how we can help."
+		class="-translate-y-1/4"
 	>
 		<div
 			slot="list-items"
 			class="flex flex-col gap-1"
 		>
-			{
-				contactInfo.map((contact) =>
-					contact.href ? (
-						<a
-							href={contact.href}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="hover:text-primary-500"
-						>
-							<ListItem text={contact.value} />
-						</a>
-					) : (
-						<ListItem text={contact.value} />
-					)
-				)
-			}
 		</div>
 		<div
 			slot="form"
-			class="w-full"
+			class="w-full rounded-2xl overflow-hidden"
 		>
 			<iframe
 				src="https://api.leadconnectorhq.com/widget/booking/wVqUyNTRTAkNiRa1bPTA"
-				style="width: 100%;border:none;overflow: hidden;"
+				style="width: 100%;border:none;overflow-y: scroll;max-height:600px"
 				scrolling="no"
 				id="2YLsJZYrXQYyjn9CfuDB_1752561372942"
 			></iframe>
