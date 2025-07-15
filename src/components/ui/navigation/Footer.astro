@@ -87,7 +87,7 @@ const { footerText } = Astro.props;
 									<li>
 										<a
 											href={link.href}
-											class="capitalize text-gray-300 hover:text-primary-400 transition-colors wsl-text-lg font-semibold whitespace-nowrap"
+											class="capitalize text-gray-300 hover:text-primary-400 transition-colors wsl-text-sm font-semibold whitespace-nowrap"
 										>
 											{link.name}
 										</a>
@@ -103,7 +103,7 @@ const { footerText } = Astro.props;
 						<ul class="flex flex-col gap-1">
 							{
 								companyInfo.map((info) => (
-									<li class="text-gray-300 wsl-text-lg font-semibold whitespace-nowrap">
+									<li class="text-gray-300 wsl-text-sm font-semibold whitespace-nowrap">
 										{info.value}
 									</li>
 								))
