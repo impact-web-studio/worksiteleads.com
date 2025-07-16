@@ -1,0 +1,44 @@
+---
+// Layout
+import Layout from '@/layouts/Layout.astro';
+// Sections
+import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
+import Testimonials from '@/components/sections/shared/Testimonials.astro';
+import Portfolio from '@/components/sections/shared/Portfolio.astro';
+import CTA from '@/components/sections/shared/CTA.astro';
+
+// Images
+import { Image } from 'astro:assets';
+import TemporaryImage from '@/assets/cta-rocket.png';
+---
+
+<Layout
+	hasHero={true}
+	title="Website Development | Design & Development Services - Worksite Leads"
+	description="100% custom coded website design and development services."
+>
+	<SubPageHero
+		eyebrow="100% Custom Coded"
+		title="Website Design & Development"
+		description="No page-builders or WordPress. We do things a little differently. Instead of using page-builders or WordPress, we hand write all the code for our sites from the bottom up. <br><br>This means that all our designs are custom-made and have absolutely ZERO bloat to slow your website down unnecessarily. This also means that there are no security leaks caused by plug-ins or outdated WordPress versions."
+		class=""
+	>
+		<div
+			slot="after-content"
+			class="w-full h-fit overflow-hidden"
+		>
+			<Image
+				src={TemporaryImage}
+				alt="temporary"
+			/>
+		</div>
+	</SubPageHero>
+	<Testimonials backgroundColor="bg-gray-50" />
+	<Portfolio />
+	<CTA />
+</Layout>
+
+<script
+	src="https://link.msgsndr.com/js/form_embed.js"
+	type="text/javascript"
+></script>
