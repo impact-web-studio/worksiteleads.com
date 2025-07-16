@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import CTARocket from '@/assets/cta-rocket.png';
+import ScrollReveal from './ScrollReveal.astro';
 
 import Button from '@/components/ui/buttons/Button.astro';
 ---
@@ -12,35 +13,52 @@ import Button from '@/components/ui/buttons/Button.astro';
 		>
 			<div
 				class="flex flex-col lg:flex-row lg:items-center lg:justify-between h-full"
+				data-reveal-group
 			>
-				<div class="left lg:flex-1 z-10 relative flex flex-col lg:gap-5">
-					<div class="flex flex-col gap-3 mb-6">
-						<h2
-							class="heading-l2 capitalize md:max-w-[80%] lg:max-w-[70%] xl:max-w-[65%]"
-						>
-							Turn your website into a sales machine
-						</h2>
-						<p class="wsl-text-lg md:max-w-[360px] text-wrap lg:max-w-[500px]">
-							We help construction pros land more jobs with smart websites,
-							automations, and local SEO.
-						</p>
+				<ScrollReveal stagger={true}>
+					<div
+						class="left lg:flex-1 z-10 relative flex flex-col lg:gap-5"
+						data-reveal-group
+					>
+						<div class="flex flex-col gap-3 mb-6">
+							<ScrollReveal stagger={true}>
+								<h2
+									class="heading-l2 capitalize md:max-w-[80%] lg:max-w-[70%] xl:max-w-[65%]"
+								>
+									Turn your website into a sales machine
+								</h2>
+							</ScrollReveal>
+							<ScrollReveal stagger={true}>
+								<p
+									class="wsl-text-lg md:max-w-[360px] text-wrap lg:max-w-[500px]"
+								>
+									We help construction pros land more jobs with smart websites,
+									automations, and local SEO.
+								</p>
+							</ScrollReveal>
+						</div>
+						<ScrollReveal stagger={true}>
+							<Button
+								text="Schedule a Call"
+								type="button"
+								variation="secondary"
+								href="/schedule-call"
+								class="w-fit md:px-8 md:py-4"
+							/>
+						</ScrollReveal>
 					</div>
-					<Button
-						text="Schedule a Call"
-						type="button"
-						variation="secondary"
-						href="/schedule-call"
-						class="w-fit md:px-8 md:py-4"
-					/>
-				</div>
+				</ScrollReveal>
+
 				<div
 					class="right hidden md:block absolute bottom-0 right-0 translate-x-[10%] w-[50%] xl:w-[50%] xl:translate-x-0 xl:translate-y-10"
 				>
-					<Image
-						src={CTARocket}
-						alt="CTA Rocket Image"
-						class="w-full h-auto object-bottom block"
-					/>
+					<ScrollReveal delay={200}>
+						<Image
+							src={CTARocket}
+							alt="CTA Rocket Image"
+							class="w-full h-auto object-bottom block"
+						/>
+					</ScrollReveal>
 				</div>
 			</div>
 		</div>
