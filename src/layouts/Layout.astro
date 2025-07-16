@@ -1,4 +1,7 @@
 ---
+// View Transition
+import { ClientRouter } from 'astro:transitions';
+
 import '@/styles/custom-styles.css';
 import '@/styles/global.css';
 import '@/styles/fluid-typography.css';
@@ -33,6 +36,9 @@ const {
 			name="viewport"
 			content="width=device-width, initial-scale=1.0"
 		/>
+		<ClientRouter />
+		<title>{title}</title>
+
 		<link
 			rel="icon"
 			type="image/svg+xml"
@@ -42,7 +48,6 @@ const {
 			rel="stylesheet"
 			href="https://unpkg.com/aos@next/dist/aos.css"
 		/>
-		<title>{title}</title>
 	</head>
 	<body class="font-sans antialiased">
 		<!-- Header with conditional styling for hero pages -->
