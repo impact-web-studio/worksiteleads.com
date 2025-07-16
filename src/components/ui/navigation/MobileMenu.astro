@@ -4,7 +4,7 @@ import Button from '../buttons/Button.astro';
 
 interface NavLink {
 	name: string;
-	href: string;
+	href?: string;
 	childrenLinks?: NavLink[];
 }
 
@@ -91,7 +91,7 @@ const subLinkClasses = [
 					<div class="mobile-nav-item">
 						{link.childrenLinks ? (
 							<div>
-								<button
+								<span
 									class={`${linkClasses} flex items-center justify-between w-full`}
 									aria-expanded="false"
 									data-submenu-toggle
@@ -114,7 +114,7 @@ const subLinkClasses = [
 											d="M19 9l-7 7-7-7"
 										/>
 									</svg>
-								</button>
+								</span>
 								<div
 									class="submenu hidden"
 									id={`submenu-${link.name.toLowerCase().replace(/\s+/g, '-')}`}
