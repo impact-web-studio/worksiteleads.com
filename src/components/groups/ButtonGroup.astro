@@ -2,8 +2,7 @@
 import Button from '../ui/buttons/Button.astro';
 
 interface Props {
-	text: string;
-	learnMoreHref: string;
+	learnMoreHref?: string;
 	type?: 'button' | 'link';
 	variation?: 'primary' | 'secondary';
 	linkColor?: string;
@@ -17,7 +16,7 @@ const {
 } = Astro.props as Props;
 ---
 
-<div class="pt-8 flex gap-3 items-center justify-center">
+<div class="flex gap-3 items-center">
 	<Button
 		text="Schedule a Call"
 		href={'/schedule-call'}
@@ -26,7 +25,7 @@ const {
 	<Button
 		href={learnMoreHref}
 		variation={variation}
-		type={type}
+		type={'link'}
 		text="Learn More"
 	/>
 </div>

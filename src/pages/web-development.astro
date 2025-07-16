@@ -10,6 +10,7 @@ import CTA from '@/components/sections/shared/CTA.astro';
 // Images
 import { Image } from 'astro:assets';
 import TemporaryImage from '@/assets/cta-rocket.png';
+import ButtonGroup from '@/components/groups/ButtonGroup.astro';
 ---
 
 <Layout
@@ -20,9 +21,10 @@ import TemporaryImage from '@/assets/cta-rocket.png';
 	<SubPageHero
 		eyebrow="100% Custom Coded"
 		title="Website Design & Development"
-		description="No page-builders or WordPress. We do things a little differently. Instead of using page-builders or WordPress, we hand write all the code for our sites from the bottom up. <br><br>This means that all our designs are custom-made and have absolutely ZERO bloat to slow your website down unnecessarily. This also means that there are no security leaks caused by plug-ins or outdated WordPress versions."
+		description="No page-builders or WordPress. We do things a little differently. Instead of using page-builders or WordPress, we hand write all the code for our sites from the bottom up."
 		class=""
 	>
+		<ButtonGroup slot="after-description" />
 		<div
 			slot="after-content"
 			class="w-full h-fit overflow-hidden"
