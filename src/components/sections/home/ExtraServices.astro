@@ -1,6 +1,7 @@
 ---
 import SectionContainer from '../shared/SectionContainer.astro';
 import ExtraServiceCard from '@/components/ui/cards/ExtraServiceCard.astro';
+import ScrollReveal from '../shared/ScrollReveal.astro';
 
 type Service = {
 	title: string;
@@ -71,15 +72,20 @@ const {
 	subtitle={subtitle}
 	backgroundColor="bg-gray-100"
 >
-	<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+	<div
+		class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+		data-group-reveal
+	>
 		{
 			services.map((service) => (
-				<ExtraServiceCard
-					title={service.title}
-					description={service.description}
-					iconName={service.iconName}
-					iconAlt={service.iconAlt}
-				/>
+				<ScrollReveal stagger={true}>
+					<ExtraServiceCard
+						title={service.title}
+						description={service.description}
+						iconName={service.iconName}
+						iconAlt={service.iconAlt}
+					/>
+				</ScrollReveal>
 			))
 		}
 	</div>

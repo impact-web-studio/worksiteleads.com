@@ -1,4 +1,6 @@
 ---
+import ScrollReveal from '@/components/sections/shared/ScrollReveal.astro';
+
 // Hero.astro
 import { Image } from 'astro:assets';
 import heroBg from '@/assets/home-banner-bg.png';
@@ -49,63 +51,82 @@ const {
 	</div>
 
 	<!-- Content Container -->
-	<div class="content-container relative z-10 min-h-screen">
+	<div
+		class="content-container relative z-10 min-h-screen"
+		data-reveal-group
+	>
 		<!-- Main Content Area -->
 		<div class="flex flex-col gap-5 pt-32">
 			<div class="flex flex-col gap-5 text-center">
 				<!-- Main Heading -->
-				<h1
-					class="heading-l1 text-white"
-					set:html={title}
-				/>
+				<ScrollReveal
+					animation="slideUp"
+					stagger={true}
+				>
+					<h1
+						class="heading-l1 text-white"
+						set:html={title}
+					/>
+				</ScrollReveal>
 
 				<!-- Subtitle -->
-				<h2
-					class="hero-subtitle text-primary-500"
-					set:html={subtitle}
-				/>
+				<ScrollReveal
+					animation="slideUp"
+					stagger={true}
+				>
+					<h2
+						class="hero-subtitle text-primary-500"
+						set:html={subtitle}
+					/>
+				</ScrollReveal>
 			</div>
 			<!-- Decorative List Items -->
-			<div class="flex flex-wrap sm:justify-center gap-4">
-				{listItems.map((item) => <Pill text={item} />)}
-			</div>
+			<ScrollReveal stagger={true}>
+				<div class="flex flex-wrap sm:justify-center gap-4">
+					{listItems.map((item) => <Pill text={item} />)}
+				</div>
+			</ScrollReveal>
 
 			<!-- CTA Button -->
-			<div class="pt-8 flex gap-3 items-center justify-center">
-				<Button
-					text="Schedule a Call"
-					href="/"
-					variation="primary"
-				/>
-				<Button
-					href=""
-					variation="primary"
-					type="link"
-					text="Learn More"
-				/>
-			</div>
+			<ScrollReveal stagger={true}>
+				<div class="pt-8 flex gap-3 items-center justify-center">
+					<Button
+						text="Schedule a Call"
+						href="/"
+						variation="primary"
+					/>
+					<Button
+						href=""
+						variation="primary"
+						type="link"
+						text="Learn More"
+					/>
+				</div>
+			</ScrollReveal>
 		</div>
 
 		<!-- Video Section - Positioned to hang off background -->
-		<div class="relative z-20 px-4 sm:px-6 lg:px-8 pb-20">
-			<div class="mx-auto">
-				<div
-					class="relative bg-black rounded-2xl shadow-2xl overflow-hidden transform translate-y-16"
-				>
-					<!-- Video Embed -->
-					<div class="aspect-video">
-						<iframe
-							class="w-full h-full"
-							src={`https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0&modestbranding=1`}
-							title="Company Overview Video"
-							frameborder="0"
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-							allowfullscreen
-							loading="lazy"
-						></iframe>
+		<ScrollReveal stagger={true}>
+			<div class="relative z-20 px-4 sm:px-6 lg:px-8 pb-20">
+				<div class="mx-auto">
+					<div
+						class="relative bg-black rounded-2xl shadow-2xl overflow-hidden transform translate-y-16"
+					>
+						<!-- Video Embed -->
+						<div class="aspect-video">
+							<iframe
+								class="w-full h-full"
+								src={`https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0&modestbranding=1`}
+								title="Company Overview Video"
+								frameborder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen
+								loading="lazy"
+							></iframe>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</ScrollReveal>
 	</div>
 </section>

@@ -1,0 +1,44 @@
+---
+// Layout
+import Layout from '@/layouts/Layout.astro';
+// Sections
+import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
+import Testimonials from '@/components/sections/shared/Testimonials.astro';
+import Portfolio from '@/components/sections/shared/Portfolio.astro';
+import CTA from '@/components/sections/shared/CTA.astro';
+
+// Images
+import { Image } from 'astro:assets';
+import TemporaryImage from '@/assets/cta-rockets.png';
+---
+
+<Layout
+	hasHero={true}
+	title="Get More Reviews | Additional Services - Worksite Leads"
+	description="Get found with reviews and win more businesses."
+>
+	<SubPageHero
+		eyebrow="Win More Business"
+		title="Get Found with Reviews"
+		description="Be the obvious choice for people who find you online. Stand out on the sites that matter by easily collecting hundreds of customer reviews."
+		class=""
+	>
+		<div
+			slot="after-content"
+			class="w-full h-fit overflow-hidden"
+		>
+			<Image
+				src={TemporaryImage}
+				alt="temporary"
+			/>
+		</div>
+	</SubPageHero>
+	<Testimonials backgroundColor="bg-gray-50" />
+	<Portfolio />
+	<CTA />
+</Layout>
+
+<script
+	src="https://link.msgsndr.com/js/form_embed.js"
+	type="text/javascript"
+></script>

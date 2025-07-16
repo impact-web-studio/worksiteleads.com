@@ -5,6 +5,7 @@ import ServiceCard from '@/components/ui/cards/ServiceCard.astro';
 import WebDesignImage from '@/assets/web-development.png';
 import AIAutomation from '@/assets/ai-automation.png';
 import DigitalMarketingImage from '@/assets/digital-marketing.png';
+import ScrollReveal from '../shared/ScrollReveal.astro';
 
 type Service = {
 	id: string;
@@ -57,7 +58,7 @@ interface Props {
 
 const {
 	title = 'All-in-One Digital Packages',
-	subtitle = 'more than just websites, we offer all-in-one packages designed to help you manage and grow your business',
+	subtitle = 'More than just websites, we offer all-in-one packages designed to help you manage and grow your business.',
 } = Astro.props as Props;
 ---
 
@@ -66,17 +67,22 @@ const {
 	subtitle={subtitle}
 	centerHeader={true}
 >
-	<div class="grid grid-cols-1 gap-8 lg:gap-12">
+	<div
+		class="grid grid-cols-1 gap-8 lg:gap-12"
+		data-reveal-group
+	>
 		{
 			services.map((service) => (
-				<ServiceCard
-					title={service.title}
-					description={service.description}
-					image={service.image}
-					imageAlt={service.imageAlt}
-					href={service.href}
-					variation={service.variation}
-				/>
+				<ScrollReveal stagger={true}>
+					<ServiceCard
+						title={service.title}
+						description={service.description}
+						image={service.image}
+						imageAlt={service.imageAlt}
+						href={service.href}
+						variation={service.variation}
+					/>
+				</ScrollReveal>
 			))
 		}
 	</div>

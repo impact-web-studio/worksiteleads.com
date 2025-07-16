@@ -1,0 +1,274 @@
+---
+interface Props {
+	animation?: 'fade' | 'slideUp' | 'slideDown' | 'slideLeft' | 'slideRight';
+	delay?: number;
+	duration?: string;
+	threshold?: 'quarter' | 'half' | 'full' | number;
+	once?: boolean;
+	stagger?: boolean;
+	class?: string;
+	distance?: number;
+}
+
+const {
+	animation = 'slideUp',
+	delay = 0,
+	duration = 'duration-800',
+	threshold = 'quarter',
+	once = true,
+	stagger = false,
+	class: className = '',
+	distance = 8,
+} = Astro.props;
+
+const getTranslateClass = (axis: 'x' | 'y', value: number, zero = false) => {
+	if (zero) return `translate-${axis}-0`;
+	const abs = Math.abs(value);
+	const sign = value < 0 ? '-' : '';
+	return `${sign}translate-${axis}-${abs}`;
+};
+
+const hiddenClasses = {
+	fade: 'opacity-0',
+	slideUp: `opacity-0 ${getTranslateClass('y', distance)}`,
+	slideDown: `opacity-0 ${getTranslateClass('y', -distance)}`,
+	slideLeft: `opacity-0 ${getTranslateClass('x', distance)}`,
+	slideRight: `opacity-0 ${getTranslateClass('x', -distance)}`,
+};
+
+const visibleClasses = {
+	fade: 'opacity-100',
+	slideUp: `opacity-100 ${getTranslateClass('y', distance, true)}`,
+	slideDown: `opacity-100 ${getTranslateClass('y', -distance, true)}`,
+	slideLeft: `opacity-100 ${getTranslateClass('x', distance, true)}`,
+	slideRight: `opacity-100 ${getTranslateClass('x', -distance, true)}`,
+};
+
+const thresholdClass =
+	typeof threshold === 'number' ? '' : `reveal-${threshold}`;
+const onceClass = once ? 'reveal-once' : '';
+const staggerClass = stagger ? 'reveal-stagger' : 'reveal-no-stagger';
+---
+
+<div
+	class={`scroll-reveal transition-all ease-out ${duration} ${hiddenClasses[animation]} ${thresholdClass} ${onceClass} ${staggerClass} ${className}`}
+	data-animation={animation}
+	data-delay={delay}
+	data-threshold={threshold}
+	data-once={once}
+	data-stagger={stagger}
+	data-distance={distance}
+	no-reveal
+>
+	<slot />
+</div>
+
+<script>
+	const getTranslateClass = (axis, value, zero = false) => {
+		if (zero) return `translate-${axis}-0`;
+		const abs = Math.abs(value);
+		const sign = value < 0 ? '-' : '';
+		return `${sign}translate-${axis}-${abs}`;
+	};
+
+	class ScrollRevealManager {
+		observer = null;
+		delayBetweenAnimations = 100;
+		groupCounters = new Map();
+
+		start() {
+			const elements = Array.from(document.querySelectorAll('.scroll-reveal'));
+			if (elements.length === 0) return;
+
+			elements.forEach((el) => {
+				el.setAttribute('no-reveal', '');
+				el._intersectionThreshold = this.getThreshold(el);
+
+				const group = el.closest('[data-reveal-group]');
+				if (group) {
+					el._revealGroup = group;
+					if (!this.groupCounters.has(group)) {
+						this.groupCounters.set(group, 0);
+					}
+				}
+			});
+
+			this.observer = new IntersectionObserver(
+				this.handleIntersect.bind(this),
+				{
+					threshold: [0, 0.05, 0.3, 0.9],
+					rootMargin: '0px 0px -50px 0px',
+				}
+			);
+
+			elements.forEach((el) => this.observer.observe(el));
+		}
+
+		handleIntersect(entries) {
+			entries.forEach((entry) => {
+				requestAnimationFrame(() => {
+					const el = entry.target;
+					const ratio = entry.intersectionRatio;
+					const threshold = el._intersectionThreshold;
+					const isStagger = el.dataset.stagger === 'true';
+					const isOnce = el.dataset.once === 'true';
+					const group = el._revealGroup;
+					const groupKey = group || el;
+
+					if (!isStagger) {
+						if (entry.isIntersecting) {
+							el.removeAttribute('no-reveal');
+							this.animateElement(el);
+							if (isOnce) this.observer?.unobserve(el);
+						} else if (!isOnce) {
+							el.setAttribute('no-reveal', '');
+							this.resetElement(el);
+						}
+					} else {
+						if (ratio >= threshold && !el.hasAttribute('data-animated')) {
+							el.removeAttribute('no-reveal');
+							el.setAttribute('data-animated', 'true');
+
+							const baseDelay = parseInt(el.dataset.delay || '0');
+							const count = this.groupCounters.get(groupKey) || 0;
+							const staggerDelay = count * this.delayBetweenAnimations;
+							const totalDelay = baseDelay + staggerDelay;
+
+							this.groupCounters.set(groupKey, count + 1);
+
+							setTimeout(() => this.animateElement(el), totalDelay);
+
+							if (isOnce) this.observer?.unobserve(el);
+						} else if (!isOnce) {
+							el.setAttribute('no-reveal', '');
+							el.removeAttribute('data-animated');
+							this.resetElement(el);
+							this.groupCounters.set(groupKey, 0);
+						}
+					}
+				});
+			});
+		}
+
+		getThreshold(el) {
+			const attr = el.dataset.threshold;
+			if (typeof attr === 'string') {
+				switch (attr) {
+					case 'full':
+						return 0.9;
+					case 'half':
+						return 0.3;
+					case 'quarter':
+						return 0.05;
+					default:
+						return 0.01;
+				}
+			}
+			return parseFloat(attr || '0.01');
+		}
+
+		animateElement(el) {
+			const anim = el.dataset.animation || 'fade';
+			const baseDelay = parseInt(el.dataset.delay || '0');
+			const isStagger = el.dataset.stagger === 'true';
+
+			if (!isStagger) {
+				setTimeout(() => this.applyVisibleClasses(el, anim), baseDelay);
+			} else {
+				this.applyVisibleClasses(el, anim);
+			}
+		}
+
+		applyVisibleClasses(el, anim) {
+			const dist = parseInt(el.dataset.distance || '8');
+			switch (anim) {
+				case 'fade':
+					el.classList.remove('opacity-0');
+					el.classList.add('opacity-100');
+					break;
+				case 'slideUp':
+					el.classList.remove('opacity-0', getTranslateClass('y', dist));
+					el.classList.add('opacity-100', getTranslateClass('y', dist, true));
+					break;
+				case 'slideDown':
+					el.classList.remove('opacity-0', getTranslateClass('y', -dist));
+					el.classList.add('opacity-100', getTranslateClass('y', -dist, true));
+					break;
+				case 'slideLeft':
+					el.classList.remove('opacity-0', getTranslateClass('x', dist));
+					el.classList.add('opacity-100', getTranslateClass('x', dist, true));
+					break;
+				case 'slideRight':
+					el.classList.remove('opacity-0', getTranslateClass('x', -dist));
+					el.classList.add('opacity-100', getTranslateClass('x', -dist, true));
+					break;
+			}
+		}
+
+		resetElement(el) {
+			const anim = el.dataset.animation || 'fade';
+			const dist = parseInt(el.dataset.distance || '8');
+			switch (anim) {
+				case 'fade':
+					el.classList.remove('opacity-100');
+					el.classList.add('opacity-0');
+					break;
+				case 'slideUp':
+					el.classList.remove(
+						'opacity-100',
+						getTranslateClass('y', dist, true)
+					);
+					el.classList.add('opacity-0', getTranslateClass('y', dist));
+					break;
+				case 'slideDown':
+					el.classList.remove(
+						'opacity-100',
+						getTranslateClass('y', -dist, true)
+					);
+					el.classList.add('opacity-0', getTranslateClass('y', -dist));
+					break;
+				case 'slideLeft':
+					el.classList.remove(
+						'opacity-100',
+						getTranslateClass('x', dist, true)
+					);
+					el.classList.add('opacity-0', getTranslateClass('x', dist));
+					break;
+				case 'slideRight':
+					el.classList.remove(
+						'opacity-100',
+						getTranslateClass('x', -dist, true)
+					);
+					el.classList.add('opacity-0', getTranslateClass('x', -dist));
+					break;
+			}
+		}
+
+		destroy() {
+			this.observer?.disconnect();
+			this.observer = null;
+			this.groupCounters.clear();
+		}
+	}
+
+	declare global {
+		interface HTMLElement {
+			_intersectionThreshold: number;
+			_revealGroup?: HTMLElement;
+		}
+	}
+
+	let scrollRevealManager;
+	function initScrollReveal() {
+		scrollRevealManager?.destroy();
+		scrollRevealManager = new ScrollRevealManager();
+		scrollRevealManager.start();
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initScrollReveal);
+	} else {
+		initScrollReveal();
+	}
+	document.addEventListener('astro:after-swap', initScrollReveal);
+</script>
