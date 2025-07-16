@@ -2,7 +2,7 @@
 // Navigation.astro
 interface NavLink {
 	name: string;
-	href: string;
+	href?: string;
 	childrenLinks?: NavLink[];
 }
 
@@ -42,7 +42,7 @@ const linkClasses = [
 				<li class="relative group flex items-center">
 					{link.childrenLinks ? (
 						<div class="dropdown">
-							<button
+							<span
 								class={`${linkClasses} flex items-center gap-1`}
 								aria-haspopup="true"
 								aria-expanded="false"
@@ -58,7 +58,7 @@ const linkClasses = [
 								>
 									<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6l-6-6z" />
 								</svg>
-							</button>
+							</span>
 							<div
 								class="dropdown-menu absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
 								role="menu"
