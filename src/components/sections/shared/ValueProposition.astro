@@ -1,24 +1,45 @@
 ---
-import SectionContainer from '../shared/SectionContainer.astro';
-import ScrollReveal from '../shared/ScrollReveal.astro';
+import ScrollReveal from './ScrollReveal.astro';
+
+// Images & Media
+import Star from '@/assets/icons/Star.astro';
 
 interface Props {
-	title?: string;
-	eyebrow?: string;
-	body?: string;
-	className?: string;
+	title: string;
+	subtitle: string;
+	backgroundColor?: string;
+	body: string;
+	centerHeader?: boolean;
 }
 
-const { title = 'title', eyebrow = 'eyebrow' } = Astro.props as Props;
+const {
+	title = 'title',
+	subtitle = 'subtitle',
+	backgroundColor = 'bg-gray-50',
+	body = 'text',
+} = Astro.props as Props;
 ---
 
-<SectionContainer
-	title={title}
-	subtitle={eyebrow}
+<section
+	class={`${backgroundColor}`}
+	data-reveal-group
 >
-	<div
-		class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
-		data-group-reveal
-	>
+	<div class="content-container flex flex-col gap-10 lg:gap-10 items-center">
+		<!-- Section Header -->
+		<div class="text-left md:text-center">
+			<h3 class="subtitle text-primary-500 !font-bold">{subtitle}</h3>
+			<h2 class="heading-l2">{title}</h2>
+		</div>
+		<div class="star-divider flex text-primary-500 md:gap-2">
+			<Star class="w-10 h-10 md:h-14 md:w-14" />
+			<Star class="w-10 h-10 md:h-14 md:w-14" />
+			<Star class="w-10 h-10 md:h-14 md:w-14" />
+			<Star class="w-10 h-10 md:h-14 md:w-14" />
+			<Star class="w-10 h-10 md:h-14 md:w-14" />
+		</div>
+		<p
+			class="text-center wsl-text-lg"
+			set:html={body}
+		/>
 	</div>
-</SectionContainer>
+</section>

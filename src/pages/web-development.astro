@@ -3,14 +3,14 @@
 import Layout from '@/layouts/Layout.astro';
 // Sections
 import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
+import ValueProposition from '@/components/sections/shared/ValueProposition.astro';
 import Testimonials from '@/components/sections/shared/Testimonials.astro';
 import Portfolio from '@/components/sections/shared/Portfolio.astro';
 import CTA from '@/components/sections/shared/CTA.astro';
-
-// Images
-import { Image } from 'astro:assets';
-import HeroImage from '@/assets/web-design.webp';
 import ButtonGroup from '@/components/groups/ButtonGroup.astro';
+
+// Images & Media
+import Star from '@/assets/icons/Star.astro';
 ---
 
 <Layout
@@ -36,6 +36,11 @@ import ButtonGroup from '@/components/groups/ButtonGroup.astro';
 			/>
 		</div> -->
 	</SubPageHero>
+	<ValueProposition
+		title="Turn Great Work Into a Steady Stream of New Clients"
+		subtitle="Your Best Jobs Should Bring You Your Next Jobs"
+		body="Every project you finish is a chance to earn the next one. A well-built website shows off your craftsmanship, builds trust with new clients, and proves you take your business seriously. <br><br>We design and build sites that showcase your skills, build credibility, and make it easy for potential clients to say yes."
+	/>
 	<Testimonials backgroundColor="bg-gray-50" />
 	<Portfolio />
 	<CTA />
