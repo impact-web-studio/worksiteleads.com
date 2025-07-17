@@ -27,19 +27,39 @@ const {
 	<div class="content-container flex flex-col gap-10 lg:gap-10 items-center">
 		<!-- Section Header -->
 		<div class="text-left md:text-center">
-			<h3 class="subtitle text-primary-500 !font-bold">{subtitle}</h3>
-			<h2 class="heading-l2">{title}</h2>
+			<ScrollReveal
+				animation="slideUp"
+				stagger={true}
+			>
+				<h3 class="subtitle text-primary-500 !font-bold">{subtitle}</h3>
+			</ScrollReveal>
+			<ScrollReveal
+				animation="slideUp"
+				stagger={true}
+			>
+				<h2 class="heading-l2">{title}</h2>
+			</ScrollReveal>
 		</div>
-		<div class="star-divider flex text-primary-500 md:gap-2">
-			<Star class="w-10 h-10 md:h-14 md:w-14" />
-			<Star class="w-10 h-10 md:h-14 md:w-14" />
-			<Star class="w-10 h-10 md:h-14 md:w-14" />
-			<Star class="w-10 h-10 md:h-14 md:w-14" />
-			<Star class="w-10 h-10 md:h-14 md:w-14" />
-		</div>
-		<p
-			class="text-center wsl-text-lg"
-			set:html={body}
-		/>
+		<ScrollReveal
+			animation="slideUp"
+			stagger={true}
+		>
+			<div class="star-divider flex text-primary-500 md:gap-2">
+				<Star class="w-10 h-10 md:h-14 md:w-14" />
+				<Star class="w-10 h-10 md:h-14 md:w-14" />
+				<Star class="w-10 h-10 md:h-14 md:w-14" />
+				<Star class="w-10 h-10 md:h-14 md:w-14" />
+				<Star class="w-10 h-10 md:h-14 md:w-14" />
+			</div>
+		</ScrollReveal>
+		<ScrollReveal
+			animation="slideUp"
+			stagger={true}
+		>
+			<p
+				class="text-center wsl-text-lg"
+				set:html={body}
+			/>
+		</ScrollReveal>
 	</div>
 </section>

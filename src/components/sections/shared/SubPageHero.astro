@@ -3,6 +3,8 @@
 import { Image } from 'astro:assets';
 import heroBg from '@/assets/home-banner-bg.png';
 
+import ScrollReveal from './ScrollReveal.astro';
+
 interface Props {
 	eyebrow?: string;
 	title?: string;
@@ -56,7 +58,10 @@ const contentStyle = hasHeroImage
 	: noHeroImageStyle.content;
 ---
 
-<section class="relative overflow-hidden">
+<section
+	class="relative overflow-hidden"
+	data-reveal-group
+>
 	<!-- Background Image -->
 	<div class="absolute inset-0 z-0">
 		<Image
@@ -82,22 +87,39 @@ const contentStyle = hasHeroImage
 			class={`flex flex-col gap-5 justify-center mt-20 md:mt-0 ${className} ${contentStyle}`}
 		>
 			<div class="flex flex-col">
-				<span
-					class="text-primary-500 wsl-text-lg font-extrabold font-montserrat capitalize"
-					set:html={eyebrow}
-				/>
-				<!-- Main Heading -->
-				<h1
-					class="heading-l1 text-gray-50 capitalize"
-					set:html={title}
-				/>
+				<ScrollReveal
+					animation="slideUp"
+					stagger={true}
+				>
+					<span
+						class="text-primary-500 wsl-text-lg font-extrabold font-montserrat capitalize"
+						set:html={eyebrow}
+					/>
+				</ScrollReveal>
+				<ScrollReveal
+					animation="slideUp"
+					stagger={true}
+				>
+					<!-- Main Heading -->
+					<h1
+						class="heading-l1 text-gray-50 capitalize"
+						set:html={title}
+					/>
+				</ScrollReveal>
 			</div>
 			<div class="flex flex-col gap-10">
-				<p
-					class="text-gray-100 wsl-text-lg"
-					set:html={description}
-				/>
-				<slot name="after-description" />
+				<ScrollReveal
+					animation="slideUp"
+					stagger={true}
+				>
+					<p
+						class="text-gray-100 wsl-text-lg"
+						set:html={description}
+					/>
+				</ScrollReveal>
+				<ScrollReveal stagger={true}>
+					<slot name="after-description" />
+				</ScrollReveal>
 			</div>
 		</div>
 
