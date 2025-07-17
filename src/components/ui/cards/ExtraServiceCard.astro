@@ -11,6 +11,7 @@ interface Props {
 	description: string;
 	iconName: string;
 	iconAlt: string;
+	variation?: 'default' | 'secondary';
 }
 
 const {
@@ -18,6 +19,7 @@ const {
 	description = 'description',
 	iconName,
 	iconAlt,
+	variation = 'default',
 } = Astro.props as Props;
 
 const iconComponents = {
@@ -30,10 +32,29 @@ const iconComponents = {
 };
 
 const Icon = iconComponents[iconName as keyof typeof iconComponents];
+
+const variationStyles = {
+	default: {
+		iconColor: 'text-primary-500',
+		header: 'heading-l3 text-gray-900',
+		textColor: 'text-gray-700',
+		background: '',
+	},
+	secondary: {
+		iconColor: 'text-primary-500',
+		header: 'wsl-text-lg text-primary-500',
+		textColor: 'text-gray-100',
+		background: 'bg-gray-700',
+	},
+};
+
+const styleConfig = variationStyles[variation];
 ---
 
-<article class:list={['flex flex-col gap-2 justify-center']}>
-	<div class="icon-wrapper w-full max-w-[100px] text-primary-500 self-center">
+<article class:list={[`flex flex-col gap-2 justify-center`]}>
+	<div
+		class={`icon-wrapper w-full max-w-[100px] self-center ${styleConfig.iconColor}`}
+	>
 		{
 			Icon && (
 				<Icon
@@ -45,11 +66,11 @@ const Icon = iconComponents[iconName as keyof typeof iconComponents];
 	</div>
 	<div class:list={['content-wrapper', 'flex flex-col gap-2 text-center']}>
 		<h3
-			class={`heading-l3`}
+			class={`${styleConfig.header}`}
 			set:html={title}
 		/>
 		<p
-			class={`wsl-text-sm`}
+			class={`wsl-text-sm ${styleConfig.textColor}`}
 			set:html={description}
 		/>
 	</div>

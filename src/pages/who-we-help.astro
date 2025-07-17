@@ -1,0 +1,79 @@
+---
+// Layout
+import Layout from '@/layouts/Layout.astro';
+// Sections
+import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
+import ValueProposition from '@/components/sections/shared/ValueProposition.astro';
+import Benefits from '@/components/sections/shared/Benefits.astro';
+import WhyWorksiteLeads from '@/components/sections/services/WhyWorksiteLeads.astro';
+import ExtraServices from '@/components/sections/home/ExtraServices.astro';
+import Testimonials from '@/components/sections/shared/Testimonials.astro';
+import Portfolio from '@/components/sections/shared/Portfolio.astro';
+import CTA from '@/components/sections/shared/CTA.astro';
+import ButtonGroup from '@/components/groups/ButtonGroup.astro';
+
+// Images & Media
+import Star from '@/assets/icons/Star.astro';
+import TemporaryImage from '@/assets/tmp.avif';
+---
+
+<Layout
+	hasHero={true}
+	title="Who We Help - Worksite Leads"
+	description="Trusted by Builders, Remodelers & Skilled Trades | Designed to Help You Get Booked"
+>
+	<SubPageHero
+		eyebrow="Designed to Help You Get Booked"
+		title="Trusted by Builders, Remodelers & Skilled Trades"
+		description="We help tradesmen like you streamline quotes, book more jobs, and win higher-value projects — all while looking as professional online as you are on-site.<br><br>Whether you're a general contractor, custom home builder, or renovation pro, our websites are built to get your phone ringing and your calendar booked."
+		class=""
+		hasHeroImage={false}
+	>
+		<ButtonGroup slot="after-description" />
+		<!-- <div
+			slot="after-content"
+			class="w-full h-fit overflow-hidden mt-10"
+		>
+			<Image
+				src={HeroImage}
+				alt="temporary"
+			/>
+		</div> -->
+	</SubPageHero>
+	<ValueProposition
+		title="We Help You Win More of the Right Jobs"
+		subtitle="Why Trades Pros Trust Us"
+		body="From custom home remodelers to full-service contractors, we work with tradesmen who are serious about growing. Whether you want more high-ticket projects or fewer tire-kickers, we help you attract the right clients — and keep your calendar full of work worth doing.<br><br>We help tradesmen like you stand out, look professional online, and bring in better projects — the kind that pay what you're worth."
+	/>
+	<Benefits
+		subtitle="First Impressions Matter"
+		title="Give People a Reason to Pick You Over the Next Guy"
+		benefits={[
+			{
+				title: 'Become the Top-Rated Business in Your Area',
+				description:
+					"People trust reviews more than anything else online. We help you collect 5-star feedback automatically after every job, so your reputation grows with every satisfied customer. The more positive reviews you have, the higher you'll rank — and the more calls you'll get.",
+				image: TemporaryImage,
+				imageAlt: 'temporary',
+			},
+			{
+				title: 'Faster Sites. More Leads.',
+				description:
+					'Most websites take too long to load — and when that happens, customers bounce. Our custom-built sites are optimized for speed from the ground up, loading almost instantly. That means more visitors stick around, and more of them become paying clients. <ol class="text-gray-200 wsl-text-sm font-semibold">Key Benefits: <li>1. Load times under 2 seconds on mobile and desktop</li> <li>2. Higher conversion rates from ads and organic traffic</li><li> 3. Lower bounce rates = more booked jobs</li></ol>',
+				image: TemporaryImage,
+				imageAlt: 'temporary',
+				reverse: true,
+			},
+			{
+				title: 'Put Your Best Jobs Front and Center',
+				description:
+					'Your work speaks for itself — so let it. We design clean, professional websites that highlight your past projects with high-quality photos, testimonials, and trust signals. Whether someone finds you on Google or through a referral, they’ll instantly see what makes you worth hiring. <ol class="text-gray-200 wsl-text-sm font-semibold">Key Benefits: <li>1. Showcase your top projects, reviews, and before/afters</li> <li>2. Build trust with high-impact visual proof</li><li> 3. Create a strong first impression that leads to inquiries</li></ol>',
+				image: TemporaryImage,
+				imageAlt: 'temporary',
+			},
+		]}
+	/>
+	<WhyWorksiteLeads />
+	<ExtraServices />
+	<CTA />
+</Layout>
