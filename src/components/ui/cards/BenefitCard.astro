@@ -1,0 +1,25 @@
+---
+interface Props {
+	title: string;
+	description: string;
+	image: ImageMetadata;
+	imageAlt: string;
+}
+
+const { title, description, image, imageAlt } = Astro.props as Props;
+---
+
+<article>
+	<div class="conten">
+		<h3
+			class="title"
+			set:html={title}
+		/>
+		<p set:html={description} />
+		<a href="/schedule-call">Schedule a Call</a>
+	</div>
+	<Image
+		src={image}
+		alt={imageAlt}
+	/>
+</article>

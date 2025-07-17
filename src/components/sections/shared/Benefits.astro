@@ -1,0 +1,26 @@
+---
+interface Props {
+	subtitle: string;
+	title: string;
+	backgroundColor?: string;
+}
+const { subtitle, title, backgroundColor = 'bg-gray-700' } = Astro.props;
+---
+
+<section></section>
+---
+
+<section
+	class={`${backgroundColor}`}
+	data-reveal-group
+>
+	<div class="content-container flex flex-col gap-10 lg:gap-10 items-center">
+		<!-- Section Header -->
+		<div class="text-left md:text-center">
+			<h3 class="subtitle text-primary-500 !font-bold">{subtitle}</h3>
+			<h2 class="heading-l2 text-gray-100">{title}</h2>
+		</div>
+		<div class="star-divider flex text-primary-500 md:gap-2"></div>
+		<slot />
+	</div>
+</section>
