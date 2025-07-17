@@ -10,6 +10,7 @@ interface Props {
 	backgroundColor?: string;
 	body: string;
 	centerHeader?: boolean;
+	sectionId?: string;
 }
 
 const {
@@ -17,12 +18,14 @@ const {
 	subtitle = 'subtitle',
 	backgroundColor = 'bg-gray-50',
 	body = 'text',
+	sectionId,
 } = Astro.props as Props;
 ---
 
 <section
 	class={`${backgroundColor}`}
 	data-reveal-group
+	id={sectionId}
 >
 	<div class="content-container flex flex-col gap-10 lg:gap-10 items-center">
 		<!-- Section Header -->

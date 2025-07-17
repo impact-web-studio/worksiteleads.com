@@ -15,12 +15,13 @@ interface Props {
 	videoId?: string; // YouTube video ID
 	ctaText?: string;
 	ctaHref?: string;
+	learnMoreHref: string;
 }
 
 const {
 	title = 'Welcome to Our Company',
 	subtitle = 'We create amazing experiences that drive results',
-	bodyText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+	bodyText,
 	listItems = [
 		'Full Website Designs',
 		'Lead Generation & Follow-up Automations',
@@ -28,8 +29,7 @@ const {
 	],
 	videoId = 'dQw4w9WgXcQ', // Replace with your actual YouTube video ID
 
-	ctaText = 'Get Started',
-	ctaHref = '/contact',
+	learnMoreHref,
 } = Astro.props;
 ---
 
@@ -96,7 +96,7 @@ const {
 						variation="primary"
 					/>
 					<Button
-						href=""
+						href={learnMoreHref}
 						variation="primary"
 						type="link"
 						text="Learn More"
