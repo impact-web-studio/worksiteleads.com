@@ -9,7 +9,7 @@ import CTA from '@/components/sections/shared/CTA.astro';
 
 // Images
 import { Image } from 'astro:assets';
-import TemporaryImage from '@/assets/cta-rocket.png';
+import HeroImage from '@/assets/web-design.webp';
 import ButtonGroup from '@/components/groups/ButtonGroup.astro';
 ---
 
@@ -23,17 +23,18 @@ import ButtonGroup from '@/components/groups/ButtonGroup.astro';
 		title="Website Design & Development"
 		description="No page-builders or WordPress. We do things a little differently. Instead of using page-builders or WordPress, we hand write all the code for our sites from the bottom up."
 		class=""
+		hasHeroImage={false}
 	>
 		<ButtonGroup slot="after-description" />
-		<div
+		<!-- <div
 			slot="after-content"
-			class="w-full h-fit overflow-hidden"
+			class="w-full h-fit overflow-hidden mt-10"
 		>
 			<Image
-				src={TemporaryImage}
+				src={HeroImage}
 				alt="temporary"
 			/>
-		</div>
+		</div> -->
 	</SubPageHero>
 	<Testimonials backgroundColor="bg-gray-50" />
 	<Portfolio />

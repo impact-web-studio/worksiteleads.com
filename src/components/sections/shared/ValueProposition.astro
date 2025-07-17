@@ -1,0 +1,24 @@
+---
+import SectionContainer from '../shared/SectionContainer.astro';
+import ScrollReveal from '../shared/ScrollReveal.astro';
+
+interface Props {
+	title?: string;
+	eyebrow?: string;
+	body?: string;
+	className?: string;
+}
+
+const { title = 'title', eyebrow = 'eyebrow' } = Astro.props as Props;
+---
+
+<SectionContainer
+	title={title}
+	subtitle={eyebrow}
+>
+	<div
+		class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+		data-group-reveal
+	>
+	</div>
+</SectionContainer>

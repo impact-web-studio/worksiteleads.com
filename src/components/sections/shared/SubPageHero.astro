@@ -9,6 +9,7 @@ interface Props {
 	description?: string;
 	class?: string;
 	layout?: 'horizontal' | 'vertical';
+	hasHeroImage?: boolean;
 	isContactPage?: boolean;
 }
 
@@ -18,17 +19,18 @@ const {
 	description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
 	class: className,
 	layout = 'horizontal',
+	hasHeroImage = true,
 	isContactPage = false,
 } = Astro.props;
 
 const layoutConfig = {
 	horizontal: {
 		container:
-			'gap-10 md:flex-row md:flex-start md:justify-center md:items-start',
+			'gap-10 items-center md:flex-row md:flex-start md:justify-center md:items-start',
 		content: 'md:max-w-1/2 pt-0 md:pt-30',
 	},
 	vertical: {
-		container: '',
+		container: 'items-center',
 		content: 'md:pt-20 md:w-full lg:pt-28',
 	},
 };
@@ -40,7 +42,18 @@ const formConfig = {
 
 const layoutStyle = layoutConfig[layout];
 const contactPageStyle = isContactPage ? 'min-w-[360px] lg:min-w-[520px]' : ' ';
-const formStyle = formConfig[layout];
+const formStyle = hasHeroImage ? formConfig[layout] : 'hidden';
+
+const noHeroImageStyle = {
+	container: '!items-start',
+	content: 'max-w-[75ch] pt-0 md:pt-30',
+};
+const containerStyle = hasHeroImage
+	? layoutStyle.container
+	: noHeroImageStyle.container;
+const contentStyle = hasHeroImage
+	? layoutStyle.content
+	: noHeroImageStyle.content;
 ---
 
 <section class="relative overflow-hidden">
@@ -62,11 +75,11 @@ const formStyle = formConfig[layout];
 
 	<!-- Content Container -->
 	<div
-		class={`content-container relative z-10 min-h-screen flex flex-col items-center ${layoutStyle.container}`}
+		class={`content-container relative z-10 min-h-screen flex flex-col ${containerStyle}`}
 	>
 		<!-- Main Content Area -->
 		<div
-			class={`flex flex-col gap-5 justify-center mt-20 md:mt-0 ${className} ${layoutStyle.content}`}
+			class={`flex flex-col gap-5 justify-center mt-20 md:mt-0 ${className} ${contentStyle}`}
 		>
 			<div class="flex flex-col">
 				<span
@@ -88,9 +101,8 @@ const formStyle = formConfig[layout];
 			</div>
 		</div>
 
-		<!-- Form Section  -->
 		<div
-			class={`pb-10 lg:pb-20 w-full min-h-[450px] ${contactPageStyle} ${formStyle}`}
+			class={`pb-10 lg:pb-20 w-full md:min-h-[450px] ${contactPageStyle} ${formStyle}`}
 		>
 			<slot name="after-content" />
 		</div>
