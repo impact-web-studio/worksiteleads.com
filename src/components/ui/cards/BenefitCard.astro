@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-
+import ScrollReveal from '@/components/sections/shared/ScrollReveal.astro';
 interface Props {
 	title: string;
 	description: string;
@@ -18,32 +18,40 @@ const {
 } = Astro.props as Props;
 
 const layoutOrder = reverse ? 'md:flex-row-reverse' : 'md:flex-row';
+const animationOrder = reverse
+	? { left: 'slideLeft', right: 'slideRight' }
+	: { left: 'slideRight', right: 'slideLeft' };
 ---
 
 <article
 	class={`flex flex-col gap-10 ${layoutOrder} md:justify-between md:items-center`}
+	data-reveal-group
 >
 	<div class="content flex flex-col gap-10 w-full md:max-w-[45%]">
-		<div class="flex flex-col gap-4">
-			<h3
-				class="text-primary-500 heading-l3"
-				set:html={title}
-			/>
-			<p
-				class="text-gray-200 wsl-text-sm"
-				set:html={description}
-			/>
-		</div>
-		<a
-			href="/schedule-call"
-			class="text-primary-500 font-bold"
-			>Schedule a Call</a
-		>
+		<ScrollReveal animation={animationOrder.left}>
+			<div class="flex flex-col gap-4">
+				<h3
+					class="text-primary-500 heading-l3"
+					set:html={title}
+				/>
+				<p
+					class="text-gray-200 wsl-text-sm"
+					set:html={description}
+				/>
+			</div>
+			<a
+				href="/schedule-call"
+				class="text-primary-500 font-bold"
+				>Schedule a Call</a
+			>
+		</ScrollReveal>
 	</div>
 	<div class="image-container w-full md:max-w-[45%]">
-		<Image
-			src={image}
-			alt={imageAlt}
-		/>
+		<ScrollReveal animation={animationOrder.right}>
+			<Image
+				src={image}
+				alt={imageAlt}
+			/>
+		</ScrollReveal>
 	</div>
 </article>

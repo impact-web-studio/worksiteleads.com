@@ -1,4 +1,5 @@
 ---
+// ScrollReveal.astro
 interface Props {
 	animation?: 'fade' | 'slideUp' | 'slideDown' | 'slideLeft' | 'slideRight';
 	delay?: number;
@@ -7,43 +8,36 @@ interface Props {
 	once?: boolean;
 	stagger?: boolean;
 	class?: string;
-	distance?: number;
 }
 
 const {
 	animation = 'slideUp',
 	delay = 0,
-	duration = 'duration-800',
+	duration = 'duration-700',
 	threshold = 'quarter',
 	once = true,
 	stagger = false,
 	class: className = '',
-	distance = 8,
 } = Astro.props;
 
-const getTranslateClass = (axis: 'x' | 'y', value: number, zero = false) => {
-	if (zero) return `translate-${axis}-0`;
-	const abs = Math.abs(value);
-	const sign = value < 0 ? '-' : '';
-	return `${sign}translate-${axis}-${abs}`;
-};
-
+const baseClasses = 'transition-all ease-out';
 const hiddenClasses = {
 	fade: 'opacity-0',
-	slideUp: `opacity-0 ${getTranslateClass('y', distance)}`,
-	slideDown: `opacity-0 ${getTranslateClass('y', -distance)}`,
-	slideLeft: `opacity-0 ${getTranslateClass('x', distance)}`,
-	slideRight: `opacity-0 ${getTranslateClass('x', -distance)}`,
+	slideUp: 'opacity-0 translate-y-8',
+	slideDown: 'opacity-0 -translate-y-8',
+	slideLeft: 'opacity-0 translate-x-8',
+	slideRight: 'opacity-0 -translate-x-8',
 };
 
 const visibleClasses = {
 	fade: 'opacity-100',
-	slideUp: `opacity-100 ${getTranslateClass('y', distance, true)}`,
-	slideDown: `opacity-100 ${getTranslateClass('y', -distance, true)}`,
-	slideLeft: `opacity-100 ${getTranslateClass('x', distance, true)}`,
-	slideRight: `opacity-100 ${getTranslateClass('x', -distance, true)}`,
+	slideUp: 'opacity-100 translate-y-0',
+	slideDown: 'opacity-100 translate-y-0',
+	slideLeft: 'opacity-100 translate-x-0',
+	slideRight: 'opacity-100 translate-x-0',
 };
 
+// Convert threshold to class names for easier CSS targeting
 const thresholdClass =
 	typeof threshold === 'number' ? '' : `reveal-${threshold}`;
 const onceClass = once ? 'reveal-once' : '';
@@ -51,224 +45,253 @@ const staggerClass = stagger ? 'reveal-stagger' : 'reveal-no-stagger';
 ---
 
 <div
-	class={`scroll-reveal transition-all ease-out ${duration} ${hiddenClasses[animation]} ${thresholdClass} ${onceClass} ${staggerClass} ${className}`}
+	class={`scroll-reveal ${baseClasses} ${duration} ${hiddenClasses[animation]} ${thresholdClass} ${onceClass} ${staggerClass} ${className}`}
 	data-animation={animation}
 	data-delay={delay}
 	data-threshold={threshold}
 	data-once={once}
 	data-stagger={stagger}
-	data-distance={distance}
 	no-reveal
 >
 	<slot />
 </div>
 
 <script>
-	const getTranslateClass = (axis, value, zero = false) => {
-		if (zero) return `translate-${axis}-0`;
-		const abs = Math.abs(value);
-		const sign = value < 0 ? '-' : '';
-		return `${sign}translate-${axis}-${abs}`;
-	};
-
 	class ScrollRevealManager {
-		observer = null;
-		delayBetweenAnimations = 100;
-		groupCounters = new Map();
+		private observer: IntersectionObserver | null = null;
+		private delayBetweenAnimations = 100;
+		private staggerGroupCounters = new Map<Element, number>();
 
 		start() {
 			const elements = Array.from(document.querySelectorAll('.scroll-reveal'));
+
 			if (elements.length === 0) return;
 
+			// Set up each element
 			elements.forEach((el) => {
-				el.setAttribute('no-reveal', '');
-				el._intersectionThreshold = this.getThreshold(el);
-
-				const group = el.closest('[data-reveal-group]');
-				if (group) {
-					el._revealGroup = group;
-					if (!this.groupCounters.has(group)) {
-						this.groupCounters.set(group, 0);
-					}
-				}
+				const element = el as HTMLElement;
+				element.setAttribute('no-reveal', '');
+				element._intersectionThreshold = this.getThreshold(element);
 			});
 
-			this.observer = new IntersectionObserver(
-				this.handleIntersect.bind(this),
-				{
-					threshold: [0, 0.05, 0.3, 0.9],
-					rootMargin: '0px 0px -50px 0px',
+			const callback = (entries: IntersectionObserverEntry[]) => {
+				entries.forEach((entry) => {
+					requestAnimationFrame(() => {
+						const target = entry.target as HTMLElement;
+						const intersectionRatio = entry.intersectionRatio;
+						const threshold = target._intersectionThreshold;
+						const isStagger = target.dataset.stagger === 'true';
+						const isOnce = target.dataset.once === 'true';
+
+						if (!isStagger) {
+							// Non-staggered animation (immediate)
+							if (entry.isIntersecting) {
+								target.removeAttribute('no-reveal');
+								this.animateElement(target);
+								if (isOnce) {
+									this.observer?.unobserve(target);
+								}
+							} else if (!isOnce) {
+								target.setAttribute('no-reveal', '');
+								this.resetElement(target);
+							}
+						} else {
+							// Staggered animation
+							if (intersectionRatio >= threshold) {
+								if (!target.hasAttribute('data-animated')) {
+									target.removeAttribute('no-reveal');
+									target.setAttribute('data-animated', 'true');
+
+									const staggerGroup = this.findStaggerGroup(target);
+									const staggerIndex = this.getStaggerIndex(
+										target,
+										staggerGroup
+									);
+
+									const baseDelay = parseInt(target.dataset.delay || '0');
+									const staggerDelay =
+										staggerIndex * this.delayBetweenAnimations;
+									const totalDelay = baseDelay + staggerDelay;
+
+									setTimeout(() => {
+										this.animateElement(target);
+									}, totalDelay);
+
+									if (isOnce) {
+										this.observer?.unobserve(target);
+									}
+								}
+							} else if (!isOnce) {
+								target.setAttribute('no-reveal', '');
+								target.removeAttribute('data-animated');
+								this.resetElement(target);
+
+								// Reset stagger group counter when elements go out of view
+								const staggerGroup = this.findStaggerGroup(target);
+								this.staggerGroupCounters.set(staggerGroup, 0);
+							}
+						}
+					});
+				});
+			};
+
+			this.observer = new IntersectionObserver(callback, {
+				threshold: [0, 0.25, 0.5, 0.99],
+				rootMargin: '0px 0px -50px 0px',
+			});
+
+			elements.forEach((el) => {
+				this.observer?.observe(el);
+			});
+		}
+
+		private findStaggerGroup(element: HTMLElement): Element {
+			// Look for the closest parent with data-reveal-group attribute
+			let current = element.parentElement;
+			while (current) {
+				if (current.hasAttribute('data-reveal-group')) {
+					return current;
 				}
+				current = current.parentElement;
+			}
+			// If no data-reveal-group found, use the document body as fallback
+			return document.body;
+		}
+
+		private getStaggerIndex(
+			element: HTMLElement,
+			staggerGroup: Element
+		): number {
+			// Get all staggered elements within this group
+			const staggeredElements = Array.from(
+				staggerGroup.querySelectorAll('[data-stagger="true"]')
 			);
 
-			elements.forEach((el) => this.observer.observe(el));
+			// Find the index of the current element
+			const index = staggeredElements.indexOf(element);
+			return index >= 0 ? index : 0;
 		}
 
-		handleIntersect(entries) {
-			entries.forEach((entry) => {
-				requestAnimationFrame(() => {
-					const el = entry.target;
-					const ratio = entry.intersectionRatio;
-					const threshold = el._intersectionThreshold;
-					const isStagger = el.dataset.stagger === 'true';
-					const isOnce = el.dataset.once === 'true';
-					const group = el._revealGroup;
-					const groupKey = group || el;
+		private getThreshold(element: HTMLElement): number {
+			const thresholdAttr = element.dataset.threshold;
 
-					if (!isStagger) {
-						if (entry.isIntersecting) {
-							el.removeAttribute('no-reveal');
-							this.animateElement(el);
-							if (isOnce) this.observer?.unobserve(el);
-						} else if (!isOnce) {
-							el.setAttribute('no-reveal', '');
-							this.resetElement(el);
-						}
-					} else {
-						if (ratio >= threshold && !el.hasAttribute('data-animated')) {
-							el.removeAttribute('no-reveal');
-							el.setAttribute('data-animated', 'true');
-
-							const baseDelay = parseInt(el.dataset.delay || '0');
-							const count = this.groupCounters.get(groupKey) || 0;
-							const staggerDelay = count * this.delayBetweenAnimations;
-							const totalDelay = baseDelay + staggerDelay;
-
-							this.groupCounters.set(groupKey, count + 1);
-
-							setTimeout(() => this.animateElement(el), totalDelay);
-
-							if (isOnce) this.observer?.unobserve(el);
-						} else if (!isOnce) {
-							el.setAttribute('no-reveal', '');
-							el.removeAttribute('data-animated');
-							this.resetElement(el);
-							this.groupCounters.set(groupKey, 0);
-						}
-					}
-				});
-			});
-		}
-
-		getThreshold(el) {
-			const attr = el.dataset.threshold;
-			if (typeof attr === 'string') {
-				switch (attr) {
+			if (typeof thresholdAttr === 'string') {
+				switch (thresholdAttr) {
 					case 'full':
-						return 0.9;
+						return 0.99;
 					case 'half':
-						return 0.3;
+						return 0.5;
 					case 'quarter':
-						return 0.05;
+						return 0.25;
 					default:
-						return 0.01;
+						return 0.1;
 				}
 			}
-			return parseFloat(attr || '0.01');
+
+			return parseFloat(thresholdAttr || '0.1');
 		}
 
-		animateElement(el) {
-			const anim = el.dataset.animation || 'fade';
-			const baseDelay = parseInt(el.dataset.delay || '0');
-			const isStagger = el.dataset.stagger === 'true';
+		private animateElement(element: HTMLElement) {
+			const animation = element.dataset.animation || 'fade';
+			const baseDelay = parseInt(element.dataset.delay || '0');
+			const isStagger = element.dataset.stagger === 'true';
 
 			if (!isStagger) {
-				setTimeout(() => this.applyVisibleClasses(el, anim), baseDelay);
+				setTimeout(() => {
+					this.applyVisibleClasses(element, animation);
+				}, baseDelay);
 			} else {
-				this.applyVisibleClasses(el, anim);
+				this.applyVisibleClasses(element, animation);
 			}
 		}
 
-		applyVisibleClasses(el, anim) {
-			const dist = parseInt(el.dataset.distance || '8');
-			switch (anim) {
+		private applyVisibleClasses(element: HTMLElement, animation: string) {
+			switch (animation) {
 				case 'fade':
-					el.classList.remove('opacity-0');
-					el.classList.add('opacity-100');
+					element.classList.remove('opacity-0');
+					element.classList.add('opacity-100');
 					break;
 				case 'slideUp':
-					el.classList.remove('opacity-0', getTranslateClass('y', dist));
-					el.classList.add('opacity-100', getTranslateClass('y', dist, true));
+					element.classList.remove('opacity-0', 'translate-y-8');
+					element.classList.add('opacity-100', 'translate-y-0');
 					break;
 				case 'slideDown':
-					el.classList.remove('opacity-0', getTranslateClass('y', -dist));
-					el.classList.add('opacity-100', getTranslateClass('y', -dist, true));
+					element.classList.remove('opacity-0', '-translate-y-8');
+					element.classList.add('opacity-100', 'translate-y-0');
 					break;
 				case 'slideLeft':
-					el.classList.remove('opacity-0', getTranslateClass('x', dist));
-					el.classList.add('opacity-100', getTranslateClass('x', dist, true));
+					element.classList.remove('opacity-0', 'translate-x-8');
+					element.classList.add('opacity-100', 'translate-x-0');
 					break;
 				case 'slideRight':
-					el.classList.remove('opacity-0', getTranslateClass('x', -dist));
-					el.classList.add('opacity-100', getTranslateClass('x', -dist, true));
+					element.classList.remove('opacity-0', '-translate-x-8');
+					element.classList.add('opacity-100', 'translate-x-0');
 					break;
 			}
 		}
 
-		resetElement(el) {
-			const anim = el.dataset.animation || 'fade';
-			const dist = parseInt(el.dataset.distance || '8');
-			switch (anim) {
+		private resetElement(element: HTMLElement) {
+			const animation = element.dataset.animation || 'fade';
+
+			switch (animation) {
 				case 'fade':
-					el.classList.remove('opacity-100');
-					el.classList.add('opacity-0');
+					element.classList.remove('opacity-100');
+					element.classList.add('opacity-0');
 					break;
 				case 'slideUp':
-					el.classList.remove(
-						'opacity-100',
-						getTranslateClass('y', dist, true)
-					);
-					el.classList.add('opacity-0', getTranslateClass('y', dist));
+					element.classList.remove('opacity-100', 'translate-y-0');
+					element.classList.add('opacity-0', 'translate-y-8');
 					break;
 				case 'slideDown':
-					el.classList.remove(
-						'opacity-100',
-						getTranslateClass('y', -dist, true)
-					);
-					el.classList.add('opacity-0', getTranslateClass('y', -dist));
+					element.classList.remove('opacity-100', 'translate-y-0');
+					element.classList.add('opacity-0', '-translate-y-8');
 					break;
 				case 'slideLeft':
-					el.classList.remove(
-						'opacity-100',
-						getTranslateClass('x', dist, true)
-					);
-					el.classList.add('opacity-0', getTranslateClass('x', dist));
+					element.classList.remove('opacity-100', 'translate-x-0');
+					element.classList.add('opacity-0', 'translate-x-8');
 					break;
 				case 'slideRight':
-					el.classList.remove(
-						'opacity-100',
-						getTranslateClass('x', -dist, true)
-					);
-					el.classList.add('opacity-0', getTranslateClass('x', -dist));
+					element.classList.remove('opacity-100', 'translate-x-0');
+					element.classList.add('opacity-0', '-translate-x-8');
 					break;
 			}
 		}
 
 		destroy() {
-			this.observer?.disconnect();
-			this.observer = null;
-			this.groupCounters.clear();
+			if (this.observer) {
+				this.observer.disconnect();
+				this.observer = null;
+			}
+			this.staggerGroupCounters.clear();
 		}
 	}
 
+	// Extend HTMLElement to include custom properties
 	declare global {
 		interface HTMLElement {
 			_intersectionThreshold: number;
-			_revealGroup?: HTMLElement;
 		}
 	}
 
-	let scrollRevealManager;
+	let scrollRevealManager: ScrollRevealManager;
+
 	function initScrollReveal() {
-		scrollRevealManager?.destroy();
+		if (scrollRevealManager) {
+			scrollRevealManager.destroy();
+		}
 		scrollRevealManager = new ScrollRevealManager();
 		scrollRevealManager.start();
 	}
 
+	// Initialize on page load
 	if (document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', initScrollReveal);
 	} else {
 		initScrollReveal();
 	}
-	document.addEventListener('astro:after-swap', initScrollReveal);
+
+	// Re-initialize on Astro page transitions
+	document.addEventListener('astro:after-swap', () => {
+		initScrollReveal();
+	});
 </script>

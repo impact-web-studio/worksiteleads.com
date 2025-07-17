@@ -3,42 +3,75 @@
 import Layout from '@/layouts/Layout.astro';
 // Sections
 import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
+import ValueProposition from '@/components/sections/shared/ValueProposition.astro';
+import Benefits from '@/components/sections/shared/Benefits.astro';
+import ExtraServices from '@/components/sections/home/ExtraServices.astro';
 import Testimonials from '@/components/sections/shared/Testimonials.astro';
 import Portfolio from '@/components/sections/shared/Portfolio.astro';
 import CTA from '@/components/sections/shared/CTA.astro';
+import ButtonGroup from '@/components/groups/ButtonGroup.astro';
 
-// Images
-import { Image } from 'astro:assets';
-import TemporaryImage from '@/assets/cta-rockets.png';
+// Images & Media
+import Star from '@/assets/icons/Star.astro';
+import TemporaryImage from '@/assets/tmp.avif';
 ---
 
 <Layout
 	hasHero={true}
-	title="Get More Reviews | Additional Services - Worksite Leads"
-	description="Get found with reviews and win more businesses."
+	title="AI Automations | AI & Workflow Automation Services - Worksite Leads"
+	description="Built to Save You Time and Effort"
 >
 	<SubPageHero
-		eyebrow="Win More Business"
-		title="Get Found with Reviews"
-		description="Be the obvious choice for people who find you online. Stand out on the sites that matter by easily collecting hundreds of customer reviews."
+		eyebrow="Built to Save You Time and Effort"
+		title="AI Automation"
+		description="You wear a lot of hats. AI helps you wear fewer. Reduce your admin load with our custom AI automations.<Br><br>Built to handle the repetitive stuff — from sending reminders and collecting reviews to organizing your leads and messages — so you can reclaim back more of your time."
 		class=""
+		hasHeroImage={false}
 	>
-		<div
+		<ButtonGroup slot="after-description" />
+		<!-- <div
 			slot="after-content"
-			class="w-full h-fit overflow-hidden"
+			class="w-full h-fit overflow-hidden mt-10"
 		>
 			<Image
-				src={TemporaryImage}
+				src={HeroImage}
 				alt="temporary"
 			/>
-		</div>
+		</div> -->
 	</SubPageHero>
-	<Testimonials backgroundColor="bg-gray-50" />
-	<Portfolio />
+	<ValueProposition
+		title="Get More Done Without Doing More"
+		subtitle="Your Time Should Go Where It Counts"
+		body="The businesses that grow are the ones that follow up fast, stay organized, and deliver a consistent experience every time. That's exactly what automation gives you — without changing how you work. <br><br>We set up simple, powerful systems that handle your follow-ups, messages, and client reminders in the background, so you can stay focused on doing great work while the rest handles itself."
+	/>
+	<Benefits
+		subtitle="Smart Tools for Busy People"
+		title="The Automation Behind Smoother Operations"
+		benefits={[
+			{
+				title: 'Never Miss Another Lead',
+				description:
+					"When someone reaches out, time matters. Our AI chat and lead capture automations respond instantly — even after hours — so you're not losing work while you're on the job. <ol class='text-gray-200 wsl-text-sm font-semibold'>Key Benefits: <li>1. Instant replies to new inquiries</li> <li>2. Fewer missed opportunities</li><li> 3. Book jobs while you sleep</li></ol>",
+				image: TemporaryImage,
+				imageAlt: 'temporary',
+			},
+			{
+				title: 'Get More Reviews Without Chasing Clients',
+				description:
+					'After you finish a job, the last thing on your list is asking for a review. We automate that process, sending smart, friendly follow-ups that get you more 5-star reviews on Google and boost your local visibility. <ol class="text-gray-200 wsl-text-sm font-semibold">Key Benefits: <li>1. Review requests go out automatically</li> <li>2. More social proof, higher ranking</li><li> 3. Strengthen your Google Business Profile</li></ol>',
+				image: TemporaryImage,
+				imageAlt: 'temporary',
+				reverse: true,
+			},
+			{
+				title: 'Systems That Work While You’re Working',
+				description:
+					"Even when you're on-site or off the clock, your business keeps moving. We automate key touchpoints in your workflow — so leads stay warm, clients stay informed, and nothing gets forgotten. <ol class='text-gray-200 wsl-text-sm font-semibold'>Key Benefits: <li>1. Automatic follow-ups and task reminders</li> <li>2. Keep jobs on track without micromanaging</li><li> 3. Less time spent checking in or chasing down info</li></ol>",
+				image: TemporaryImage,
+				imageAlt: 'temporary',
+			},
+		]}
+	/>
+	<ExtraServices />
 	<CTA />
 </Layout>
-
-<script
-	src="https://link.msgsndr.com/js/form_embed.js"
-	type="text/javascript"
-></script>

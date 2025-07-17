@@ -3,42 +3,75 @@
 import Layout from '@/layouts/Layout.astro';
 // Sections
 import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
+import ValueProposition from '@/components/sections/shared/ValueProposition.astro';
+import Benefits from '@/components/sections/shared/Benefits.astro';
+import ExtraServices from '@/components/sections/home/ExtraServices.astro';
 import Testimonials from '@/components/sections/shared/Testimonials.astro';
 import Portfolio from '@/components/sections/shared/Portfolio.astro';
 import CTA from '@/components/sections/shared/CTA.astro';
+import ButtonGroup from '@/components/groups/ButtonGroup.astro';
 
-// Images
-import { Image } from 'astro:assets';
-import TemporaryImage from '@/assets/cta-rockets.png';
+// Images & Media
+import Star from '@/assets/icons/Star.astro';
+import TemporaryImage from '@/assets/tmp.avif';
 ---
 
 <Layout
 	hasHero={true}
-	title="Get More Reviews | Additional Services - Worksite Leads"
-	description="Get found with reviews and win more businesses."
+	title="Digital Marketing | Digital Marketing Services - Worksite Leads"
+	description="Get Seen. Get Hired."
 >
 	<SubPageHero
-		eyebrow="Win More Business"
-		title="Get Found with Reviews"
-		description="Be the obvious choice for people who find you online. Stand out on the sites that matter by easily collecting hundreds of customer reviews."
+		eyebrow="Get Seen. Get Hired."
+		title="Digital Marketing"
+		description="People can't hire you if they can't find you. We help you show up on Google, rank higher in Maps, and get seen by locals who are ready to book. <br><br>More visibility means more calls — and more jobs on your calendar."
 		class=""
+		hasHeroImage={false}
 	>
-		<div
+		<ButtonGroup slot="after-description" />
+		<!-- <div
 			slot="after-content"
-			class="w-full h-fit overflow-hidden"
+			class="w-full h-fit overflow-hidden mt-10"
 		>
 			<Image
-				src={TemporaryImage}
+				src={HeroImage}
 				alt="temporary"
 			/>
-		</div>
+		</div> -->
 	</SubPageHero>
-	<Testimonials backgroundColor="bg-gray-50" />
-	<Portfolio />
+	<ValueProposition
+		title="Get in Front of the Right People at the Right Time"
+		subtitle="Visibility Alone Isn't Enough"
+		body="Getting found is just the start. We help you turn those clicks into real work — with strategies built to attract the right customers, earn their trust, and convert them into booked jobs.<br><br>From high-converting landing pages to automated review requests, we make every part of your online presence work harder for you — so your calendar stays full, and your marketing finally pays off."
+	/>
+	<Benefits
+		subtitle="More Traffic Only Matters if It Converts"
+		title="Digital Strategy Designed for Trades"
+		benefits={[
+			{
+				title: 'Draw In New Customers with Every 5-Star Review',
+				description:
+					'Word of mouth is great—but online reviews are the new handshake. We help you request reviews automatically, right when customers are happiest. With every new review, your business climbs higher in search results, earns more clicks, and closes more jobs.',
+				image: TemporaryImage,
+				imageAlt: 'temporary',
+			},
+			{
+				title: 'Retargeting Ads',
+				description:
+					"People dont always book the first time they visit your site. Retargeting ads bring them back when they're ready to buy. <ol class='text-gray-200 wsl-text-sm font-semibold'>Key Benefits: <li>1. Bring back high-intent visitors</li> <li>2. Increase conversion rates from traffic you already paid for</li><li> 3. Stay top-of-mind without spamming</li></ol>",
+				image: TemporaryImage,
+				imageAlt: 'temporary',
+				reverse: true,
+			},
+			{
+				title: 'Only Pay for Clicks That Turn Into Jobs',
+				description:
+					"We set up and manage targeted Google Ads that drive real leads, not just clicks. No bloated budgets, just calls from people ready to hire. <ol class='text-gray-200 wsl-text-sm font-semibold'>Key Benefits: <li>1. Higher quality leads from paid traffic</li> <li>2. Lower cost-per-click with better targeting</li><li> 3. More control over when and how jobs come in</li></ol>",
+				image: TemporaryImage,
+				imageAlt: 'temporary',
+			},
+		]}
+	/>
+	<ExtraServices />
 	<CTA />
 </Layout>
-
-<script
-	src="https://link.msgsndr.com/js/form_embed.js"
-	type="text/javascript"
-></script>
