@@ -12,6 +12,7 @@ import ButtonGroup from '@/components/groups/ButtonGroup.astro';
 
 // Images & Media
 import Star from '@/assets/icons/Star.astro';
+import TemporaryImage from '@/assets/tmp.avif';
 ---
 
 <Layout
@@ -45,6 +46,15 @@ import Star from '@/assets/icons/Star.astro';
 	<Benefits
 		subtitle="First Impressions Matter"
 		title="Give People a Reason to Pick You Over the Next Guy"
+		benefits={[
+			{
+				title: 'Become the Top-Rated Business in Your Area',
+				description:
+					"People trust reviews more than anything else online. We help you collect 5-star feedback automatically after every job, so your reputation grows with every satisfied customer. The more positive reviews you have, the higher you'll rank — and the more calls you'll get.",
+				image: TemporaryImage,
+				imageAlt: 'temporary',
+			},
+		]}
 	/>
 	<Testimonials backgroundColor="bg-gray-50" />
 	<Portfolio />

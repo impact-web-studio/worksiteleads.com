@@ -1,13 +1,24 @@
 ---
+import BenefitCard from '@/components/ui/cards/BenefitCard.astro';
+
+type Benefit = {
+	title: string;
+	description: string;
+	image: ImageMetadata;
+	imageAlt: string;
+};
 interface Props {
 	subtitle: string;
 	title: string;
 	backgroundColor?: string;
+	benefits: Benefit[];
 }
-const { subtitle, title, backgroundColor = 'bg-gray-700' } = Astro.props;
----
-
-<section></section>
+const {
+	subtitle,
+	title,
+	backgroundColor = 'bg-gray-700',
+	benefits,
+} = Astro.props;
 ---
 
 <section
@@ -17,10 +28,24 @@ const { subtitle, title, backgroundColor = 'bg-gray-700' } = Astro.props;
 	<div class="content-container flex flex-col gap-10 lg:gap-10 items-center">
 		<!-- Section Header -->
 		<div class="text-left md:text-center">
-			<h3 class="subtitle text-primary-500 !font-bold">{subtitle}</h3>
+			<h3 class="subtitle text-primary-500 !font-semibold">{subtitle}</h3>
 			<h2 class="heading-l2 text-gray-100">{title}</h2>
 		</div>
-		<div class="star-divider flex text-primary-500 md:gap-2"></div>
-		<slot />
+		<div class="flex flex-col gap-10">
+			{
+				benefits && (
+					<ul>
+						{benefits.map((benefit) => (
+							<BenefitCard
+								title={benefit.title}
+								description={benefit.description}
+								image={benefit.image}
+								imageAlt={benefit.imageAlt}
+							/>
+						))}
+					</ul>
+				)
+			}
+		</div>
 	</div>
 </section>

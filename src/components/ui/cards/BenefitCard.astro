@@ -1,25 +1,49 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
 	title: string;
 	description: string;
 	image: ImageMetadata;
 	imageAlt: string;
+	reverse?: boolean;
 }
 
-const { title, description, image, imageAlt } = Astro.props as Props;
+const {
+	title,
+	description,
+	image,
+	imageAlt,
+	reverse = false,
+} = Astro.props as Props;
+
+const layoutOrder = reverse ? 'md:flex-row-reverse' : 'md:flex-row';
 ---
 
-<article>
-	<div class="conten">
-		<h3
-			class="title"
-			set:html={title}
-		/>
-		<p set:html={description} />
-		<a href="/schedule-call">Schedule a Call</a>
+<article
+	class={`flex flex-col gap-10 ${layoutOrder} md:justify-between md:items-center`}
+>
+	<div class="content flex flex-col gap-10 w-full md:max-w-[45%]">
+		<div class="flex flex-col gap-4">
+			<h3
+				class="text-primary-500 heading-l3"
+				set:html={title}
+			/>
+			<p
+				class="text-gray-200 wsl-text-sm"
+				set:html={description}
+			/>
+		</div>
+		<a
+			href="/schedule-call"
+			class="text-primary-500 font-bold"
+			>Schedule a Call</a
+		>
 	</div>
-	<Image
-		src={image}
-		alt={imageAlt}
-	/>
+	<div class="image-container w-full md:max-w-[45%]">
+		<Image
+			src={image}
+			alt={imageAlt}
+		/>
+	</div>
 </article>
