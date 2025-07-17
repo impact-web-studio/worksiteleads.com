@@ -7,23 +7,6 @@ const footerLinks = [
 		href: '/',
 	},
 	{
-		name: 'services',
-		childrenLinks: [
-			{
-				name: 'Website Development',
-				href: '/web-development',
-			},
-			{
-				name: 'AI Automation',
-				href: '/ai-automation',
-			},
-			{
-				name: 'Digital Marketing',
-				href: '/digital-marketing',
-			},
-		],
-	},
-	{
 		name: 'Who We Help',
 		href: 'who-we-help',
 	},
@@ -34,6 +17,21 @@ const footerLinks = [
 	{
 		name: 'Schedule a Call',
 		href: '/schedule-a-call',
+	},
+];
+
+const serviceLinks = [
+	{
+		name: 'Website Development',
+		href: '/web-development',
+	},
+	{
+		name: 'AI Automation',
+		href: '/ai-automation',
+	},
+	{
+		name: 'Digital Marketing',
+		href: '/digital-marketing',
 	},
 ];
 
@@ -88,7 +86,7 @@ const { footerText } = Astro.props as Props;
 				/>
 
 				<!-- Navigation & Company Info Container -->
-				<div class="flex flex-col gap-8 sm:flex-row sm:gap-16">
+				<div class="flex flex-col gap-8 sm:flex-row sm:gap-8 lg:gap-12">
 					<!-- Navigation Links -->
 					<div class="footerLinks flex flex-col gap-4 flex-1">
 						<h4 class="text-lg uppercase text-primary-600 whitespace-nowrap">
@@ -103,6 +101,27 @@ const { footerText } = Astro.props as Props;
 											class="capitalize text-gray-300 hover:text-primary-400 transition-colors wsl-text-sm font-semibold whitespace-nowrap"
 										>
 											{link.name}
+										</a>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+
+					<!-- Services Links -->
+					<div class="footerLinks flex flex-col gap-4 flex-1">
+						<h4 class="text-lg uppercase text-primary-600 whitespace-nowrap">
+							Services
+						</h4>
+						<ul class="flex flex-col gap-1">
+							{
+								serviceLinks.map((service) => (
+									<li>
+										<a
+											href={service.href}
+											class="text-gray-300 hover:text-primary-400 transition-colors wsl-text-sm font-semibold whitespace-nowrap"
+										>
+											{service.name}
 										</a>
 									</li>
 								))
