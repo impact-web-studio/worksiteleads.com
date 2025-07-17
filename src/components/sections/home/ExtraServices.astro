@@ -57,23 +57,23 @@ const services: Service[] = [
 
 interface Props {
 	title?: string;
-	subtitle?: string;
+	eyebrow?: string;
 	className?: string;
 }
 
 const {
 	title = 'All-in-One Digital Packages',
-	subtitle = 'more than just websites, we offer all-in-one packages designed to help you manage and grow your business',
+	eyebrow = 'More Than Just Websites',
 } = Astro.props as Props;
 ---
 
 <SectionContainer
 	title={title}
-	subtitle={subtitle}
+	eyebrow={eyebrow}
 	backgroundColor="bg-gray-100"
 >
 	<div
-		class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10"
+		class="grid grid-cols-1 mt-6 md:mt-10 lg:mt-12 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-y-20 lg:gap-x-10"
 		data-group-reveal
 	>
 		{

@@ -2,7 +2,8 @@
 import ScrollReveal from './ScrollReveal.astro';
 interface Props {
 	title: string;
-	subtitle: string;
+	subtitle?: string;
+	eyebrow?: string;
 	backgroundColor?: string;
 	headerColor?: string;
 	textColor?: string;
@@ -11,7 +12,8 @@ interface Props {
 
 const {
 	title = 'Title',
-	subtitle = 'subtitle',
+	subtitle,
+	eyebrow,
 	backgroundColor = 'bg-gray-50',
 	textColor = 'text-gray-600',
 	headerColor = 'text-gray-600',
@@ -32,6 +34,16 @@ const headerAlignment =
 			class={`${headerAlignment} max-w-3xl mx-auto flex flex-col gap-3 scroll-reveal`}
 			data-reveal-group
 		>
+			{
+				eyebrow && (
+					<ScrollReveal stagger={true}>
+						<h3
+							class="subtitle text-primary-500 !font-bold"
+							set:html={eyebrow}
+						/>
+					</ScrollReveal>
+				)
+			}
 			<ScrollReveal stagger={true}>
 				<h2
 					id="services-heading"
@@ -39,11 +51,16 @@ const headerAlignment =
 					set:html={title}
 				/>
 			</ScrollReveal>
-			<ScrollReveal stagger={true}>
-				<p class={`wsl-text-lg leading-relaxed ${textColor}`}>
-					{subtitle}
-				</p>
-			</ScrollReveal>
+			{
+				subtitle && (
+					<ScrollReveal stagger={true}>
+						<p
+							class={`wsl-text-sm leading-relaxed ${textColor}`}
+							set:html={subtitle}
+						/>
+					</ScrollReveal>
+				)
+			}
 		</div>
 		<ScrollReveal stagger={true}>
 			<slot />
