@@ -1,5 +1,6 @@
 ---
 import ScrollReveal from '@/components/sections/shared/ScrollReveal.astro';
+import VideoEmbed from '@/components/ui/media/VideoEmbed.astro';
 
 // Hero.astro
 import { Image } from 'astro:assets';
@@ -113,17 +114,10 @@ const {
 						class="relative bg-black rounded-2xl shadow-2xl overflow-hidden transform translate-y-16"
 					>
 						<!-- Video Embed -->
-						<div class="aspect-video">
-							<iframe
-								class="w-full h-full"
-								src={`https://www.youtube.com/embed/${videoId}?rel=0&showinfo=0&modestbranding=1`}
-								title="Company Overview Video"
-								frameborder="0"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-								allowfullscreen
-								loading="lazy"
-							></iframe>
-						</div>
+						<VideoEmbed
+							videoSrc="/videos/wsl_website_vsl.mp4"
+							posterSrc="/worksiteleads.png"
+						/>
 					</div>
 				</div>
 			</div>

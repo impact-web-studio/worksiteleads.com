@@ -1,0 +1,211 @@
+---
+// Component props
+interface Props {
+	videoSrc: string; // Path to your video file (e.g., '/videos/company-overview.mp4')
+	posterSrc?: string; // Optional poster image path
+	title?: string;
+	autoplay?: boolean;
+	muted?: boolean;
+	loop?: boolean;
+	controls?: boolean;
+	preload?: 'auto' | 'metadata' | 'none';
+}
+
+const {
+	videoSrc,
+	posterSrc,
+	title = 'Worksite Leads Company Overview Video',
+	autoplay = false,
+	loop = false,
+	controls = false,
+	preload = 'metadata',
+} = Astro.props;
+---
+
+<!-- Local Video Embed -->
+<div class="aspect-video relative">
+	<video
+		class="w-full h-full object-cover"
+		src={videoSrc}
+		poster={posterSrc}
+		title={title}
+		autoplay={autoplay}
+		loop={loop}
+		controls={controls}
+		preload={preload}
+		playsinline
+		disablePictureInPicture={true}
+		controlslist="nodownload nofullscreen"
+		data-video-player
+	>
+		<!-- Fallback content for browsers that don't support video -->
+		<p class="text-white text-center p-8">
+			Your browser doesn't support HTML video.
+			<a
+				href={videoSrc}
+				class="text-blue-400 hover:text-blue-300 underline"
+			>
+				Download the video
+			</a> instead.
+		</p>
+	</video>
+
+	<!-- Custom Play Button Overlay -->
+	<div
+		class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300"
+		data-video-overlay
+	>
+		<button
+			class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 flex items-center gap-2"
+			data-play-button
+			aria-label="Play video"
+		>
+			<svg
+				class="w-5 h-5"
+				fill="currentColor"
+				viewBox="0 0 24 24"
+			>
+				<path d="M8 5v14l11-7z"></path>
+			</svg>
+		</button>
+	</div>
+</div>
+
+<style>
+	/* Custom video styling */
+	video {
+		/* Ensure video maintains aspect ratio */
+		width: 100%;
+		height: 100%;
+
+		/* Remove default video controls styling if needed */
+		/* video::-webkit-media-controls-panel {
+			background-color: rgba(0, 0, 0, 0.8);
+		} */
+	}
+
+	/* Loading state styling */
+	video[poster] {
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+</style>
+
+<script>
+	// Enhanced video functionality
+	document.addEventListener('DOMContentLoaded', function () {
+		const videos = document.querySelectorAll('video[data-video-player]');
+
+		videos.forEach((video) => {
+			const overlay = video.parentElement.querySelector('[data-video-overlay]');
+			const playButton =
+				video.parentElement.querySelector('[data-play-button]');
+
+			// Play button click handler
+			playButton.addEventListener('click', function () {
+				video.play();
+				// Hide overlay immediately when play is clicked
+				overlay.style.opacity = '0';
+				overlay.style.pointerEvents = 'none';
+			});
+
+			// Click on video to play/pause (only after initial play)
+			video.addEventListener('click', function () {
+				if (video.paused) {
+					video.play();
+				} else {
+					video.pause();
+				}
+			});
+
+			// Show overlay again if video is paused (but not on initial load)
+			video.addEventListener('pause', function () {
+				// Only show overlay if the video has been played before
+				if (video.currentTime > 0) {
+					overlay.style.opacity = '1';
+					overlay.style.pointerEvents = 'auto';
+				}
+			});
+
+			// Keyboard controls
+			video.addEventListener('keydown', function (e) {
+				if (e.code === 'Space' || e.code === 'Enter') {
+					e.preventDefault();
+					if (video.paused) {
+						video.play();
+						if (video.currentTime === 0) {
+							// Hide overlay on first play
+							overlay.style.opacity = '0';
+							overlay.style.pointerEvents = 'none';
+						}
+					} else {
+						video.pause();
+					}
+				}
+			});
+
+			// Prevent right-click context menu on video
+			video.addEventListener('contextmenu', function (e) {
+				e.preventDefault();
+			});
+
+			// Error handling
+			video.addEventListener('error', function () {
+				console.error('Video failed to load:', video.src);
+				overlay.innerHTML = `
+					<div class="text-center text-white p-8">
+						<p class="mb-4">Video failed to load</p>
+						<a href="${video.src}" class="text-blue-400 hover:text-blue-300 underline">
+							Download video
+						</a>
+					</div>
+				`;
+			});
+
+			// Loading state management
+			video.addEventListener('loadstart', function () {
+				console.log('Video loading started');
+			});
+
+			video.addEventListener('canplay', function () {
+				console.log('Video can start playing');
+			});
+
+			// Intersection Observer for performance
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							// Preload video when it comes into view
+							if (video.preload === 'none') {
+								video.preload = 'metadata';
+							}
+						}
+					});
+				},
+				{
+					threshold: 0.25, // Trigger when 25% of video is visible
+				}
+			);
+
+			observer.observe(video);
+		});
+	});
+</script>
+
+<style>
+	video {
+		width: 100%;
+		height: 100%;
+	}
+
+	video[poster] {
+		object-fit: contain;
+	}
+
+	/* Reduce overlay opacity to ensure poster is visible */
+	[data-video-overlay] {
+		background-color: rgba(0, 0, 0, 0.2) !important; /* Lower opacity */
+	}
+</style>
