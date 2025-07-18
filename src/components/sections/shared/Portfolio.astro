@@ -5,6 +5,9 @@ import ScrollReveal from '@/components/sections/shared/ScrollReveal.astro';
 
 // Image Imports
 import placeHolderImage from '@/assets/tmp.avif';
+import PremierRenovationImage from '@/assets/PremierRenovations.png';
+import OakridgeRenovationImage from '@/assets/OakridgeRenovations.png';
+import ElevateImage from '@/assets/Elevate.png';
 
 type Project = {
 	title: string;
@@ -15,23 +18,25 @@ type Project = {
 
 const projects: Project[] = [
 	{
-		title: 'Company Name',
+		title: 'Premier Renovations',
 		description:
-			'Short description of the company. But not too short or it looks weird.',
-		image: placeHolderImage,
-		href: '/',
+			'Bring Your Dream Home to Life. Trusted renovations with craftsmanship you can count on. Transform your space with our expert team.',
+		image: PremierRenovationImage,
+		href: 'https://premier-renovations.worksiteleads.com',
 	},
 	{
-		title: 'Company Name',
-		description: 'Short description of the company',
-		image: placeHolderImage,
-		href: '/',
+		title: 'Oakridge Renovations',
+		description:
+			'Transforming Homes with Care and Craftsmanship. Experienced renovators delivering quality results, tailored to your vision.',
+		image: OakridgeRenovationImage,
+		href: 'https://oakridge-renovations.worksiteleads.com',
 	},
 	{
-		title: 'Company Name',
-		description: 'Short description of the company',
-		image: placeHolderImage,
-		href: '/',
+		title: 'Elevate',
+		description:
+			'Your Vision. Our Craft. Transforming homes with purpose, precision, and personality.',
+		image: ElevateImage,
+		href: 'https://elevate.worksiteleads.com',
 	},
 ];
 

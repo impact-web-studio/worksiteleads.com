@@ -27,7 +27,19 @@ const {
  ** 2. Black title, dark gray text, on light gray background.
  ** 3. Black title, dark gray text, on yellow background.
  */
-const styleConfig = {
+type StyleValue = {
+	background: string;
+	title: string;
+	description: string;
+	link: string;
+	class: string;
+};
+
+type Styles = {
+	[key: string]: StyleValue;
+};
+
+const styleConfig: Styles = {
 	'1': {
 		background: 'bg-gray-500',
 		title: 'text-primary-500',
