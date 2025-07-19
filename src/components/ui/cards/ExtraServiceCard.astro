@@ -6,6 +6,13 @@ import Conversations from '@/assets/icons/Conversations.astro';
 import Track from '@/assets/icons/Track.astro';
 import Automate from '@/assets/icons/Automate.astro';
 
+import Devices from '@/assets/icons/Devices.astro';
+import TimeMoney from '@/assets/icons/TimeMoney.astro';
+import DeliberatelyDesigned from '@/assets/icons/DeliberatelyDesigned.astro';
+import ProfessionalImage from '@/assets/icons/ProfessionalImage.astro';
+import ClearProcess from '@/assets/icons/ClearProcess.astro';
+import MoneyTree from '@/assets/icons/MoneyTree.astro';
+
 interface Props {
 	title: string;
 	description: string;
@@ -29,6 +36,12 @@ const iconComponents = {
 	Conversations,
 	Track,
 	Automate,
+	Devices,
+	TimeMoney,
+	DeliberatelyDesigned,
+	ProfessionalImage,
+	ClearProcess,
+	MoneyTree,
 };
 
 const Icon = iconComponents[iconName as keyof typeof iconComponents];
