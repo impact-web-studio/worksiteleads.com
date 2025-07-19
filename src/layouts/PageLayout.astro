@@ -1,65 +1,29 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 
-// src/layouts/PageLayout.astro
 import '@/styles/custom-styles.css';
 import '@/styles/global.css';
 import '@/styles/fluid-typography.css';
 import '@/styles/fluid-layouts.css';
 
-// Layout.astro
 import Header from '@/components/ui/navigation/Header.astro';
-import Footer from '@/components/ui/navigation//Footer.astro';
+import Footer from '@/components/ui/navigation/Footer.astro';
 import MDXContent from '@/components/MDXContent.astro';
+import Head from '@/components/Head.astro';
 
 const { title, description } = Astro.props;
 ---
 
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
-
-		<!-- Favicons & App Icons -->
-		<link
-			rel="icon"
-			type="image/x-icon"
-			href="/favicon.ico"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="/favicon-16x16.png"
-		/>
-		<link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="/apple-touch-icon.png"
-		/>
-		<link
-			rel="manifest"
-			href="/site.webmanifest"
-		/>
-
-		<title>{title}</title>
-		<meta
-			name="description"
-			content={description}
+		<Head
+			{title}
+			{description}
 		/>
 		<ClientRouter />
 	</head>
 	<body class="bg-gray-50 text-gray-800 font-sans">
-		<Header class="" />
+		<Header />
 		<main class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
 			<MDXContent>
 				<slot />

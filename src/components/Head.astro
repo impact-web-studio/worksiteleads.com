@@ -1,0 +1,95 @@
+---
+// src/components/Head.astro
+import { ClientRouter } from 'astro:transitions';
+const {
+	title = 'Worksite Leads',
+	description = 'Worksite Leads is a web design and lead generation agency helping tradesmen and service-based businesses across the US and Canada grow online with high-converting websites, local SEO, and booking integrations.',
+	url = 'https:worksiteleads.com',
+	image = '/worksiteleads-logo.jpg',
+} = Astro.props;
+---
+
+<head>
+	<title>{title}</title>
+	<meta charset="UTF-8" />
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1.0"
+	/>
+	<meta
+		name="keywords"
+		content="web design for tradesmen, local SEO, service business websites, contractor lead generation, booking system integration"
+	/>
+	<meta
+		name="description"
+		content={description}
+	/>
+	<meta
+		property="og:title"
+		content={title}
+	/>
+	<meta
+		property="og:description"
+		content={description}
+	/>
+	<meta
+		property="og:image"
+		content={image}
+	/>
+	<meta
+		property="og:url"
+		content={url}
+	/>
+	<meta
+		name="robots"
+		content="index, follow"
+	/>
+
+	<meta
+		name="twitter:card"
+		content="summary_large_image"
+	/>
+	<link
+		rel="canonical"
+		href={url}
+	/>
+	<!-- Favicons & App Icons -->
+	<link
+		rel="icon"
+		type="image/x-icon"
+		href="/favicon.ico"
+	/>
+	<link
+		rel="icon"
+		type="image/png"
+		sizes="32x32"
+		href="/favicon-32x32.png"
+	/>
+	<link
+		rel="icon"
+		type="image/png"
+		sizes="16x16"
+		href="/favicon-16x16.png"
+	/>
+	<link
+		rel="apple-touch-icon"
+		sizes="180x180"
+		href="/apple-touch-icon.png"
+	/>
+	<link
+		rel="manifest"
+		href="/site.webmanifest"
+	/>
+	<ClientRouter />
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			"name": "Worksite Leads",
+			"url": "https://worksiteleads.com",
+			"logo": "https://worksiteleads.com/worksiteleads-logo.jpg",
+			"description": "Web design and lead generation agency for tradesmen in the US and Canada.",
+			"sameAs": []
+		}
+	</script>
+</head>
