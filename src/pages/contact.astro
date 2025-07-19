@@ -1,6 +1,7 @@
 ---
 // Layout
 import Layout from '@/layouts/Layout.astro';
+import Head from '@/components/Head.astro';
 // Sections
 import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
 import Testimonials from '@/components/sections/shared/Testimonials.astro';
@@ -29,13 +30,66 @@ const contactInfo: Contact[] = [
 		href: 'tel:+1(316)3304092',
 	},
 ];
+
+const meta = {
+	title: 'Worksite Leads | Contact Us for Contractor Marketing',
+	description:
+		'Contact Worksite Leads at contact@worksiteleads.com or +1 (316) 330-4092 for web design, local SEO, and AI automation services for tradesmen in the US and Canada.',
+	keywords: [
+		'contractor marketing services',
+		'contact contractor web design',
+		'tradesmen lead generation',
+		'contractor marketing consultation',
+	],
+	url: 'https://worksiteleads.com/contact',
+	image: '/worksiteleads-logo.webp',
+	robots: 'index, follow',
+	schema: {
+		'@context': 'https://schema.org',
+		'@type': 'LocalBusiness',
+		name: 'Worksite Leads',
+		url: 'https://worksiteleads.com',
+		logo: 'https://worksiteleads.com/worksiteleads-logo.webp',
+		description:
+			'Contact Worksite Leads for web design, local SEO, AI automation, and booking integration services for tradesmen and contractors.',
+		address: { '@type': 'PostalAddress', addressCountry: 'US' },
+		contactPoint: [
+			{
+				'@type': 'ContactPoint',
+				email: 'contact@worksiteleads.com',
+				contactType: 'Customer Service',
+			},
+			{
+				'@type': 'ContactPoint',
+				telephone: '+1-316-330-4092',
+				contactType: 'Customer Service',
+			},
+		],
+		sameAs: [
+			'https://www.facebook.com/worksiteleads',
+			'https://instagram.com/worksiteleads',
+		],
+		areaServed: [
+			{ '@type': 'Country', name: 'United States' },
+			{ '@type': 'Country', name: 'Canada' },
+		],
+		serviceType: [
+			'Web Design',
+			'Local SEO',
+			'AI Automation',
+			'Digital Marketing',
+			'Booking System Integration',
+		],
+	},
+};
 ---
 
 <Layout
 	hasHero={true}
-	title="Contact Page - Worksite Leads"
-	description="Contact us with any questions or general inquiries."
+	title={meta.title}
+	description={meta.description}
 >
+	<Head {...meta} />
 	<SubPageHero
 		eyebrow="Got Questions?"
 		title="Contact Us"
