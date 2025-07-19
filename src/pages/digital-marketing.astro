@@ -1,6 +1,7 @@
 ---
 // Layout
 import Layout from '@/layouts/Layout.astro';
+import Head from '@/components/Head.astro';
 // Sections
 import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
 import ValueProposition from '@/components/sections/shared/ValueProposition.astro';
@@ -13,13 +14,63 @@ import ButtonGroup from '@/components/groups/ButtonGroup.astro';
 import Image1 from '@/assets/PremierRenovations.png';
 import Image2 from '@/assets/OakridgeRenovations.png';
 import Image3 from '@/assets/Elevate.png';
+
+const meta = {
+	title: 'Worksite Leads | Digital Marketing for Tradesmen',
+	description:
+		'Boost your contractor business with local SEO, Google Ads, and automated reviews to rank higher and get more leads in the US and Canada.',
+	keywords: [
+		'tradesmen digital marketing',
+		'local SEO for contractors',
+		'Google Ads for tradesmen',
+		'automated review system contractors',
+		'contractor retargeting ads',
+	],
+	url: 'https://worksiteleads.com/digital-marketing',
+	image: '/worksiteleads-logo.webp',
+	robots: 'index, follow',
+	schema: {
+		'@context': 'https://schema.org',
+		'@type': 'Service',
+		serviceType: 'Digital Marketing',
+		provider: {
+			'@type': 'LocalBusiness',
+			name: 'Worksite Leads',
+			url: 'https://worksiteleads.com',
+			email: 'contact@worksiteleads.com',
+			logo: 'https://worksiteleads.com/worksiteleads-logo.webp',
+		},
+		areaServed: [
+			{ '@type': 'Country', name: 'United States' },
+			{ '@type': 'Country', name: 'Canada' },
+		],
+		description:
+			'Digital marketing and local SEO for tradesmen to drive leads through Google Ads, retargeting, and automated reviews.',
+		offers: {
+			'@type': 'Offer',
+			url: 'https://worksiteleads.com/digital-marketing',
+			priceCurrency: 'USD',
+			itemOffered: {
+				'@type': 'Service',
+				name: 'Digital Marketing for Tradesmen',
+				description:
+					'Local SEO, Google Ads, and review automation to attract and convert leads for contractors.',
+			},
+		},
+		sameAs: [
+			'https://www.facebook.com/worksiteleads',
+			'https://instagram.com/worksiteleads',
+		],
+	},
+};
 ---
 
 <Layout
 	hasHero={true}
-	title="Digital Marketing | Digital Marketing Services - Worksite Leads"
-	description="Get Seen. Get Hired."
+	title={meta.title}
+	description={meta.description}
 >
+	<Head {...meta} />
 	<SubPageHero
 		eyebrow="Get Seen. Get Hired."
 		title="Digital Marketing"
@@ -31,15 +82,6 @@ import Image3 from '@/assets/Elevate.png';
 			slot="after-description"
 			learnMoreHref="#valueProp"
 		/>
-		<!-- <div
-			slot="after-content"
-			class="w-full h-fit overflow-hidden mt-10"
-		>
-			<Image
-				src={HeroImage}
-				alt="temporary"
-			/>
-		</div> -->
 	</SubPageHero>
 	<ValueProposition
 		title="Get in Front of the Right People at the Right Time"
@@ -56,14 +98,14 @@ import Image3 from '@/assets/Elevate.png';
 				description:
 					'Word of mouth is great—but online reviews are the new handshake. We help you request reviews automatically, right when customers are happiest. With every new review, your business climbs higher in search results, earns more clicks, and closes more jobs.',
 				image: Image1,
-				imageAlt: 'Draw In New Customers with Every 5-Star Review',
+				imageAlt: 'Automated review system for contractors',
 			},
 			{
 				title: 'Retargeting Ads',
 				description:
 					"People dont always book the first time they visit your site. Retargeting ads bring them back when they're ready to buy. <ol class='text-gray-200 wsl-text-sm font-semibold'>Key Benefits: <li>1. Bring back high-intent visitors</li> <li>2. Increase conversion rates from traffic you already paid for</li><li> 3. Stay top-of-mind without spamming</li></ol>",
 				image: Image2,
-				imageAlt: 'Retargeting Ads',
+				imageAlt: 'Retargeting ads for tradesmen',
 				reverse: true,
 			},
 			{
@@ -71,7 +113,7 @@ import Image3 from '@/assets/Elevate.png';
 				description:
 					"We set up and manage targeted Google Ads that drive real leads, not just clicks. No bloated budgets, just calls from people ready to hire. <ol class='text-gray-200 wsl-text-sm font-semibold'>Key Benefits: <li>1. Higher quality leads from paid traffic</li> <li>2. Lower cost-per-click with better targeting</li><li> 3. More control over when and how jobs come in</li></ol>",
 				image: Image3,
-				imageAlt: 'Only Pay for Clicks That Turn Into Jobs',
+				imageAlt: 'Google Ads for contractors',
 			},
 		]}
 	/>
