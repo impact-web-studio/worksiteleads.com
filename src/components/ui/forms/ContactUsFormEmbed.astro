@@ -1,0 +1,62 @@
+---
+const src = 'https://api.leadconnectorhq.com/widget/form/DPgVyelrIJzLsRjld3cF';
+---
+
+<div
+	id="form-wrapper"
+	class="w-full h-fit min-h-[791px] relative form-container"
+>
+	<iframe
+		src={src}
+		style="width: 100%; border: none; overflow: hidden;"
+		id="inline-DPgVyelrIJzLsRjld3cF"
+		loading="eager"
+	></iframe>
+</div>
+
+<style>
+	.form-container {
+		min-height: 791px;
+		opacity: 0;
+		transition: opacity 0.2s ease-in;
+	}
+	.form-container.loaded {
+		opacity: 1;
+	}
+	.form-container iframe {
+		padding: 0 !important;
+		display: block;
+	}
+</style>
+
+<script>
+	function initializeGHLForm() {
+		const formContainer = document.querySelector('#form-wrapper');
+		const iframe = formContainer?.querySelector('iframe');
+
+		if (!iframe || !formContainer) return;
+
+		// Listen for iframe fully loaded
+		iframe.addEventListener('load', () => {
+			// Optional: ensure form_embed.js ran
+			if (window.LC?.init) {
+				try {
+					window.LC.init();
+				} catch (err) {
+					// Silent fail
+				}
+			}
+
+			formContainer.classList.add('loaded'); // Fade in after iframe load
+		});
+	}
+
+	document.addEventListener('DOMContentLoaded', initializeGHLForm);
+	document.addEventListener('astro:page-load', initializeGHLForm);
+</script>
+
+<script
+	src="https://link.msgsndr.com/js/form_embed.js"
+	type="text/javascript"
+	defer
+></script>

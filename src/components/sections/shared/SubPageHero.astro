@@ -122,11 +122,12 @@ const contentStyle = hasHeroImage
 				</ScrollReveal>
 			</div>
 		</div>
-
-		<div
-			class={`pb-10 lg:pb-20 w-full md:min-h-[450px] ${contactPageStyle} ${formStyle}`}
-		>
-			<slot name="after-content" />
-		</div>
+		<ScrollReveal stagger={true}>
+			<div
+				class={`pb-10 lg:pb-20 w-full md:min-h-[450px] ${contactPageStyle} ${formStyle}`}
+			>
+				<slot name="after-content" />
+			</div>
+		</ScrollReveal>
 	</div>
 </section>
