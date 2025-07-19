@@ -1,0 +1,56 @@
+---
+import { ClientRouter } from 'astro:transitions';
+
+// src/layouts/PageLayout.astro
+import '@/styles/custom-styles.css';
+import '@/styles/global.css';
+import '@/styles/fluid-typography.css';
+import '@/styles/fluid-layouts.css';
+
+// Layout.astro
+import Header from '@/components/ui/navigation/Header.astro';
+import Footer from '@/components/ui/navigation//Footer.astro';
+import MDXContent from '@/components/MDXContent.astro';
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>{title}</title>
+		<meta
+			name="description"
+			content={description}
+		/>
+		<ClientRouter />
+	</head>
+	<body class="bg-gray-50 text-gray-800 font-sans">
+		<Header />
+		<main class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
+			<MDXContent>
+				<slot />
+			</MDXContent>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style is:global>
+	/* Fallback to ensure prose classes apply */
+	.prose h1,
+	.prose h2,
+	.prose h3 {
+		font-family: 'Montserrat', sans-serif !important;
+	}
+	.prose p,
+	.prose ul,
+	.prose ol,
+	.prose a {
+		font-family: 'Manrope', sans-serif !important;
+	}
+</style>

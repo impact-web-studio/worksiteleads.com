@@ -49,10 +49,12 @@ const companyInfo = [
 ];
 
 interface Props {
-	footerText: string;
+	footerText?: string;
 }
 
-const { footerText } = Astro.props as Props;
+const {
+	footerText = 'Committed to providing businesses with innovative solutions that attract more clients, serve them better & keep them longer.',
+} = Astro.props as Props;
 ---
 
 <footer class="bg-gray-700 pb-2 pt-5 lg:pt-10">
@@ -158,13 +160,13 @@ const { footerText } = Astro.props as Props;
 			</p>
 			<div class="text-sm text-gray-400">
 				<a
-					href=""
+					href="/terms-of-use"
 					class="hover:text-primary-400 transition-colors"
 					>Terms of Use</a
 				>
 				<span> | </span>
 				<a
-					href=""
+					href="/privacy-policy"
 					class="hover:text-primary-400 transition-colors"
 					>Privacy Policy</a
 				>
