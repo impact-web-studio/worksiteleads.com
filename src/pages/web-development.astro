@@ -1,6 +1,7 @@
 ---
 // Layout
 import Layout from '@/layouts/Layout.astro';
+import Head from '@/components/Head.astro';
 // Sections
 import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
 import ValueProposition from '@/components/sections/shared/ValueProposition.astro';
@@ -13,13 +14,63 @@ import ButtonGroup from '@/components/groups/ButtonGroup.astro';
 import Image1 from '@/assets/PremierRenovations.png';
 import Image2 from '@/assets/OakridgeRenovations.png';
 import Image3 from '@/assets/Elevate.png';
+
+const meta = {
+	title: 'Worksite Leads | Contractor Website Design & Development',
+	description:
+		'Custom-coded websites for tradesmen and contractors in the US and Canada, optimized for speed, SEO, and lead generation.',
+	keywords: [
+		'contractor website design',
+		'custom coded websites for tradesmen',
+		'mobile-friendly contractor websites',
+		'SEO-optimized contractor websites',
+		'fast websites for contractors',
+	],
+	url: 'https://worksiteleads.com/web-development',
+	image: '/worksiteleads-logo.webp',
+	robots: 'index, follow',
+	schema: {
+		'@context': 'https://schema.org',
+		'@type': 'Service',
+		serviceType: 'Web Development',
+		provider: {
+			'@type': 'LocalBusiness',
+			name: 'Worksite Leads',
+			url: 'https://worksiteleads.com',
+			email: 'contact@worksiteleads.com',
+			logo: 'https://worksiteleads.com/worksiteleads-logo.webp',
+		},
+		areaServed: [
+			{ '@type': 'Country', name: 'United States' },
+			{ '@type': 'Country', name: 'Canada' },
+		],
+		description:
+			'Custom-coded website design and development for tradesmen and contractors to attract leads and showcase work.',
+		offers: {
+			'@type': 'Offer',
+			url: 'https://worksiteleads.com/web-development',
+			priceCurrency: 'USD',
+			itemOffered: {
+				'@type': 'Service',
+				name: 'Website Design for Contractors',
+				description:
+					'Custom-coded, SEO-optimized websites to drive leads for tradesmen.',
+			},
+		},
+		sameAs: [
+			'https://www.facebook.com/worksiteleads',
+			'https://instagram.com/worksiteleads',
+		],
+	},
+};
 ---
 
 <Layout
 	hasHero={true}
-	title="Website Development | Design & Development Services - Worksite Leads"
-	description="100% custom coded website design and development services."
+	title={meta.title}
+	description={meta.description}
 >
+	<Head {...meta} />
 	<SubPageHero
 		eyebrow="100% Custom Coded"
 		title="Website Design & Development"
@@ -31,15 +82,6 @@ import Image3 from '@/assets/Elevate.png';
 			slot="after-description"
 			learnMoreHref={'#valueProp'}
 		/>
-		<!-- <div
-			slot="after-content"
-			class="w-full h-fit overflow-hidden mt-10"
-		>
-			<Image
-				src={HeroImage}
-				alt="temporary"
-			/>
-		</div> -->
 	</SubPageHero>
 	<ValueProposition
 		title="Turn Great Work Into a Steady Stream of New Clients"
@@ -56,14 +98,14 @@ import Image3 from '@/assets/Elevate.png';
 				description:
 					"People trust reviews more than anything else online. We help you collect 5-star feedback automatically after every job, so your reputation grows with every satisfied customer. The more positive reviews you have, the higher you'll rank — and the more calls you'll get.",
 				image: Image1,
-				imageAlt: 'Become the Top-Rated Business in Your Area',
+				imageAlt: 'Automated review system for contractors',
 			},
 			{
 				title: 'Faster Sites. More Leads.',
 				description:
 					'Most websites take too long to load — and when that happens, customers bounce. Our custom-built sites are optimized for speed from the ground up, loading almost instantly. That means more visitors stick around, and more of them become paying clients. <ol class="text-gray-200 wsl-text-sm font-semibold">Key Benefits: <li>1. Load times under 2 seconds on mobile and desktop</li> <li>2. Higher conversion rates from ads and organic traffic</li><li> 3. Lower bounce rates = more booked jobs</li></ol>',
 				image: Image2,
-				imageAlt: 'Faster Sites. More Leads.',
+				imageAlt: 'Fast websites for contractors',
 				reverse: true,
 			},
 			{
@@ -71,7 +113,7 @@ import Image3 from '@/assets/Elevate.png';
 				description:
 					"Your work speaks for itself — so let it. We design clean, professional websites that highlight your past projects with high-quality photos, testimonials, and trust signals. Whether someone finds you on Google or through a referral, they'll instantly see what makes you worth hiring. <ol class='text-gray-200 wsl-text-sm font-semibold'>Key Benefits: <li>1. Showcase your top projects, reviews, and before/afters</li> <li>2. Build trust with high-impact visual proof</li><li> 3. Create a strong first impression that leads to inquiries</li></ol>",
 				image: Image3,
-				imageAlt: 'Put Your Best Jobs Front and Center',
+				imageAlt: 'Showcase contractor projects on websites',
 			},
 		]}
 	/>
