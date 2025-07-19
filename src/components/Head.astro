@@ -11,6 +11,7 @@ export interface MetaProps {
 	locale?: string;
 	siteName?: string;
 	robots?: string;
+	schema?: object;
 }
 
 const {
@@ -24,11 +25,43 @@ const {
 		'plumber website design',
 		'HVAC digital marketing',
 		'concrete contractor SEO',
+		'contractor website design',
+		'AI automation for contractors',
+		'contractor booking software',
 	],
 	type = 'website',
 	locale = 'en_US',
 	siteName = 'Worksite Leads',
 	robots = 'index, follow',
+	schema = {
+		'@context': 'https://schema.org',
+		'@type': 'LocalBusiness',
+		name: 'Worksite Leads',
+		url: 'https://worksiteleads.com',
+		logo: 'https://worksiteleads.com/worksiteleads-logo.webp',
+		description: description,
+		address: { '@type': 'PostalAddress', addressCountry: 'US' },
+		contactPoint: {
+			'@type': 'ContactPoint',
+			email: 'contact@worksiteleads.com',
+			contactType: 'Customer Service',
+		},
+		sameAs: [
+			'https://www.facebook.com/worksiteleads',
+			'https://instagram.com/worksiteleads',
+		],
+		areaServed: [
+			{ '@type': 'Country', name: 'United States' },
+			{ '@type': 'Country', name: 'Canada' },
+		],
+		serviceType: [
+			'Web Design',
+			'Local SEO',
+			'AI Automation',
+			'Digital Marketing',
+			'Booking System Integration',
+		],
+	},
 } = Astro.props;
 
 // Ensure absolute URLs
@@ -40,163 +73,48 @@ const keywordString = Array.isArray(keywords) ? keywords.join(', ') : keywords;
 ---
 
 <head>
-	<meta charset="UTF-8" />
-	<meta
-		name="viewport"
-		content="width=device-width, initial-scale=1.0"
-	/>
-	<meta
-		name="robots"
-		content={robots}
-	/>
-	<meta
-		name="description"
-		content={description}
-	/>
-	<meta
-		name="keywords"
-		content={keywordString}
-	/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content={robots} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywordString} />
+    <meta name="theme-color" content="#ffffff" />
 
-	<!-- Open Graph -->
-	<meta
-		property="og:title"
-		content={title}
-	/>
-	<meta
-		property="og:description"
-		content={description}
-	/>
-	<meta
-		property="og:image"
-		content={absoluteImage}
-	/>
-	<meta
-		property="og:image:width"
-		content="1200"
-	/>
-	<meta
-		property="og:image:height"
-		content="630"
-	/>
-	<meta
-		property="og:url"
-		content={canonicalUrl}
-	/>
-	<meta
-		property="og:type"
-		content={type}
-	/>
-	<meta
-		property="og:locale"
-		content={locale}
-	/>
-	<meta
-		property="og:site_name"
-		content={siteName}
-	/>
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content={locale} />
+    <meta property="og:site_name" content={siteName} />
 
-	<!-- Twitter Cards -->
-	<meta
-		name="twitter:card"
-		content="summary_large_image"
-	/>
-	<meta
-		name="twitter:title"
-		content={title}
-	/>
-	<meta
-		name="twitter:description"
-		content={description}
-	/>
-	<meta
-		name="twitter:image"
-		content={absoluteImage}
-	/>
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteImage} />
 
-	<!-- Canonical URL -->
-	<link
-		rel="canonical"
-		href={canonicalUrl}
-	/>
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
 
-	<!-- Favicons & App Icons -->
-	<link
-		rel="icon"
-		type="image/x-icon"
-		href="/favicon.ico"
-	/>
-	<link
-		rel="icon"
-		type="image/png"
-		sizes="32x32"
-		href="/favicon-32x32.png"
-	/>
-	<link
-		rel="icon"
-		type="image/png"
-		sizes="16x16"
-		href="/favicon-16x16.png"
-	/>
-	<link
-		rel="apple-touch-icon"
-		sizes="180x180"
-		href="/apple-touch-icon.png"
-	/>
-	<link
-		rel="manifest"
-		href="/site.webmanifest"
-	/>
+    <!-- Favicons & App Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-	<!-- Preload Critical Assets -->
-	<link
-		rel="preload"
-		href="/favicon.ico"
-		as="image"
-	/>
+    <!-- Preload Critical Assets -->
+    <link rel="preload" href="/favicon.ico" as="image" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+        {JSON.stringify(schema)}
+    </script>
 
-	<!-- Structured Data -->
-	<script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "LocalBusiness",
-			"name": "Worksite Leads",
-			"url": "https://worksiteleads.com",
-			"logo": "https://worksiteleads.com/worksiteleads-logo.webp",
-			"description": "Worksite Leads provides web design, local SEO, AI automation, and booking integrations for tradesmen and contractors in the US and Canada.",
-			"address": {
-				"@type": "PostalAddress",
-				"addressCountry": "US"
-			},
-			"contactPoint": {
-				"@type": "ContactPoint",
-				"email": "contact@worksiteleads.com",
-				"contactType": "Customer Service"
-			},
-			"sameAs": [
-				"https://www.facebook.com/worksiteleads",
-				"https://instagram.com/worksiteleads"
-			],
-			"areaServed": [
-				{
-					"@type": "Country",
-					"name": "United States"
-				},
-				{
-					"@type": "Country",
-					"name": "Canada"
-				}
-			],
-			"serviceType": [
-				"Web Design",
-				"Local SEO",
-				"AI Automation",
-				"Digital Marketing",
-				"Booking System Integration"
-			]
-		}
-	</script>
-
-	<title>{title}</title>
-	<ClientRouter />
-</head>
+    <title>{title}</title>
+    <ClientRouter />
+</head> 
