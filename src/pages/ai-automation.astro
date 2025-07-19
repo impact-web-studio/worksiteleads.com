@@ -1,6 +1,7 @@
 ---
 // Layout
 import Layout from '@/layouts/Layout.astro';
+import Head from '@/components/Head.astro';
 // Sections
 import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
 import ValueProposition from '@/components/sections/shared/ValueProposition.astro';
@@ -13,17 +14,63 @@ import ButtonGroup from '@/components/groups/ButtonGroup.astro';
 import Image1 from '@/assets/PremierRenovations.png';
 import Image2 from '@/assets/OakridgeRenovations.png';
 import Image3 from '@/assets/Elevate.png';
+
+const meta = {
+	title: 'Worksite Leads | AI Automation for Contractors',
+	description:
+		'Automate your contractor business with AI chatbots, lead capture, and review systems to save time and boost efficiency in the US and Canada.',
+	keywords: [
+		'AI automation for contractors',
+		'AI chatbot for tradesmen',
+		'contractor automation solutions',
+		'automated review system contractors',
+		'lead capture automation Wichita',
+	],
+	url: 'https://worksiteleads.com/ai-automation',
+	image: '/worksiteleads-logo.webp',
+	robots: 'index, follow',
+	schema: {
+		'@context': 'https://schema.org',
+		'@type': 'Service',
+		serviceType: 'AI Automation',
+		provider: {
+			'@type': 'LocalBusiness',
+			name: 'Worksite Leads',
+			url: 'https://worksiteleads.com',
+			email: 'contact@worksiteleads.com',
+			logo: 'https://worksiteleads.com/worksiteleads-logo.webp',
+		},
+		areaServed: [
+			{ '@type': 'Country', name: 'United States' },
+			{ '@type': 'Country', name: 'Canada' },
+		],
+		description:
+			'AI automation solutions for tradesmen and contractors to streamline lead capture, reviews, and workflows.',
+		offers: {
+			'@type': 'Offer',
+			url: 'https://worksiteleads.com/ai-automation',
+			priceCurrency: 'USD',
+			itemOffered: {
+				'@type': 'Service',
+				name: 'AI Automation for Contractors',
+				description:
+					'Custom AI chatbots, lead capture, and review automation for tradesmen.',
+			},
+		},
+	},
+};
 ---
 
 <Layout
 	hasHero={true}
-	title="AI Automations | AI & Workflow Automation Services - Worksite Leads"
-	description="Built to Save You Time and Effort"
+	title={meta.title}
+	description={meta.description}
 >
+	<Head {...meta} />
 	<SubPageHero
 		eyebrow="Built to Save You Time and Effort"
 		title="AI Automation"
-		description="You wear a lot of hats. AI helps you wear fewer. Reduce your admin load with our custom AI automations.<Br><br>Built to handle the repetitive stuff — from sending reminders and collecting reviews to organizing your leads and messages — so you can reclaim back more of your time."
+		description="You wear a lot of hats. AI helps you wear fewer. Reduce your admin load with our custom AI automations.<br><br>Built to handle the repetitive stuff — from sending reminders and collecting reviews to organizing your leads and messages — so you can reclaim back more of your time."
 		class=""
 		hasHeroImage={false}
 	>
@@ -31,15 +78,6 @@ import Image3 from '@/assets/Elevate.png';
 			slot="after-description"
 			learnMoreHref="#valueProp"
 		/>
-		<!-- <div
-			slot="after-content"
-			class="w-full h-fit overflow-hidden mt-10"
-		>
-			<Image
-				src={HeroImage}
-				alt="temporary"
-			/>
-		</div> -->
 	</SubPageHero>
 	<ValueProposition
 		title="Get More Done Without Doing More"
@@ -56,14 +94,14 @@ import Image3 from '@/assets/Elevate.png';
 				description:
 					"When someone reaches out, time matters. Our AI chat and lead capture automations respond instantly — even after hours — so you're not losing work while you're on the job. <ol class='text-gray-200 wsl-text-sm font-semibold'>Key Benefits: <li>1. Instant replies to new inquiries</li> <li>2. Fewer missed opportunities</li><li> 3. Book jobs while you sleep</li></ol>",
 				image: Image1,
-				imageAlt: 'Never Miss Another Lead',
+				imageAlt: 'AI lead capture automation for contractors',
 			},
 			{
 				title: 'Get More Reviews Without Chasing Clients',
 				description:
 					'After you finish a job, the last thing on your list is asking for a review. We automate that process, sending smart, friendly follow-ups that get you more 5-star reviews on Google and boost your local visibility. <ol class="text-gray-200 wsl-text-sm font-semibold">Key Benefits: <li>1. Review requests go out automatically</li> <li>2. More social proof, higher ranking</li><li> 3. Strengthen your Google Business Profile</li></ol>',
 				image: Image2,
-				imageAlt: 'Get More Reviews Without Chasing Clients',
+				imageAlt: 'Automated review system for contractors',
 				reverse: true,
 			},
 			{
@@ -71,7 +109,7 @@ import Image3 from '@/assets/Elevate.png';
 				description:
 					"Even when you're on-site or off the clock, your business keeps moving. We automate key touchpoints in your workflow — so leads stay warm, clients stay informed, and nothing gets forgotten. <ol class='text-gray-200 wsl-text-sm font-semibold'>Key Benefits: <li>1. Automatic follow-ups and task reminders</li> <li>2. Keep jobs on track without micromanaging</li><li> 3. Less time spent checking in or chasing down info</li></ol>",
 				image: Image3,
-				imageAlt: "Systems That Work While You're Working",
+				imageAlt: 'Workflow automation for tradesmen',
 			},
 		]}
 	/>
