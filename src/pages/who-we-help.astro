@@ -1,10 +1,10 @@
 ---
 // Layout
 import Layout from '@/layouts/Layout.astro';
+import Head from '@/components/Head.astro';
 // Sections
 import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
 import ValueProposition from '@/components/sections/shared/ValueProposition.astro';
-import Benefits from '@/components/sections/shared/Benefits.astro';
 import WhyWorksiteLeads from '@/components/sections/services/WhyWorksiteLeads.astro';
 import ExtraServices from '@/components/sections/home/ExtraServices.astro';
 import Testimonials from '@/components/sections/shared/Testimonials.astro';
@@ -12,16 +12,59 @@ import Portfolio from '@/components/sections/shared/Portfolio.astro';
 import CTA from '@/components/sections/shared/CTA.astro';
 import ButtonGroup from '@/components/groups/ButtonGroup.astro';
 
-// Images & Media
-import Star from '@/assets/icons/Star.astro';
-import TemporaryImage from '@/assets/tmp.avif';
+const meta = {
+	title: 'Worksite Leads | Marketing Solutions for Builders & Tradesmen',
+	description:
+		'Worksite Leads helps builders, remodelers, and skilled trades in the US and Canada grow with custom websites and marketing solutions. Contact us at contact@worksiteleads.com.',
+	keywords: [
+		'contractor marketing solutions',
+		'website design for remodelers',
+		'marketing for skilled trades',
+		'builder lead generation',
+		'tradesmen online presence',
+	],
+	url: 'https://worksiteleads.com/who-we-help',
+	image: '/worksiteleads-logo.webp',
+	robots: 'index, follow',
+	schema: {
+		'@context': 'https://schema.org',
+		'@type': 'LocalBusiness',
+		name: 'Worksite Leads',
+		url: 'https://worksiteleads.com',
+		logo: 'https://worksiteleads.com/worksiteleads-logo.webp',
+		description:
+			'Worksite Leads provides custom website design and marketing solutions for builders, remodelers, and skilled trades to attract high-ticket projects.',
+		address: { '@type': 'PostalAddress', addressCountry: 'US' },
+		contactPoint: {
+			'@type': 'ContactPoint',
+			email: 'contact@worksiteleads.com',
+			contactType: 'Customer Service',
+		},
+		areaServed: [
+			{ '@type': 'Country', name: 'United States' },
+			{ '@type': 'Country', name: 'Canada' },
+		],
+		sameAs: [
+			'https://www.facebook.com/worksiteleads',
+			'https://instagram.com/worksiteleads',
+		],
+		serviceType: [
+			'Web Design',
+			'Local SEO',
+			'AI Automation',
+			'Digital Marketing',
+			'Booking System Integration',
+		],
+	},
+};
 ---
 
 <Layout
 	hasHero={true}
-	title="Who We Help - Worksite Leads"
-	description="Trusted by Builders, Remodelers & Skilled Trades | Designed to Help You Get Booked"
+	title={meta.title}
+	description={meta.description}
 >
+	<Head {...meta} />
 	<SubPageHero
 		eyebrow="Designed to Help You Get Booked"
 		title="Trusted by Builders, Remodelers & Skilled Trades"
@@ -33,15 +76,6 @@ import TemporaryImage from '@/assets/tmp.avif';
 			slot="after-description"
 			learnMoreHref="#valueProp"
 		/>
-		<!-- <div
-			slot="after-content"
-			class="w-full h-fit overflow-hidden mt-10"
-		>
-			<Image
-				src={HeroImage}
-				alt="temporary"
-			/>
-		</div> -->
 	</SubPageHero>
 	<ValueProposition
 		title="We Help You Win More of the Right Jobs"
