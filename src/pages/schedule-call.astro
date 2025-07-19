@@ -1,6 +1,7 @@
 ---
 // Layout
 import Layout from '@/layouts/Layout.astro';
+import Head from '@/components/Head.astro';
 // Sections
 import SubPageHero from '@/components/sections/shared/SubPageHero.astro';
 import ScheduleFormEmbed from '@/components/ui/forms/ScheduleFormEmbed.astro';
@@ -8,13 +9,62 @@ import Testimonials from '@/components/sections/shared/Testimonials.astro';
 import Portfolio from '@/components/sections/shared/Portfolio.astro';
 import CTA from '@/components/sections/shared/CTA.astro';
 import ScrollReveal from '@/components/sections/shared/ScrollReveal.astro';
+
+const meta = {
+	title: 'Worksite Leads | Schedule a Call for Contractor Solutions',
+	description:
+		'Schedule a call with Worksite Leads at contact@worksiteleads.com to discuss web design, local SEO, and AI automation for your contractor business.',
+	keywords: [
+		'contractor marketing consultation',
+		'schedule contractor marketing call',
+		'tradesmen consultation',
+		'contractor booking solutions',
+	],
+	url: 'https://worksiteleads.com/schedule-call',
+	image: '/worksiteleads-logo.webp',
+	robots: 'index, follow',
+	schema: {
+		'@context': 'https://schema.org',
+		'@type': 'Service',
+		serviceType: 'Consulting',
+		provider: {
+			'@type': 'LocalBusiness',
+			name: 'Worksite Leads',
+			url: 'https://worksiteleads.com',
+			email: 'contact@worksiteleads.com',
+			logo: 'https://worksiteleads.com/worksiteleads-logo.webp',
+		},
+		areaServed: [
+			{ '@type': 'Country', name: 'United States' },
+			{ '@type': 'Country', name: 'Canada' },
+		],
+		description:
+			'Schedule a consultation for contractor web design, local SEO, and AI automation solutions.',
+		offers: {
+			'@type': 'Offer',
+			url: 'https://worksiteleads.com/schedule-call',
+			priceCurrency: 'USD',
+			itemOffered: {
+				'@type': 'Service',
+				name: 'Consulting for Contractors',
+				description:
+					'Consultations for web design, local SEO, and AI automation to grow contractor businesses.',
+			},
+		},
+		sameAs: [
+			'https://www.facebook.com/worksiteleads',
+			'https://instagram.com/worksiteleads',
+		],
+	},
+};
 ---
 
 <Layout
 	hasHero={true}
-	title="Schedule a Call - Worksite Leads"
-	description="Schedule a call with our team to discover how we can help your business grow."
+	title={meta.title}
+	description={meta.description}
 >
+	<Head {...meta} />
 	<SubPageHero
 		eyebrow="Ready to Start?"
 		title="Schedule a Call"
