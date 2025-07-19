@@ -1,4 +1,13 @@
 ---
+declare global {
+	interface Window {
+		LC?: {
+			init?: () => void;
+			[key: string]: any;
+		};
+	}
+}
+
 const src = 'https://api.leadconnectorhq.com/widget/form/DPgVyelrIJzLsRjld3cF';
 ---
 
@@ -16,39 +25,36 @@ const src = 'https://api.leadconnectorhq.com/widget/form/DPgVyelrIJzLsRjld3cF';
 
 <style>
 	.form-container {
-		min-height: 791px;
+		min-height: 831px; /* 791px iframe + 40px padding (20px top + bottom) */
 		opacity: 0;
-		transition: opacity 0.2s ease-in;
-	}
-	.form-container.loaded {
-		opacity: 1;
+		animation: fadeIn 0.5s ease forwards;
+		animation-delay: 250ms; /* Delay to ensure iframe content is fully loaded */
 	}
 	.form-container iframe {
-		padding: 0 !important;
-		display: block;
+		padding: 0 !important; /* Remove GHL iframe padding */
+	}
+	@keyframes fadeIn {
+		to {
+			opacity: 1;
+		}
 	}
 </style>
 
 <script>
 	function initializeGHLForm() {
 		const formContainer = document.querySelector('#form-wrapper');
-		const iframe = formContainer?.querySelector('iframe');
+		if (!formContainer) return;
 
-		if (!iframe || !formContainer) return;
+		const iframe = formContainer.querySelector('iframe');
+		if (!iframe) return;
 
-		// Listen for iframe fully loaded
-		iframe.addEventListener('load', () => {
-			// Optional: ensure form_embed.js ran
-			if (window.LC?.init) {
-				try {
-					window.LC.init();
-				} catch (err) {
-					// Silent fail
-				}
+		if (window.LC && window.LC.init) {
+			try {
+				window.LC.init();
+			} catch (error) {
+				// Silent catch to ensure form loads
 			}
-
-			formContainer.classList.add('loaded'); // Fade in after iframe load
-		});
+		}
 	}
 
 	document.addEventListener('DOMContentLoaded', initializeGHLForm);
@@ -58,5 +64,4 @@ const src = 'https://api.leadconnectorhq.com/widget/form/DPgVyelrIJzLsRjld3cF';
 <script
 	src="https://link.msgsndr.com/js/form_embed.js"
 	type="text/javascript"
-	defer
 ></script>

@@ -7,6 +7,7 @@ import ScheduleFormEmbed from '@/components/ui/forms/ScheduleFormEmbed.astro';
 import Testimonials from '@/components/sections/shared/Testimonials.astro';
 import Portfolio from '@/components/sections/shared/Portfolio.astro';
 import CTA from '@/components/sections/shared/CTA.astro';
+import ScrollReveal from '@/components/sections/shared/ScrollReveal.astro';
 ---
 
 <Layout
@@ -21,12 +22,17 @@ import CTA from '@/components/sections/shared/CTA.astro';
 		class=""
 		layout="vertical"
 	>
-		<div
+		<Fragment
 			slot="after-content"
 			class="w-full h-fit overflow-hidden"
 		>
-			<ScheduleFormEmbed />
-		</div>
+			<ScrollReveal
+				stagger={true}
+				delay={250}
+			>
+				<ScheduleFormEmbed />
+			</ScrollReveal>
+		</Fragment>
 	</SubPageHero>
 	<Testimonials backgroundColor="bg-gray-50" />
 	<Portfolio />

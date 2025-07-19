@@ -1,14 +1,65 @@
 ---
+declare global {
+	interface Window {
+		LC?: {
+			init?: () => void;
+			[key: string]: any;
+		};
+	}
+}
 const src =
 	'https://api.leadconnectorhq.com/widget/booking/wVqUyNTRTAkNiRa1bPTA';
 ---
 
-<iframe
-	src={src}
-	style="width:100%;border:none;overflow:hidden;height:782px;"
-	id="2YLsJZYrXQYyjn9CfuDB_1752908434599"
-	loading="eager"
-></iframe>
+<div
+	id="form-wrapper"
+	class="w-full h-fit min-h-[782px] relative form-container"
+>
+	<iframe
+		src={src}
+		style="width: 100%; border: none; overflow: hidden; height: 782px;"
+		id="2YLsJZYrXQYyjn9CfuDB_1752908434599"
+		loading="eager"
+	></iframe>
+</div>
+
+<style>
+	.form-container {
+		min-height: 782px; /* Matches iframe height */
+		opacity: 0;
+		animation: fadeIn 0.5s ease forwards;
+		animation-delay: 1s; /* Delay to ensure iframe content is fully loaded */
+	}
+	.form-container iframe {
+		padding: 0 !important; /* Remove GHL iframe padding */
+	}
+	@keyframes fadeIn {
+		to {
+			opacity: 1;
+		}
+	}
+</style>
+
+<script>
+	function initializeGHLForm() {
+		const formContainer = document.querySelector('#form-wrapper');
+		if (!formContainer) return;
+
+		const iframe = formContainer.querySelector('iframe');
+		if (!iframe) return;
+
+		if (window.LC && window.LC.init) {
+			try {
+				window.LC.init();
+			} catch (error) {
+				// Silent catch to ensure form loads
+			}
+		}
+	}
+
+	document.addEventListener('DOMContentLoaded', initializeGHLForm);
+	document.addEventListener('astro:page-load', initializeGHLForm);
+</script>
 
 <script
 	src="https://link.msgsndr.com/js/form_embed.js"
