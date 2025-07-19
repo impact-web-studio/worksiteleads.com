@@ -1,8 +1,6 @@
 ---
 import ScrollReveal from '@/components/sections/shared/ScrollReveal.astro';
 import VideoEmbed from '@/components/ui/media/VideoEmbed.astro';
-
-// Hero.astro
 import { Image } from 'astro:assets';
 import heroBg from '@/assets/home-banner-bg.png';
 import Pill from '@/components/ui/pills/Pill.astro';
@@ -13,7 +11,7 @@ interface Props {
 	subtitle?: string;
 	bodyText?: string;
 	listItems?: string[];
-	videoId?: string; // YouTube video ID
+	videoId?: string;
 	ctaText?: string;
 	ctaHref?: string;
 	learnMoreHref?: string | undefined;
@@ -26,10 +24,9 @@ const {
 	listItems = [
 		'Full Website Designs',
 		'Lead Generation & Follow-up Automations',
-		' No Technical Skills or Marketing Experience Needed',
+		'No Technical Skills or Marketing Experience Needed',
 	],
-	videoId = 'dQw4w9WgXcQ', // Replace with your actual YouTube video ID
-
+	videoId = 'dQw4w9WgXcQ',
 	learnMoreHref,
 } = Astro.props;
 ---
@@ -48,7 +45,7 @@ const {
 			densities={[1, 2]}
 		/>
 		<!-- Overlay -->
-		<div class="absolute inset-"></div>
+		<div class="absolute inset-0"></div>
 	</div>
 
 	<!-- Content Container -->
@@ -65,7 +62,7 @@ const {
 					stagger={true}
 				>
 					<h1
-						class="heading-l1 text-white"
+						class="heading-l1 text-white font-montserrat"
 						set:html={title}
 					/>
 				</ScrollReveal>
@@ -76,7 +73,7 @@ const {
 					stagger={true}
 				>
 					<h2
-						class="hero-subtitle text-primary-500"
+						class="hero-subtitle text-primary-500 font-montserrat"
 						set:html={subtitle}
 					/>
 				</ScrollReveal>
@@ -98,7 +95,7 @@ const {
 					/>
 					<Button
 						id="hero-learn-more-button"
-						href={learnMoreHref}
+						href={learnMoreHref || '#video-section'}
 						variation="primary"
 						type="link"
 						text="Learn More"
@@ -129,38 +126,53 @@ const {
 </section>
 
 <script>
-	document.addEventListener('DOMContentLoaded', function () {
+	function attachLearnMoreListener() {
 		const learnMoreButton = document.getElementById('hero-learn-more-button');
 		const videoSection = document.getElementById('video-section');
 		const video = document.querySelector('[data-video-player]');
 
-		if (learnMoreButton && videoSection && video) {
-			learnMoreButton.addEventListener('click', function (event) {
-				event.preventDefault(); // Prevent default link behavior
-
-				// Smooth scroll to video section
-				videoSection.scrollIntoView({
-					behavior: 'smooth',
-					block: 'start',
-				});
-
-				// Play video and hide overlay
-				video.muted = false;
-				video
-					.play()
-					.then(() => {
-						const overlay = video.parentElement.querySelector(
-							'[data-video-overlay]'
-						);
-						if (overlay) {
-							overlay.style.opacity = '0';
-							overlay.style.pointerEvents = 'none';
-						}
-					})
-					.catch((error) => {
-						console.error('Video playback failed:', error);
-					});
+		if (!learnMoreButton || !videoSection || !video) {
+			console.warn('Learn More button or video elements not found:', {
+				learnMoreButton: !!learnMoreButton,
+				videoSection: !!videoSection,
+				video: !!video,
 			});
+			return;
 		}
-	});
+
+		// Remove existing listeners to prevent duplicates
+		const newButton = learnMoreButton.cloneNode(true);
+		learnMoreButton.replaceWith(newButton);
+
+		newButton.addEventListener('click', function (event) {
+			event.preventDefault(); // Prevent default link behavior
+
+			// Smooth scroll to video section
+			videoSection.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start',
+			});
+
+			// Play video and hide overlay
+			video.muted = false;
+			video
+				.play()
+				.then(() => {
+					const overlay = video.parentElement?.querySelector(
+						'[data-video-overlay]'
+					);
+					if (overlay) {
+						overlay.style.opacity = '0';
+						overlay.style.pointerEvents = 'none';
+					}
+				})
+				.catch((error) => {
+					console.error('Video playback failed:', error);
+				});
+		});
+	}
+
+	// Attach listener on initial load and View Transitions
+	document.addEventListener('DOMContentLoaded', attachLearnMoreListener);
+	document.addEventListener('astro:page-load', attachLearnMoreListener);
 </script>
