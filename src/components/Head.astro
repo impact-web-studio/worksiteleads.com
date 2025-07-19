@@ -1,29 +1,64 @@
 ---
-// src/components/Head.astro
 import { ClientRouter } from 'astro:transitions';
+
+export interface MetaProps {
+	title: string;
+	description: string;
+	url?: string;
+	image?: string;
+	keywords?: string | string[];
+	type?: string;
+	locale?: string;
+	siteName?: string;
+	robots?: string;
+}
+
 const {
-	title = 'Worksite Leads',
-	description = 'Worksite Leads is a web design and lead generation agency helping tradesmen and service-based businesses across the US and Canada grow online with high-converting websites, local SEO, and booking integrations.',
-	url = 'https:worksiteleads.com',
-	image = '/worksiteleads-logo.jpg',
+	title = 'Worksite Leads | Web Design & Lead Generation for Tradesmen',
+	description = 'Worksite Leads helps tradesmen and contractors in the US and Canada grow with high-converting websites, local SEO, AI automation, and booking integrations.',
+	url = Astro.url.toString(),
+	image = '/worksiteleads-logo.webp',
+	keywords = [
+		'home renovation websites',
+		'local SEO for contractors',
+		'plumber website design',
+		'HVAC digital marketing',
+		'concrete contractor SEO',
+	],
+	type = 'website',
+	locale = 'en_US',
+	siteName = 'Worksite Leads',
+	robots = 'index, follow',
 } = Astro.props;
+
+// Ensure absolute URLs
+const absoluteImage = image.startsWith('http')
+	? image
+	: `https://worksiteleads.com${image}`;
+const canonicalUrl = url.endsWith('/') ? url : `${url}/`;
+const keywordString = Array.isArray(keywords) ? keywords.join(', ') : keywords;
 ---
 
 <head>
-	<title>{title}</title>
 	<meta charset="UTF-8" />
 	<meta
 		name="viewport"
 		content="width=device-width, initial-scale=1.0"
 	/>
 	<meta
-		name="keywords"
-		content="web design for tradesmen, local SEO, service business websites, contractor lead generation, booking system integration"
+		name="robots"
+		content={robots}
 	/>
 	<meta
 		name="description"
 		content={description}
 	/>
+	<meta
+		name="keywords"
+		content={keywordString}
+	/>
+
+	<!-- Open Graph -->
 	<meta
 		property="og:title"
 		content={title}
@@ -34,25 +69,57 @@ const {
 	/>
 	<meta
 		property="og:image"
-		content={image}
+		content={absoluteImage}
+	/>
+	<meta
+		property="og:image:width"
+		content="1200"
+	/>
+	<meta
+		property="og:image:height"
+		content="630"
 	/>
 	<meta
 		property="og:url"
-		content={url}
+		content={canonicalUrl}
 	/>
 	<meta
-		name="robots"
-		content="index, follow"
+		property="og:type"
+		content={type}
+	/>
+	<meta
+		property="og:locale"
+		content={locale}
+	/>
+	<meta
+		property="og:site_name"
+		content={siteName}
 	/>
 
+	<!-- Twitter Cards -->
 	<meta
 		name="twitter:card"
 		content="summary_large_image"
 	/>
+	<meta
+		name="twitter:title"
+		content={title}
+	/>
+	<meta
+		name="twitter:description"
+		content={description}
+	/>
+	<meta
+		name="twitter:image"
+		content={absoluteImage}
+	/>
+
+	<!-- Canonical URL -->
 	<link
 		rel="canonical"
-		href={url}
+		href={canonicalUrl}
 	/>
+
 	<!-- Favicons & App Icons -->
 	<link
 		rel="icon"
@@ -80,16 +147,56 @@ const {
 		rel="manifest"
 		href="/site.webmanifest"
 	/>
-	<ClientRouter />
+
+	<!-- Preload Critical Assets -->
+	<link
+		rel="preload"
+		href="/favicon.ico"
+		as="image"
+	/>
+
+	<!-- Structured Data -->
 	<script type="application/ld+json">
 		{
 			"@context": "https://schema.org",
-			"@type": "Organization",
+			"@type": "LocalBusiness",
 			"name": "Worksite Leads",
 			"url": "https://worksiteleads.com",
-			"logo": "https://worksiteleads.com/worksiteleads-logo.jpg",
-			"description": "Web design and lead generation agency for tradesmen in the US and Canada.",
-			"sameAs": []
+			"logo": "https://worksiteleads.com/worksiteleads-logo.webp",
+			"description": "Worksite Leads provides web design, local SEO, AI automation, and booking integrations for tradesmen and contractors in the US and Canada.",
+			"address": {
+				"@type": "PostalAddress",
+				"addressCountry": "US"
+			},
+			"contactPoint": {
+				"@type": "ContactPoint",
+				"email": "contact@worksiteleads.com",
+				"contactType": "Customer Service"
+			},
+			"sameAs": [
+				"https://www.facebook.com/worksiteleads",
+				"https://instagram.com/worksiteleads"
+			],
+			"areaServed": [
+				{
+					"@type": "Country",
+					"name": "United States"
+				},
+				{
+					"@type": "Country",
+					"name": "Canada"
+				}
+			],
+			"serviceType": [
+				"Web Design",
+				"Local SEO",
+				"AI Automation",
+				"Digital Marketing",
+				"Booking System Integration"
+			]
 		}
 	</script>
+
+	<title>{title}</title>
+	<ClientRouter />
 </head>
