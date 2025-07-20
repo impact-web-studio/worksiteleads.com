@@ -189,30 +189,62 @@ const subLinkClasses = [
 </div>
 
 <script>
-	// Handle submenu toggles
-	document.addEventListener('click', (e: Event) => {
-		const target = e.target as Element;
-		const toggle = target.closest('[data-submenu-toggle]') as HTMLButtonElement;
-		if (!toggle) return;
+	let submenuClickHandler: ((e: Event) => void) | null = null;
 
-		e.preventDefault();
+	function initSubmenuHandlers() {
+		console.log('Initializing submenu handlers');
 
-		const submenu = toggle.parentElement?.querySelector(
-			'.submenu'
-		) as HTMLElement;
-		const icon = toggle.querySelector('svg');
-		const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+		// Remove existing event listener if it exists
+		if (submenuClickHandler) {
+			document.removeEventListener('click', submenuClickHandler);
+		}
 
-		if (submenu && icon) {
-			if (isExpanded) {
-				submenu.classList.add('hidden');
-				icon.classList.remove('rotate-180');
-				toggle.setAttribute('aria-expanded', 'false');
-			} else {
-				submenu.classList.remove('hidden');
-				icon.classList.add('rotate-180');
-				toggle.setAttribute('aria-expanded', 'true');
+		// Create the event handler function
+		submenuClickHandler = (e: Event) => {
+			console.log('Submenu click handler triggered');
+
+			const target = e.target as Element;
+			const toggle = target.closest(
+				'[data-submenu-toggle]'
+			) as HTMLButtonElement;
+
+			if (!toggle) return;
+
+			e.preventDefault();
+
+			const submenu = toggle.parentElement?.querySelector(
+				'.submenu'
+			) as HTMLElement;
+			const icon = toggle.querySelector('svg');
+			const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+			if (submenu && icon) {
+				if (isExpanded) {
+					submenu.classList.add('hidden');
+					icon.classList.remove('rotate-180');
+					toggle.setAttribute('aria-expanded', 'false');
+				} else {
+					submenu.classList.remove('hidden');
+					icon.classList.add('rotate-180');
+					toggle.setAttribute('aria-expanded', 'true');
+				}
 			}
+		};
+
+		// Add the event listener
+		document.addEventListener('click', submenuClickHandler);
+	}
+
+	// Initialize on page load (first visit)
+	document.addEventListener('DOMContentLoaded', initSubmenuHandlers);
+
+	// Re-initialize on every view transition
+	document.addEventListener('astro:page-load', initSubmenuHandlers);
+
+	// Optional: Clean up on page unload for memory management
+	document.addEventListener('astro:before-preparation', () => {
+		if (submenuClickHandler) {
+			document.removeEventListener('click', submenuClickHandler);
 		}
 	});
 </script>
